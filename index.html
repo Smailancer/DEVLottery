@@ -52,8 +52,10 @@ html[dir=rtl] .primary{font-family:Lalezar,sans-serif;font-size:25px;font-weight
 .primary:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--line)}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(24px,4vw,52px);align-items:center}
 .kicker{display:inline-block;background:var(--ink);color:var(--bg);font-size:12px;font-weight:700;padding:4px 10px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
-.lead p{font-size:17px;max-width:48ch;margin:14px 0}
-.stats{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;color:var(--mute);font-size:14px}
+.hero-q{margin:14px 0 6px;font-family:"Space Grotesk",Lalezar,"IBM Plex Sans Arabic",sans-serif;font-size:clamp(22px,2.8vw,30px);font-weight:700;line-height:1.2;border-inline-start:4px solid var(--gold);padding-inline-start:12px}
+html[dir=rtl] .hero-q{font-family:Lalezar,"IBM Plex Sans Arabic",sans-serif;font-weight:400;font-size:clamp(26px,3.2vw,34px)}
+.lead p{font-size:17px;max-width:48ch;margin:10px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:12px 18px;margin-top:14px;color:var(--mute);font-size:14px}
 .stats b{color:var(--ink)}
 .ticket{background:var(--card);border:2px solid var(--line);position:relative;box-shadow:6px 6px 0 var(--line)}
 .t-head{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:2px dashed var(--line);font-size:14px}
@@ -166,7 +168,16 @@ html[dir=rtl] .tk-track{animation-name:tk-rtl}
 button.tk-item{border:0;border-inline-start:1px solid color-mix(in srgb,var(--bg) 30%,transparent);min-height:0;font-weight:400;font-size:inherit;color:inherit;background:transparent}
 button.tk-item:hover{background:color-mix(in srgb,var(--gold) 22%,transparent)}
 tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix(in srgb,var(--gold) 14%,var(--card))}
-.tk-item b{font-weight:700}.tk-item .pc{color:var(--gold);margin-inline-start:6px}
+.tk-item b{font-weight:700}.tk-item .pc{color:var(--gold)}.tk-item .sep{opacity:.45;margin-inline:8px}
+.ticker{cursor:grab;user-select:none;-webkit-user-select:none;touch-action:pan-y}.ticker.dragging{cursor:grabbing}
+.tk-track{animation:none!important;will-change:transform}
+canvas.scratch{display:none!important}
+@keyframes land{0%{transform:translateY(8px);opacity:.25}100%{transform:none;opacity:1}}
+.t-body.land{animation:land .35s ease-out}
+@keyframes slam{0%{transform:scale(1.7) rotate(-10deg);opacity:0}70%{transform:scale(.95);opacity:1}100%{transform:none}}
+.t-tier-box.slam{animation:slam .32s cubic-bezier(.2,.8,.3,1) .12s both}
+.tile-score{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid currentColor;padding-top:8px}
+.tile-score small{font-size:13px}
 .tk-item.lead-i{background:var(--gold);color:#111}
 @keyframes tk-ltr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes tk-rtl{from{transform:translateX(0)}to{transform:translateX(50%)}}
@@ -185,7 +196,6 @@ tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix
 <a href="#index" data-t="navIndex">Index</a>
 <a href="#method" data-t="navMethod">Method</a>
 <button type="button" class="mini-btn" id="langBtn" aria-label="Switch language">عربي</button>
-<button type="button" class="mini-btn" id="sfxBtn" aria-label="Toggle sound">🔊</button>
 <button type="button" class="mini-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
 </div>
 </div></nav>
@@ -197,6 +207,7 @@ tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix
 <div class="lead">
 <span class="kicker" data-t="kicker">INDIE HACKER SPAWN DIFFICULTY</span>
 <h1 data-t="heroH1">Same hustle. Different spawn point.</h1>
+<div class="hero-q" data-t="heroQ">What if you were born in…?</div>
 <p data-t="heroP">You didn't choose where you were born. Spin to respawn using real UN birth odds — then test whether the "start from zero" playbook works from your passport.</p>
 <div class="challenge" id="challenge" hidden><span id="chText"></span><button type="button" id="chGo" data-t="acceptChallenge">Accept Challenge</button></div>
 <div class="home"><label for="home" data-t="whereBorn">Where were you actually born?</label><select id="home"></select></div>
@@ -205,10 +216,8 @@ tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix
 <button type="button" id="untilEasy" data-t="untilEasyBtn">Spin until «Easy»</button>
 </div>
 <div class="escape" id="escape" aria-live="polite"></div>
-<div class="stats" aria-live="polite">
-<span><span data-t="statRolls">Respawns</span>: <b class="num" id="cRolls">0</b></span>
-<span><span data-t="statEasy">«Easy» tickets</span>: <b class="num" id="cEasy">0</b></span>
-<span id="firstEasy"></span>
+<div class="stats" id="statsBar" aria-live="polite" hidden>
+<span id="rollSummary"></span>
 <span id="globalWrap" hidden><span data-t="statGlobal">Tickets spun worldwide</span>: <b class="num" id="cGlobal">0</b></span>
 </div>
 <p class="note" id="coverage"></p>
@@ -217,18 +226,18 @@ tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix
 <div class="ticket">
 <div class="t-head"><span class="display" style="font-size:20px" data-t="ticketBrand">SPAWN TICKET</span><span><span data-t="ticketNo">Ticket #</span><span class="num" id="tNo">—</span></span></div>
 <div class="t-body" id="tBody">
-<div class="t-sub" data-t="bornIn">You spawned in</div>
+<div class="t-sub" id="tBornLabel" data-t="heroQ">What if you were born in…?</div>
 <div class="t-name" id="tName">?</div>
 <div class="t-sub" id="tOdds"></div>
-<div class="t-score">
-<div class="t-tier-box" id="tTierBox"><div class="t-sub" style="color:inherit" data-t="tierLabel">Difficulty</div><div class="display" style="font-size:26px" id="tTier">—</div></div>
-<div><div class="t-sub" data-t="scoreLabel">Starting Line</div><div class="num" style="font-size:26px;font-weight:700"><span id="tScore">—</span>/100</div></div>
-<div id="tStamp" hidden style="align-self:center"><span class="stamp" id="tStampText">BLOCKED</span></div>
-</div>
 <div class="rows">
 <div><b data-t="rowEarn">EARN</b><span id="tEarnNote"></span><span class="num" id="tEarn">—</span></div>
 <div><b data-t="rowBuy">BUY</b><span data-t="rowBuyDesc">Work hours for a $20/mo tool</span><span class="num" id="tHours">—</span></div>
 <div><b data-t="rowMove">MOVE</b><span data-t="rowMoveDesc">Visa-free destinations</span><span class="num" id="tVisa">—</span></div>
+</div>
+<div class="t-score">
+<div class="t-tier-box" id="tTierBox"><div class="t-sub" style="color:inherit" data-t="tierLabel">Difficulty</div><div class="display" style="font-size:26px" id="tTier">—</div></div>
+<div><div class="t-sub" data-t="scoreLabel">Starting Line</div><div class="num" style="font-size:26px;font-weight:700"><span id="tScore">—</span>/100</div></div>
+<div id="tStamp" hidden style="align-self:center"><span class="stamp" id="tStampText">BLOCKED</span></div>
 </div>
 <canvas class="scratch" id="scratch" hidden aria-hidden="true"></canvas>
 </div>
@@ -307,12 +316,12 @@ tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix
 <caption class="note" style="text-align:start;padding:10px 14px;caption-side:bottom" data-t="tblCap">Data snapshot: Nov 2026. Score = 40% Earn + 40% Buy + 20% Move.</caption>
 <thead><tr>
 <th scope="col"><button type="button" data-k="name" data-t="thCountry">Country</button></th>
-<th scope="col"><button type="button" data-k="score" data-t="thScore">Score</button></th>
-<th scope="col"><button type="button" data-k="tier" data-t="thTier">Difficulty</button></th>
 <th scope="col"><button type="button" data-k="earn" data-t="thEarn">Earn</button></th>
 <th scope="col"><button type="button" data-k="hours" data-t="thBuy">Buy ($20)</button></th>
 <th scope="col"><button type="button" data-k="visa" data-t="thMove">Move</button></th>
 <th scope="col"><button type="button" data-k="share" data-t="thShare">Birth Share</button></th>
+<th scope="col"><button type="button" data-k="tier" data-t="thTier">Difficulty</button></th>
+<th scope="col"><button type="button" data-k="score" data-t="thScore">Score</button></th>
 </tr></thead>
 <tbody id="tbody"></tbody>
 </table>
@@ -340,25 +349,25 @@ tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix
 const RAW=[
 ["USA","🇺🇸","United States","الولايات المتحدة",100,"Direct Stripe","Stripe مباشر",0.47,179,3654449,0,"voa","home",850],
 ["GBR","🇬🇧","United Kingdom","المملكة المتحدة",100,"Direct Stripe","Stripe مباشر",0.76,183,683910,0,"voa","esta",720],
-["CAN","🇨🇦","Canada","كندا",100,"Direct Stripe","Stripe مباشر",0.74,182,361079,0,"voa","esta",820],
+["CAN","🇨🇦","Canada","كندا",100,"Direct Stripe","Stripe مباشر",0.74,182,361079,0,"voa","exempt",820],
 ["NLD","🇳🇱","Netherlands","هولندا",100,"Direct Stripe","Stripe مباشر",0.61,185,171524,0,"voa","esta",680],
 ["DEU","🇩🇪","Germany","ألمانيا",100,"Direct Stripe","Stripe مباشر",0.69,185,717268,0,"voa","esta",680],
 ["FRA","🇫🇷","France","فرنسا",100,"Direct Stripe","Stripe مباشر",0.85,185,635995,0,"voa","esta",690],
 ["CHE","🇨🇭","Switzerland","سويسرا",100,"Direct Stripe","Stripe مباشر",0.38,185,82864,0,"voa","esta",700],
 ["JPN","🇯🇵","Japan","اليابان",100,"Direct Stripe","Stripe مباشر",1.08,187,750570,0,"voa","esta",380],
 ["SGP","🇸🇬","Singapore","سنغافورة",100,"Direct Stripe","Stripe مباشر",0.51,192,48802,0,"free","esta",120],
-["ARE","🇦🇪","UAE","الإمارات",100,"Direct Stripe","Stripe مباشر",0.72,185,98000,0,"voa","visa",460],
-["POL","🇵🇱","Poland","بولندا",100,"Direct Stripe","Stripe مباشر",1.80,188,290000,0,"voa","esta",690],
-["MEX","🇲🇽","Mexico","المكسيك",100,"Direct Stripe","Stripe مباشر",3.10,159,1890000,0,"voa","visa",950],
-["BRA","🇧🇷","Brazil","البرازيل",100,"Direct Stripe","Stripe مباشر",3.60,170,2520000,0,"voa","visa",1050],
-["SAU","🇸🇦","Saudi Arabia","السعودية",60,"PayPal receives / Tap","PayPal يستقبل / Tap",1.15,88,560000,0,"voa","visa",520],
+["ARE","🇦🇪","UAE","الإمارات",100,"Direct Stripe","Stripe مباشر",0.81,187,108273,0,"voa","visa",460],
+["POL","🇵🇱","Poland","بولندا",100,"Direct Stripe","Stripe مباشر",1.63,183,309612,0,"voa","esta",690],
+["MEX","🇲🇽","Mexico","المكسيك",100,"Direct Stripe","Stripe مباشر",3.02,156,2023623,0,"voa","visa",950],
+["BRA","🇧🇷","Brazil","البرازيل",100,"Direct Stripe","Stripe مباشر",3.94,168,2572100,0,"voa","visa",1050],
+["SAU","🇸🇦","Saudi Arabia","السعودية",30,"Paddle (PayPal not yet verified)","Paddle (PayPal لم يُتحقق منه بعد)",1.15,87,560224,0,"voa","visa",520],
 ["IND","🇮🇳","India","الهند",75,"Stripe Invite-Only (Preview)","Stripe بالدعوة فقط (Preview)",15.04,56,23186978,0,"voa","visa",290],
 ["NGA","🇳🇬","Nigeria","نيجيريا",75,"Stripe via Paystack","Stripe عبر Paystack",32.47,44,7560407,0,"visa","visa",920],
-["KEN","🇰🇪","Kenya","كينيا",75,"Stripe via Paystack","Stripe عبر Paystack",18.50,74,1450000,0,"voa","visa",740],
-["IDN","🇮🇩","Indonesia","إندونيسيا",60,"PayPal receives / Xendit","PayPal يستقبل / Xendit",7.80,76,4480000,0,"home","visa",90],
-["PHL","🇵🇭","Philippines","الفلبين",60,"PayPal receives","PayPal يستقبل",9.20,67,1850000,0,"free","visa",210],
-["TUR","🇹🇷","Turkey","تركيا",30,"No Stripe/PayPal · Paddle only","بلا Stripe/PayPal · Paddle فقط",3.20,116,1190000,0,"voa","visa",620],
-["UKR","🇺🇦","Ukraine","أوكرانيا",30,"No Stripe · Paddle/Payoneer","بلا Stripe · Paddle/Payoneer",7.50,148,210000,0,"voa","visa",760],
+["KEN","🇰🇪","Kenya","كينيا",75,"Stripe via Paystack","Stripe عبر Paystack",18.87,69,1521907,0,"voa","visa",740],
+["IDN","🇮🇩","Indonesia","إندونيسيا",75,"Stripe Invite-Only (Preview)","Stripe بالدعوة فقط (Preview)",8.11,70,4468312,0,"home","visa",90],
+["PHL","🇵🇭","Philippines","الفلبين",30,"Paddle (PayPal not yet verified)","Paddle (PayPal لم يُتحقق منه بعد)",8.56,65,1841191,0,"free","visa",210],
+["TUR","🇹🇷","Turkey","تركيا",30,"No Stripe/PayPal · Paddle only","بلا Stripe/PayPal · Paddle فقط",2.55,113,1060605,0,"voa","visa",620],
+["UKR","🇺🇦","Ukraine","أوكرانيا",30,"No Stripe · Paddle/Payoneer","بلا Stripe · Paddle/Payoneer",7.54,142,206937,0,"voa","visa",760],
 ["PAK","🇵🇰","Pakistan","باكستان",30,"Paddle only","Paddle فقط",27.68,31,6887798,0,"visa","visa",440],
 ["BGD","🇧🇩","Bangladesh","بنغلاديش",30,"Paddle only","Paddle فقط",14.62,36,3469124,0,"visa","visa",340],
 ["EGY","🇪🇬","Egypt","مصر",60,"PayPal receives","PayPal يستقبل",12.74,49,2437410,0,"voa","visa",610],
@@ -367,7 +376,7 @@ const RAW=[
 ["TUN","🇹🇳","Tunisia","تونس",60,"PayPal (US bank withdraw only)","PayPal (سحب لبنك أمريكي فقط)",9.66,66,164145,0,"voa","visa",730],
 ["DZA","🇩🇿","Algeria","الجزائر",30,"No PayPal receive · Paddle only","PayPal لا يستقبل · Paddle فقط",12.55,55,881823,0,"visa","visa",760],
 ["ARG","🇦🇷","Argentina","الأرجنتين",30,"Paddle only","Paddle فقط",2.97,168,506609,0,"voa","visa",1100],
-["LBN","🇱🇧","Lebanon","لبنان",30,"No Stripe/PayPal · Paddle only","بلا Stripe/PayPal · Paddle فقط",14.20,44,95000,0,"visa","visa",640],
+["LBN","🇱🇧","Lebanon","لبنان",30,"No Stripe/PayPal · Paddle only","بلا Stripe/PayPal · Paddle فقط",11.66,43,92653,0,"visa","visa",640],
 ["IRN","🇮🇷","Iran","إيران",0,"Sanctions block global rails","العقوبات تغلق كل الطرق",13.88,38,1151057,1,"visa","visa",650],
 ["VEN","🇻🇪","Venezuela","فنزويلا",0,"No reliable payout rail","لا طريقة دفع مؤكدة",12.58,116,432648,0,"voa","visa",1150],
 ["SYR","🇸🇾","Syria","سوريا",0,"Sanctions & platform bans","العقوبات وقوائم المنصات",71.00,26,571460,1,"visa","visa",720]
@@ -408,12 +417,13 @@ const T={
     navDraw:"Lottery",navPlaybook:"Start From Zero",navIndex:"Index",navMethod:"Method",langBtn:"عربي",
     kicker:"INDIE HACKER SPAWN DIFFICULTY",
     heroH1:"Same hustle. Different spawn point.",
+    heroQ:"What if you were born in…?",
     heroP:"You didn't choose where you were born. Spin to respawn using real UN birth odds — then test whether the \"start from zero\" playbook works from your passport.",
     acceptChallenge:"Accept Challenge",whereBorn:"Where were you actually born?",pickCountry:"Select your country",
     spinBtn:"Spin Spawn Ticket",untilEasyBtn:"Spin until «Easy»",
-    statRolls:"Respawns",statEasy:"«Easy» tickets",statGlobal:"Tickets spun worldwide",
+    statGlobal:"Tickets spun worldwide",
     ticketBrand:"SPAWN TICKET",ticketNo:"Ticket #",bornIn:"You spawned in",
-    oddsPrompt:"Hit «Spin Spawn Ticket» then scratch",tierLabel:"Difficulty",scoreLabel:"Starting Line",blocked:"BLOCKED",
+    oddsPrompt:"Hit «Spin Spawn Ticket» to see your starting line",tierLabel:"Difficulty",scoreLabel:"Starting Line",blocked:"BLOCKED",
     rowEarn:"EARN",rowEarnInit:"Can you get paid from abroad?",rowBuy:"BUY",rowBuyDesc:"Work hours for a $20/mo tool",rowMove:"MOVE",rowMoveDesc:"Visa-free destinations",
     revealBtn:"Reveal All",ticketSimBtn:"Test Playbook ↓",dlTicketBtn:"PNG Ticket",copyImgBtn:"Copy PNG",copied:"Copied ✓",shareX:"Post on X",
     scratchText:"SCRATCH HERE",rolling:"Rolling…",
@@ -442,12 +452,13 @@ const T={
     navDraw:"اليانصيب",navPlaybook:"محاكي الصفر",navIndex:"المؤشر",navMethod:"المنهجية",langBtn:"EN",
     kicker:"مستوى صعوبة المطور حسب الولادة",
     heroH1:"المهارات نفسها. نقطة البداية مختلفة.",
+    heroQ:"ماذا لو وُلدتَ في…؟",
     heroP:"لم تختر أين وُلدت. اسحب تذكرة لتولد من جديد وفق احتمالات المواليد الحقيقية — ثم اختبر هل تنجح خطة «الانطلاق من الصفر إلى بالي» بجواز سفرك.",
     acceptChallenge:"اقبل التحدي",whereBorn:"أين وُلدتَ فعلاً؟",pickCountry:"اختر بلدك",
     spinBtn:"اسحب تذكرة",untilEasyBtn:"اسحب حتى «سهل»",
-    statRolls:"عدد الولادات",statEasy:"تذاكر «سهل»",statGlobal:"تذاكر سُحبت حول العالم",
+    statGlobal:"تذاكر سُحبت حول العالم",
     ticketBrand:"تذكرة الولادة",ticketNo:"تذكرة رقم ",bornIn:"وُلدتَ في",
-    oddsPrompt:"اضغط «اسحب تذكرة» ثم اكشط",tierLabel:"المستوى",scoreLabel:"نقطة البداية",blocked:"محظور",
+    oddsPrompt:"اضغط «اسحب تذكرة» لمعرفة خط البداية",tierLabel:"المستوى",scoreLabel:"نقطة البداية",blocked:"محظور",
     rowEarn:"الكسب",rowEarnInit:"هل تستطيع قبض المال من الخارج؟",rowBuy:"الشراء",rowBuyDesc:"ساعات عمل لدفع اشتراك 20$ شهرياً",rowMove:"التنقل",rowMoveDesc:"وجهات بلا تأشيرة",
     revealBtn:"اكشف الكل",ticketSimBtn:"جرّبها في المحاكي ↓",dlTicketBtn:"صورة التذكرة",copyImgBtn:"انسخ الصورة",copied:"نُسخت ✓",shareX:"شارك على X",
     scratchText:"اكشط هنا",rolling:"جارٍ السحب…",
@@ -489,22 +500,12 @@ const fh=h=>lang==="ar"?(h<1?Math.round(h*60)+" دقيقة":h.toFixed(1)+" سا�
 const fdays=d=>lang==="ar"?(d>=22?(d/22).toFixed(1)+" شهر عمل":Math.max(1,Math.round(d))+" يوم عمل"):(d>=22?(d/22).toFixed(1)+" work mos":Math.max(1,Math.round(d))+" work days");
 const birthsTxt=n=>lang==="ar"?(n===1?"ولادة واحدة":n===2?"ولادتين":n<=10?n+" ولادات":n+" ولادة"):(n===1?"1 respawn":n+" respawns");
 
-/* Web Audio SFX (zero external assets) */
-let sfxOn=true,ac=null;
 const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
-try{if(localStorage.getItem("devlottery-sfx")==="0")sfxOn=false}catch{}
-function updateSfxBtn(){$("sfxBtn").textContent=sfxOn?"🔊":"🔇";$("sfxBtn").setAttribute("aria-pressed",sfxOn)}
-updateSfxBtn();
-$("sfxBtn").addEventListener("click",()=>{sfxOn=!sfxOn;try{localStorage.setItem("devlottery-sfx",sfxOn?"1":"0")}catch{}updateSfxBtn();if(sfxOn)sfxTick()});
-function audio(){if(!sfxOn||still)return null;if(!ac){const Ctx=window.AudioContext||window.webkitAudioContext;if(Ctx)ac=new Ctx()}if(ac&&ac.state==="suspended")ac.resume().catch(()=>{});return ac}
-function sfxTick(){const a=audio();if(!a)return;const o=a.createOscillator(),g=a.createGain();o.type="triangle";o.frequency.setValueAtTime(520+Math.random()*140,a.currentTime);g.gain.setValueAtTime(.04,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.035);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.04)}
-function sfxWin(){const a=audio();if(!a)return;[523.25,659.25,783.99].forEach((f,i)=>{const o=a.createOscillator(),g=a.createGain();o.type="sine";const t=a.currentTime+i*.07;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(.06,t);g.gain.exponentialRampToValueAtTime(.001,t+.18);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+.19)})}
-function sfxStamp(){const a=audio();if(!a)return;const o=a.createOscillator(),g=a.createGain();o.type="sawtooth";o.frequency.setValueAtTime(140,a.currentTime);o.frequency.exponentialRampToValueAtTime(42,a.currentTime+.14);g.gain.setValueAtTime(.1,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.16);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.17)}
 
 /* global counter */
 const COUNTER_API="";
 let gCount=null,gSalutes=null,pending=0,flushT=0;
-function showGlobal(n,s){if(Number.isFinite(n)){gCount=n;$("cGlobal").textContent=nf(n);$("globalWrap").hidden=false}if(Number.isFinite(s)){gSalutes=s;updateRespectUI()}}
+function showGlobal(n,s){if(Number.isFinite(n)){gCount=n;$("cGlobal").textContent=nf(n);$("globalWrap").hidden=false;$("statsBar").hidden=false}if(Number.isFinite(s)){gSalutes=s;updateRespectUI()}}
 function addGlobal(n){if(!COUNTER_API)return;if(gCount!==null)showGlobal(gCount+n,gSalutes);pending+=n;clearTimeout(flushT);flushT=setTimeout(()=>{const k=pending;pending=0;
   fetch(COUNTER_API+"/draws",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({n:k})}).then(r=>r.ok?r.json():null).then(j=>{if(j)showGlobal(j.draws,j.salutes)}).catch(()=>{})},1200)}
 function sendSalute(delta){if(!COUNTER_API)return;fetch(COUNTER_API+"/salute",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({delta})}).then(r=>r.ok?r.json():null).then(j=>{if(j)showGlobal(j.draws,j.salutes)}).catch(()=>{})}
@@ -571,10 +572,24 @@ function fillSelects(){
 }
 
 function renderTicker(){
-  const items=[...C].sort((a,b)=>b.births-a.births).map(c=>'<button type="button" class="tk-item" data-iso="'+c.iso+'"><b>'+c.flag+' '+cname(c)+'</b> <span class="num">'+nf(c.births)+'</span><span class="num pc">'+pct(c.share)+'</span></button>').join("");
+  const items=[...C].sort((a,b)=>b.births-a.births).map(c=>'<button type="button" class="tk-item" data-iso="'+c.iso+'"><b>'+c.flag+' '+cname(c)+'</b><span class="sep">·</span><span class="num">'+nf(c.births)+'</span><span class="sep">·</span><span class="num pc">'+pct(c.share)+'</span></button>').join("");
   const head='<span class="tk-item lead-i">'+L("tickerLead")+' <span class="num">'+nf(WORLD)+'</span></span>';
   $("ticker").innerHTML=(head+items).repeat(2);
 }
+/* ticker: auto-scroll + drag with mouse or finger */
+{const tr=$("ticker"),box=document.querySelector(".ticker");
+ let off=0,half=0,drag=false,sx=0,so=0,moved=false,last=performance.now();
+ const rtl=()=>document.documentElement.dir==="rtl";
+ const measure=()=>{half=tr.scrollWidth/2};
+ const wrapOff=()=>{if(half>0)off=((off%half)+half)%half};
+ const apply=()=>{tr.style.transform="translateX("+(rtl()?off:-off)+"px)"};
+ const step=t=>{const dt=Math.min(64,t-last);last=t;if(!drag&&!still&&!box.matches(":hover"))off+=dt*0.045;wrapOff();apply();requestAnimationFrame(step)};
+ box.addEventListener("pointerdown",e=>{drag=true;moved=false;sx=e.clientX;so=off;box.classList.add("dragging")});
+ window.addEventListener("pointermove",e=>{if(!drag)return;const dx=e.clientX-sx;if(Math.abs(dx)>5)moved=true;off=so+(rtl()?dx:-dx);wrapOff();apply()});
+ const end=()=>{drag=false;box.classList.remove("dragging")};
+ window.addEventListener("pointerup",end);window.addEventListener("pointercancel",end);
+ box.addEventListener("click",e=>{if(moved){e.stopPropagation();e.preventDefault();moved=false}},true);
+ if(window.ResizeObserver)new ResizeObserver(measure).observe(tr);measure();requestAnimationFrame(step);}
 $("ticker").addEventListener("click",e=>{
   const b=e.target.closest("button[data-iso]");if(!b)return;
   const iso=b.dataset.iso;
@@ -596,23 +611,24 @@ function stepEval(stepIdx,c){
     return {cls,badge,txt};
   }
   if(stepIdx===1){
-    if(c.earn===100)return {cls:"q-ok",badge:lang==="ar"?"فوري (10 دقائق)":"INSTANT (10m)",txt:lang==="ar"?"حساب Stripe مباشر وحساب بنكي محلي بتكلفة 0$.":"Direct Stripe checkout + local bank payouts. $0 setup."};
+    if(c.earn===100)return {cls:"q-ok",badge:lang==="ar"?"مباشر":"DIRECT",txt:lang==="ar"?"حساب Stripe مباشر في بلدك (stripe.com/global).":"Direct Stripe account in your country (stripe.com/global)."};
     if(c.earn===75)return {cls:"q-warn",badge:lang==="ar"?"وصول مقيّد":"RESTRICTED",txt:lang==="ar"?cnote(c)+" — قيود تحويل عملة أو دعوات خاصة للشركات.":"Invite-only or local gateway ("+cnote(c)+") with FX friction."};
-    if(c.earn===60)return {cls:"q-warn",badge:lang==="ar"?"التفاف مطلوب":"WORKAROUND",txt:lang==="ar"?"لا يوجد Stripe. تعتمد على "+cnote(c)+" أو شركة أمريكية (~500$).":"No Stripe. Rely on "+cnote(c)+" or form a US LLC (~$500)."};
-    if(c.earn===30)return {cls:"q-fail",badge:lang==="ar"?"Stripe محظور":"STRIPE BLOCKED",txt:lang==="ar"?"تحتاج Paddle فقط أو تأسيس US LLC (~500$ + انتظار EIN أسابيع).":"Paddle only or form a US LLC (~$500 + weeks for EIN)."};
+    if(c.earn===60)return {cls:"q-warn",badge:lang==="ar"?"التفاف مطلوب":"WORKAROUND",txt:lang==="ar"?"لا يوجد Stripe. تعتمد على "+cnote(c)+" أو Stripe Atlas (500$).":"No Stripe. Rely on "+cnote(c)+" or Stripe Atlas ($500)."};
+    if(c.earn===30)return {cls:"q-fail",badge:lang==="ar"?"Stripe محظور":"STRIPE BLOCKED",txt:lang==="ar"?"تحتاج Paddle فقط أو شركة أمريكية عبر Stripe Atlas (500$ ثم 100$ سنوياً).":"Paddle only, or a US company via Stripe Atlas ($500, then $100/yr)."};
     return {cls:"q-fail",badge:lang==="ar"?"محظور كلياً":"FULLY BLOCKED",txt:lang==="ar"?"العقوبات تغلق بوابات الدفع العالمية بالكامل.":"Sanctions block Stripe, PayPal & global payment rails."};
   }
   if(stepIdx===2){
     const days=(c.flightUsd/20)*c.hours/8;
-    if(c.baliVisa==="home")return {cls:"q-ok",badge:lang==="ar"?"أنت في إندونيسيا!":"ALREADY HOME",txt:lang==="ar"?"رحلة داخلية (~90$) تعادل "+fdays(days)+" بلا تأشيرة.":"Domestic flight (~$90) = "+fdays(days)+". No visa needed."};
+    if(c.baliVisa==="home")return {cls:"q-ok",badge:lang==="ar"?"أنت في إندونيسيا!":"ALREADY HOME",txt:lang==="ar"?"تقدير: رحلة داخلية (~90$) تعادل "+fdays(days)+" بلا تأشيرة.":"Estimate: domestic flight (~$90) = "+fdays(days)+". No visa needed."};
     if(c.baliVisa==="free"||c.baliVisa==="voa"){
       const cls=days<=10?"q-ok":"q-warn";
-      return {cls,badge:lang==="ar"?(c.baliVisa==="free"?"دخول حر":"تأشيرة عند الوصول"):(c.baliVisa==="free"?"VISA-FREE":"VISA ON ARRIVAL"),txt:lang==="ar"?"تذكرة (~"+c.flightUsd+"$) = "+fdays(days)+". دخول فوري من المطار.":"Flight (~$"+c.flightUsd+") = "+fdays(days)+". Walk right through."};
+      return {cls,badge:lang==="ar"?(c.baliVisa==="free"?"دخول حر":"تأشيرة عند الوصول"):(c.baliVisa==="free"?"VISA-FREE":"VISA ON ARRIVAL"),txt:lang==="ar"?"تقدير: تذكرة (~"+c.flightUsd+"$) = "+fdays(days)+". دخول من المطار.":"Estimate: flight (~$"+c.flightUsd+") = "+fdays(days)+". Entry at the airport."};
     }
-    return {cls:"q-fail",badge:lang==="ar"?"تأشيرة سفارة":"VISA REQUIRED",txt:lang==="ar"?"ملف سفارة + كشف حساب + تذكرة (~"+c.flightUsd+"$) = "+fdays(days)+".":"Embassy paperwork + bank proof + flight (~$"+c.flightUsd+") = "+fdays(days)+"."};
+    return {cls:"q-fail",badge:lang==="ar"?"تأشيرة سفارة":"VISA REQUIRED",txt:lang==="ar"?"تقدير: ملف سفارة + كشف حساب + تذكرة (~"+c.flightUsd+"$) = "+fdays(days)+".":"Estimate: embassy paperwork + bank proof + flight (~$"+c.flightUsd+") = "+fdays(days)+"."};
   }
   if(c.usVisa==="home")return {cls:"q-ok",badge:lang==="ar"?"رحلة داخلية":"DOMESTIC",txt:lang==="ar"?"لا حاجة لأي تأشيرة لحضور YC أو مؤتمرات سان فرانسيسكو.":"No visa needed for YC or San Francisco tech events."};
-  if(c.usVisa==="esta")return {cls:"q-ok",badge:lang==="ar"?"ESTA (15 دقيقة)":"ESTA (15 mins)",txt:lang==="ar"?"تصريح إلكتروني أونلاين بـ 21$ خلال دقائق.":"Online waiver for $21 in 15 minutes. No embassy visit."};
+  if(c.usVisa==="exempt")return {cls:"q-ok",badge:lang==="ar"?"معفى":"VISA-EXEMPT",txt:lang==="ar"?"لا تأشيرة ولا ESTA.":"No visa, no ESTA needed."};
+  if(c.usVisa==="esta")return {cls:"q-ok",badge:"ESTA",txt:lang==="ar"?"تصريح إلكتروني أونلاين بـ 40.62$ (منذ أكتوبر 2026)، بلا سفارة.":"Online ESTA, $40.62 (since Oct 2026). No embassy visit."};
   return {cls:"q-fail",badge:lang==="ar"?"انتظار السفارة":"EMBASSY QUEUE",txt:lang==="ar"?"تأشيرة B1/B2 برسوم 185$ غير مستردة + أشهر انتظار ومخاطر رفض.":"US B1/B2 visa ($185 non-refundable) + months wait & refusal risk."};
 }
 
@@ -683,7 +699,6 @@ function updateRespectUI(c){
 $("respectBtn").addEventListener("click",()=>{
   respected=!respected;
   try{localStorage.setItem("devlottery-respect",respected?"1":"0")}catch{}
-  if(respected)sfxWin();
   sendSalute(respected?1:-1);
   updateRespectUI();
 });
@@ -691,15 +706,12 @@ $("respectBtn").addEventListener("click",()=>{
 $("simSteps").addEventListener("click",e=>{
   const b=e.target.closest("button[data-step]");if(!b)return;
   const i=+b.dataset.step;simDone[i]=true;
-  const ev=stepEval(i,by[$("simA").value]);
-  ev.cls==="q-fail"?sfxStamp():sfxWin();
   renderSim();
 });
 $("runSimBtn").addEventListener("click",()=>{
   simDone=[false,false,false,false];renderSim();
-  const a=by[$("simA").value];
   [0,1,2,3].forEach(i=>{
-    setTimeout(()=>{simDone[i]=true;const ev=stepEval(i,a);ev.cls==="q-fail"?sfxStamp():sfxWin();renderSim()},still?0:i*180);
+    setTimeout(()=>{simDone[i]=true;renderSim()},still?0:i*160);
   });
 });
 $("simA").addEventListener("change",()=>{simDone=[true,true,true,true];renderSim()});
@@ -723,10 +735,23 @@ function drawCoverSurface(){
   ctx.fillText(L("scratchText"),b.width/2,b.height/2);
 }
 function cover(){moves=0;down=false;sc.hidden=false;$("reveal").hidden=false;drawCoverSurface()}
+function renderRollSummary(){
+  if(!rolls){$("rollSummary").textContent="";if(gCount===null)$("statsBar").hidden=true;return}
+  $("statsBar").hidden=false;
+  const rate=Math.round(easy/rolls*100);
+  if(lang==="ar"){
+    $("rollSummary").innerHTML=easy===0
+      ?'سحبتَ <b class="num">'+rolls+'</b> '+(rolls===1?'مرة':rolls===2?'مرتين':rolls<=10?'مرات':'مرة')+' حتى الآن — ولم تحصل على «سهل» بعد.'
+      :'من أصل <b class="num">'+rolls+'</b> '+(rolls===1?'سحبة':rolls===2?'سحبتين':rolls<=10?'سحبات':'سحبة')+'، حصلتَ على «سهل» <b class="num">'+easy+'</b> '+(easy===1?'مرة فقط':'مرات')+' (<span class="num">'+rate+'%</span>).';
+  }else{
+    $("rollSummary").innerHTML=easy===0
+      ?'<b class="num">'+rolls+'</b> '+(rolls===1?'spin':'spins')+' so far — <b class="num">0</b> landed on «Easy».'
+      :'Out of <b class="num">'+rolls+'</b> '+(rolls===1?'spin':'spins')+', <b class="num">'+easy+'</b> landed on «Easy» (<span class="num">'+rate+'%</span>).';
+  }
+}
 function settleStats(c,rollNo){
   if(c.tierKey==="easy"){easy++;if(!firstEasyAt)firstEasyAt=rollNo}
-  $("cEasy").textContent=easy;
-  $("firstEasy").textContent=firstEasyAt?(lang==="ar"?"أول «سهل» في السحبة "+firstEasyAt:"First «Easy» on roll #"+firstEasyAt):"";
+  renderRollSummary();
 }
 function revealCurrent(){
   if(revealed||!cur)return;
@@ -736,7 +761,6 @@ function revealCurrent(){
   const ref=refFor(cur);setStub(ref);
   $("ticketSimBtn").hidden=false;$("imgBtn").hidden=false;$("copyImg").hidden=!(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write);
   $("share").href="https://x.com/intent/post?text="+encodeURIComponent(shareText(cur,ref,lastEscapeN));
-  if(cur.tierKey==="easy")sfxWin();else if(cur.blocked||cur.tierKey==="nightmare")sfxStamp();
   if(cur.blocked){const st=$("tStampText");st.classList.remove("stamp-pop");void st.offsetWidth;st.classList.add("stamp-pop")}
   $("srAnnounce").textContent=lang==="ar"
     ?"نتيجة التذكرة: وُلدتَ في "+cur.ar+"، المستوى "+cur.tierAr+"، الدرجة "+cur.score+" من 100."
@@ -776,7 +800,12 @@ $("reveal").addEventListener("click",revealCurrent);
 if(window.ResizeObserver)new ResizeObserver(()=>{if(!sc.hidden&&moves===0)drawCoverSurface()}).observe($("tBody"));
 document.fonts?.ready.then(()=>{if(!sc.hidden&&moves===0)drawCoverSurface()});
 
+function landFx(){
+  for(const el of [$("tBody"),$("tTierBox")]){el.classList.remove("land","slam");void el.offsetWidth}
+  $("tBody").classList.add("land");$("tTierBox").classList.add("slam");
+}
 function renderTicketBody(c){
+  $("tBornLabel").textContent=L("bornIn");
   $("tName").textContent=c.flag+" "+cname(c);
   $("tOdds").textContent=lang==="ar"
     ?"نصيبها من مواليد العالم: "+pct(c.share)+" (في العينة: "+pct(c.sampleShare)+")"
@@ -793,7 +822,7 @@ function roll(ms,done){
   const n=$("tName");n.classList.add("rolling");
   if(still){n.classList.remove("rolling");done();return}
   const t0=performance.now();
-  const tick=()=>{const p=pick();n.textContent=p.flag+" "+cname(p);$("tNo").textContent=String(Math.floor(Math.random()*WORLD)).padStart(9,"0");sfxTick();
+  const tick=()=>{const p=pick();n.textContent=p.flag+" "+cname(p);$("tNo").textContent=String(Math.floor(Math.random()*WORLD)).padStart(9,"0");
     if(performance.now()-t0<ms)setTimeout(tick,75);else{n.classList.remove("rolling");done()}};
   tick();
 }
@@ -814,9 +843,8 @@ $("spin").addEventListener("click",()=>{
   if(!startDraw())return;
   roll(850,()=>{
     cur=pick();rolls++;curRoll=rolls;revealed=false;
-    $("cRolls").textContent=rolls;
     $("tNo").textContent=String(Math.floor(Math.random()*WORLD)).padStart(9,"0");
-    renderTicketBody(cur);cover();busy=false;addGlobal(1);
+    renderTicketBody(cur);revealCurrent();landFx();busy=false;addGlobal(1);
     $("simA").value=cur.iso;if($("simB").value===cur.iso)$("simB").value=cur.iso==="NLD"?"DZA":"NLD";renderSim();
   });
 });
@@ -826,9 +854,8 @@ $("untilEasy").addEventListener("click",()=>{
   let n=0,c;do{c=pick();n++}while(c.tierKey!=="easy");
   roll(Math.min(500+n*100,2800),()=>{
     rolls+=n;curRoll=rolls;cur=c;revealed=false;lastEscapeN=n;
-    $("cRolls").textContent=rolls;
     $("tNo").textContent=String(Math.floor(Math.random()*WORLD)).padStart(9,"0");
-    renderTicketBody(c);revealCurrent();busy=false;
+    renderTicketBody(c);revealCurrent();landFx();busy=false;
     renderEscape();
     addGlobal(n);
   });
@@ -963,10 +990,10 @@ function compare(){
     const bc=av===bv?"":(lowerBetter?(bv>av?"bad":"win"):(bv>av?"win":""));
     return '<div class="bar-row"><b>'+l+'</b><div><small>'+a.flag+' '+cname(a)+' · <span class="num">'+at+'</span></small><div class="bar"><i class="'+ac+'" style="width:'+Math.max(2,100*av/m)+'%"></i></div></div><div><small>'+b.flag+' '+cname(b)+' · <span class="num">'+bt+'</span></small><div class="bar"><i class="'+bc+'" style="width:'+Math.max(2,100*bv/m)+'%"></i></div></div></div>';
   };
-  $("cBars").innerHTML=row(L("thScore"),a.score,b.score,a.score+"/100",b.score+"/100",false)
-    +row(L("thEarn"),a.earn,b.earn,a.earn,b.earn,false)
+  $("cBars").innerHTML=row(L("thEarn"),a.earn,b.earn,a.earn,b.earn,false)
     +row(L("hoursLabel"),a.hours,b.hours,fh(a.hours),fh(b.hours),true)
-    +row(L("thMove"),a.visa,b.visa,a.visa,b.visa,false);
+    +row(L("thMove"),a.visa,b.visa,a.visa,b.visa,false)
+    +row(L("thScore"),a.score,b.score,a.score+"/100",b.score+"/100",false);
 }
 $("pA").addEventListener("change",compare);$("pB").addEventListener("change",compare);
 $("cmpSimBtn").addEventListener("click",()=>{
@@ -993,8 +1020,8 @@ function table(){
     return (a[key]-b[key])*dir;
   });
   for(const b of document.querySelectorAll("thead button")){if(b.dataset.k===sk)b.setAttribute("aria-sort",dir>0?"ascending":"descending");else b.removeAttribute("aria-sort")}
-  $("tbody").innerHTML=rows.map(c=>'<tr data-iso="'+c.iso+'"><th scope="row">'+c.flag+' '+cname(c)+(c.blocked?' <span style="color:var(--red);font-weight:700">· '+L("blocked")+'</span>':'')+'</th><td class="n num">'+c.score+'</td><td><span class="tier t-'+c.tierKey+'">'+ctier(c)+'</span></td><td><span class="num">'+c.earn+'</span> <span class="note">· '+cnote(c)+'</span></td><td class="n num">'+fh(c.hours)+'</td><td class="n num">'+c.visa+'</td><td class="n num">'+pct(c.share)+'</td></tr>').join("");
-  $("grid").innerHTML=rows.map(c=>'<article class="tile t-'+c.tierKey+'"><div class="tile-top"><div><small>'+ctier(c)+' · '+pct(c.share)+(lang==="ar"?' من المواليد':' births')+'</small><h3>'+c.flag+' '+cname(c)+'</h3></div><span class="num big">'+c.score+'</span></div>'+(c.blocked?'<span class="stamp">'+L("blocked")+'</span>':'')+'<div class="tile-stats"><div><small>'+L("thEarn")+'</small><b class="num">'+c.earn+'</b></div><div><small>'+L("thBuy")+'</small><b class="num">'+fh(c.hours)+'</b></div><div><small>'+L("thMove")+'</small><b class="num">'+c.visa+'</b></div></div><p>'+cnote(c)+'</p><button type="button" data-cmp="'+c.iso+'">'+L("compareBtn")+'</button></article>').join("");
+  $("tbody").innerHTML=rows.map(c=>'<tr data-iso="'+c.iso+'"><th scope="row">'+c.flag+' '+cname(c)+(c.blocked?' <span style="color:var(--red);font-weight:700">· '+L("blocked")+'</span>':'')+'</th><td><span class="num">'+c.earn+'</span> <span class="note">· '+cnote(c)+'</span></td><td class="n num">'+fh(c.hours)+'</td><td class="n num">'+c.visa+'</td><td class="n num">'+pct(c.share)+'</td><td><span class="tier t-'+c.tierKey+'">'+ctier(c)+'</span></td><td class="n num" style="font-weight:700">'+c.score+'</td></tr>').join("");
+  $("grid").innerHTML=rows.map(c=>'<article class="tile t-'+c.tierKey+'"><div class="tile-top"><div><small>'+ctier(c)+' · '+pct(c.share)+(lang==="ar"?' من المواليد':' births')+'</small><h3>'+c.flag+' '+cname(c)+'</h3></div></div>'+(c.blocked?'<span class="stamp">'+L("blocked")+'</span>':'')+'<div class="tile-stats"><div><small>'+L("thEarn")+'</small><b class="num">'+c.earn+'</b></div><div><small>'+L("thBuy")+'</small><b class="num">'+fh(c.hours)+'</b></div><div><small>'+L("thMove")+'</small><b class="num">'+c.visa+'</b></div></div><div class="tile-score"><small>'+L("thScore")+'</small><span class="num big">'+c.score+'<small>/100</small></span></div><p>'+cnote(c)+'</p><button type="button" data-cmp="'+c.iso+'">'+L("compareBtn")+'</button></article>').join("");
 }
 $("tbody").addEventListener("click",e=>{
   const tr=e.target.closest("tr[data-iso]");if(!tr)return;
@@ -1020,14 +1047,13 @@ function applyLang(){
   $("filters").setAttribute("aria-label",lang==="ar"?"تصفية حسب المستوى":"Filter by difficulty");
   document.querySelector(".viewsw").setAttribute("aria-label",lang==="ar"?"طريقة العرض":"View mode");
   $("langBtn").setAttribute("aria-label",lang==="ar"?"التبديل إلى الإنجليزية":"Switch to Arabic");
-  $("sfxBtn").setAttribute("aria-label",lang==="ar"?"تشغيل أو كتم الصوت":"Toggle sound");
   $("themeBtn").setAttribute("aria-label",lang==="ar"?"تبديل المظهر":"Toggle theme");
   for(const el of document.querySelectorAll("[data-t]"))el.textContent=L(el.dataset.t);
   $("langBtn").textContent=L("langBtn");
   $("tStampText").textContent=L("blocked");
-  $("coverage").textContent=lang==="ar"
-    ?"النسخة الثانية: السحب يشمل "+C.length+" دولة تمثل "+pct(total/WORLD*100)+" من مواليد العالم (UN WPP 2024)."
-    :"v2 covers "+C.length+" countries representing "+pct(total/WORLD*100)+" of all human births (UN WPP 2024).";
+  $("coverage").innerHTML=lang==="ar"
+    ?'يشمل السحب <span class="num">'+C.length+'</span> دولة تمثّل <span class="num">'+pct(total/WORLD*100)+'</span> من مواليد العالم · <span class="num" style="white-space:nowrap">UN WPP 2024</span>'
+    :'Draw covers <span class="num">'+C.length+'</span> countries (<span class="num">'+pct(total/WORLD*100)+'</span> of world births · <span class="num" style="white-space:nowrap">UN WPP 2024</span>).';
   $("idxSub").innerHTML=lang==="ar"
     ?'بلا يانصيب: قارن أي دولتين، أو تصفّح بطاقات <span class="num">'+C.length+'</span> دولة ورتّبها حسب أي مؤشر.'
     :'No lottery: compare any two countries, or explore all <span class="num">'+C.length+'</span> countries by score, payments, purchasing power, and passport mobility.';
@@ -1050,13 +1076,14 @@ function applyLang(){
       $("share").href="https://x.com/intent/post?text="+encodeURIComponent(shareText(cur,ref,lastEscapeN));
     }else{setStub(refFor(null));if(moves===0)drawCoverSurface()}
   }else{
+    $("tBornLabel").textContent=L("heroQ");
     $("tOdds").textContent=L("oddsPrompt");
     $("tEarnNote").textContent=L("rowEarnInit");
     setStub(refFor(null));
     $("share").href="https://x.com/intent/post?text="+encodeURIComponent(defaultShare());
   }
   renderEscape();
-  if(firstEasyAt)$("firstEasy").textContent=lang==="ar"?"أول «سهل» في السحبة "+firstEasyAt:"First «Easy» on roll #"+firstEasyAt;
+  renderRollSummary();
 }
 
 $("langBtn").addEventListener("click",()=>{

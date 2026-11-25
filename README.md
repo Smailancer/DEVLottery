@@ -28,7 +28,6 @@ Draw weights: annual live births 2024, UN World Population Prospects 2024.
 - Bilingual **English / Arabic** (`EN / AR`) with auto-detection and `?lang=en|ar` deep links
 - **Start From Zero Simulator** with 4 interactive steps & **Split VS Card PNG** export (`1200×675`)
 - **33 countries** including major global indie hacker hubs (Brazil, Indonesia, Philippines, Turkey, Poland, Ukraine, Mexico, Kenya, UAE, Saudi Arabia, Lebanon, plus original 22)
-- Synthesized **Web Audio SFX** (slot tick, win chime, blocked stamp thud) with mute toggle
 - Shareable comparison URLs (`?a=DZA&b=NLD`) and challenge URLs (`#challenge-ISO-N`)
 - Optional zero-dependency global draw counter in `counter/`
 
