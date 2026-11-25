@@ -8,6 +8,8 @@
 <meta property="og:title" content="DEV Lottery · Same Hustle, Different Spawn Point">
 <meta property="og:description" content="Spin to be born again using real UN birth odds, or test the 'Start From Zero' indie hacker playbook from your passport.">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ar_AR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="DEV Lottery · Same Hustle, Different Spawn Point">
 <meta name="twitter:description" content="Hard work matters. Shipping matters. AND where you spawn sets the difficulty multiplier.">
@@ -20,9 +22,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Lalezar&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
 <style>
-:root{color-scheme:light;--bg:#F3F0E8;--ink:#111111;--card:#FBF9F3;--mute:#5E5A52;--line:#111111;--gold:#F2C230;--red:#C8201A;--green:#15803D;--track:#E4E0D6}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#121212;--ink:#F0EDE5;--card:#1D1D1B;--mute:#B3AEA3;--line:#F0EDE5;--green:#4ADE80;--track:#2C2B28}}
-:root[data-theme=dark]{color-scheme:dark;--bg:#121212;--ink:#F0EDE5;--card:#1D1D1B;--mute:#B3AEA3;--line:#F0EDE5;--green:#4ADE80;--track:#2C2B28}
+:root{color-scheme:light;--bg:#F3F0E8;--ink:#111111;--card:#FBF9F3;--mute:#5E5A52;--line:#111111;--gold:#F2C230;--red:#C8201A;--green:#15803D;--track:#E4E0D6;--hard-bg:#111111;--hard-fg:#F3F0E8}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#121212;--ink:#F0EDE5;--card:#1D1D1B;--mute:#B3AEA3;--line:#F0EDE5;--green:#4ADE80;--track:#2C2B28;--hard-bg:#2B2924;--hard-fg:#F0EDE5}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#121212;--ink:#F0EDE5;--card:#1D1D1B;--mute:#B3AEA3;--line:#F0EDE5;--green:#4ADE80;--track:#2C2B28;--hard-bg:#2B2924;--hard-fg:#F0EDE5}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans Arabic",system-ui,sans-serif;overflow-x:clip}
 html{scroll-padding-top:76px}
@@ -73,7 +75,7 @@ canvas.scratch:active{cursor:grabbing}
 .tier{display:inline-block;padding:3px 10px;font-weight:700;border:2px solid var(--line);white-space:nowrap}
 .t-easy{background:var(--gold);color:#111;border-color:var(--line)}
 .t-normal{background:var(--card);color:var(--ink)}
-.t-hard{background:var(--ink);color:var(--bg)}
+.t-hard{background:var(--hard-bg);color:var(--hard-fg)}
 .t-nightmare{background:var(--red);color:#fff;border-color:var(--red)}
 .t-tier-box.t-easy,.t-tier-box.t-normal,.t-tier-box.t-hard,.t-tier-box.t-nightmare{border-color:var(--line)}
 .stamp{display:inline-block;border:3px solid var(--red);color:var(--red);font-family:"Space Grotesk",Lalezar,sans-serif;font-weight:700;font-size:20px;padding:2px 10px;transform:rotate(-6deg);text-transform:uppercase}
@@ -161,6 +163,9 @@ html[dir=rtl] .tile h3{font-family:Lalezar,sans-serif;font-weight:400;font-size:
 html[dir=rtl] .tk-track{animation-name:tk-rtl}
 .ticker:hover .tk-track{animation-play-state:paused}
 .tk-item{padding:8px 16px;white-space:nowrap;border-inline-start:1px solid color-mix(in srgb,var(--bg) 30%,transparent)}
+button.tk-item{border:0;border-inline-start:1px solid color-mix(in srgb,var(--bg) 30%,transparent);min-height:0;font-weight:400;font-size:inherit;color:inherit;background:transparent}
+button.tk-item:hover{background:color-mix(in srgb,var(--gold) 22%,transparent)}
+tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix(in srgb,var(--gold) 14%,var(--card))}
 .tk-item b{font-weight:700}.tk-item .pc{color:var(--gold);margin-inline-start:6px}
 .tk-item.lead-i{background:var(--gold);color:#111}
 @keyframes tk-ltr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -231,6 +236,7 @@ html[dir=rtl] .tk-track{animation-name:tk-rtl}
 <span id="stubRef"><span id="sLabel"></span> <b id="sName"></b>: <span class="num"><span id="sScore">—</span>/100</span></span>
 <span class="actions" style="margin:0">
 <button type="button" id="reveal" hidden data-t="revealBtn">Reveal All</button>
+<button type="button" id="ticketSimBtn" hidden data-t="ticketSimBtn">Test Playbook ↓</button>
 <button type="button" id="imgBtn" hidden data-t="dlTicketBtn">PNG Ticket</button>
 <button type="button" id="copyImg" hidden data-t="copyImgBtn">Copy PNG</button>
 <a class="btn" id="share" href="https://x.com/intent/post" target="_blank" rel="noopener noreferrer" data-t="shareX">Post on X</a>
@@ -284,6 +290,7 @@ html[dir=rtl] .tk-track{animation-name:tk-rtl}
 <div class="pickers">
 <label for="pA" data-t="cmpA">Compare</label><select id="pA"></select>
 <label for="pB" data-t="cmpB">with</label><select id="pB"></select>
+<button type="button" class="mini-btn" id="cmpSimBtn" data-t="cmpSimBtn">Test in Simulator ↑</button>
 <button type="button" class="mini-btn" id="copyLinkBtn" data-t="copyCmpLink">Copy Link</button>
 </div>
 <div class="headline" id="cHead"></div>
@@ -408,14 +415,14 @@ const T={
     ticketBrand:"SPAWN TICKET",ticketNo:"Ticket #",bornIn:"You spawned in",
     oddsPrompt:"Hit «Spin Spawn Ticket» then scratch",tierLabel:"Difficulty",scoreLabel:"Starting Line",blocked:"BLOCKED",
     rowEarn:"EARN",rowEarnInit:"Can you get paid from abroad?",rowBuy:"BUY",rowBuyDesc:"Work hours for a $20/mo tool",rowMove:"MOVE",rowMoveDesc:"Visa-free destinations",
-    revealBtn:"Reveal All",dlTicketBtn:"PNG Ticket",copyImgBtn:"Copy PNG",copied:"Copied ✓",shareX:"Post on X",
+    revealBtn:"Reveal All",ticketSimBtn:"Test Playbook ↓",dlTicketBtn:"PNG Ticket",copyImgBtn:"Copy PNG",copied:"Copied ✓",shareX:"Post on X",
     scratchText:"SCRATCH HERE",rolling:"Rolling…",
     simKicker:"THE \"START FROM ZERO\" SIMULATOR",
     simH2:"Can you actually run the Bali indie-hacker playbook?",
     simIntro:"Hard work matters. Shipping matters. AND where you spawn sets the difficulty multiplier. Test the classic 4-step indie hacker journey from your passport vs. the Netherlands — no excuses, just real friction.",
     simYour:"Your Passport",simVs:"vs.",runSimBtn:"Run All 4 Steps →",
     dlVsBtn:"Download VS Card PNG",copyVsBtn:"Copy VS Card",shareVsBtn:"Post Receipt on X",
-    idxH2:"Starting Line Index",cmpA:"Compare",cmpB:"with",copyCmpLink:"Copy Link",
+    idxH2:"Starting Line Index",cmpA:"Compare",cmpB:"with",cmpSimBtn:"Test in Simulator ↑",copyCmpLink:"Copy Link",
     viewCards:"Cards",viewTable:"Table",all:"All",
     tblCap:"Data snapshot: Nov 2026. Score = 40% Earn + 40% Buy + 20% Move.",
     thCountry:"Country",thScore:"Score",thTier:"Difficulty",thEarn:"Earn",thBuy:"Buy ($20)",thMove:"Move",thShare:"Birth Share",
@@ -442,14 +449,14 @@ const T={
     ticketBrand:"تذكرة الولادة",ticketNo:"تذكرة رقم ",bornIn:"وُلدتَ في",
     oddsPrompt:"اضغط «اسحب تذكرة» ثم اكشط",tierLabel:"المستوى",scoreLabel:"نقطة البداية",blocked:"محظور",
     rowEarn:"الكسب",rowEarnInit:"هل تستطيع قبض المال من الخارج؟",rowBuy:"الشراء",rowBuyDesc:"ساعات عمل لدفع اشتراك 20$ شهرياً",rowMove:"التنقل",rowMoveDesc:"وجهات بلا تأشيرة",
-    revealBtn:"اكشف الكل",dlTicketBtn:"صورة التذكرة",copyImgBtn:"انسخ الصورة",copied:"نُسخت ✓",shareX:"شارك على X",
+    revealBtn:"اكشف الكل",ticketSimBtn:"جرّبها في المحاكي ↓",dlTicketBtn:"صورة التذكرة",copyImgBtn:"انسخ الصورة",copied:"نُسخت ✓",shareX:"شارك على X",
     scratchText:"اكشط هنا",rolling:"جارٍ السحب…",
     simKicker:"محاكي «الانطلاق من الصفر»",
     simH2:"هل تنجح خطة الـ Indie Hacker إلى بالي بجواز سفرك؟",
     simIntro:"العمل الجاد يصنع الفرق، وإطلاق المنتجات يصنع الفرق — لكن مكان ولادتك يضبط معامل الصعوبة. اختبر الخطوات الأربع الشهيرة للانطلاق من الصفر مقارنة بهولندا بلا تذمّر، بل بالأرقام الواقعية.",
     simYour:"جواز سفرك",simVs:"مقابل",runSimBtn:"شغّل الخطوات الأربع ←",
     dlVsBtn:"نزّل بطاقة المقارنة PNG",copyVsBtn:"انسخ البطاقة",shareVsBtn:"شارك الإيصال على X",
-    idxH2:"مؤشر خط البداية",cmpA:"قارن",cmpB:"مع",copyCmpLink:"انسخ الرابط",
+    idxH2:"مؤشر خط البداية",cmpA:"قارن",cmpB:"مع",cmpSimBtn:"جرّب في المحاكي ↑",copyCmpLink:"انسخ الرابط",
     viewCards:"بطاقات",viewTable:"جدول",all:"الكل",
     tblCap:"بيانات نوفمبر 2026. الدرجة = 40% كسب + 40% شراء + 20% تنقل.",
     thCountry:"الدولة",thScore:"الدرجة",thTier:"المستوى",thEarn:"الكسب",thBuy:"الشراء (20$)",thMove:"التنقل",thShare:"نصيب المواليد",
@@ -496,11 +503,12 @@ function sfxStamp(){const a=audio();if(!a)return;const o=a.createOscillator(),g=
 
 /* global counter */
 const COUNTER_API="";
-let gCount=null,pending=0,flushT=0;
-function showGlobal(n){gCount=n;$("cGlobal").textContent=nf(n);$("globalWrap").hidden=false}
-function addGlobal(n){if(!COUNTER_API)return;if(gCount!==null)showGlobal(gCount+n);pending+=n;clearTimeout(flushT);flushT=setTimeout(()=>{const k=pending;pending=0;
-  fetch(COUNTER_API+"/draws",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({n:k})}).then(r=>r.ok?r.json():null).then(j=>{if(j)showGlobal(j.draws)}).catch(()=>{})},1200)}
-if(COUNTER_API)fetch(COUNTER_API+"/count").then(r=>r.json()).then(j=>showGlobal(j.draws)).catch(()=>{});
+let gCount=null,gSalutes=null,pending=0,flushT=0;
+function showGlobal(n,s){if(Number.isFinite(n)){gCount=n;$("cGlobal").textContent=nf(n);$("globalWrap").hidden=false}if(Number.isFinite(s)){gSalutes=s;updateRespectUI()}}
+function addGlobal(n){if(!COUNTER_API)return;if(gCount!==null)showGlobal(gCount+n,gSalutes);pending+=n;clearTimeout(flushT);flushT=setTimeout(()=>{const k=pending;pending=0;
+  fetch(COUNTER_API+"/draws",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({n:k})}).then(r=>r.ok?r.json():null).then(j=>{if(j)showGlobal(j.draws,j.salutes)}).catch(()=>{})},1200)}
+function sendSalute(delta){if(!COUNTER_API)return;fetch(COUNTER_API+"/salute",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({delta})}).then(r=>r.ok?r.json():null).then(j=>{if(j)showGlobal(j.draws,j.salutes)}).catch(()=>{})}
+if(COUNTER_API)fetch(COUNTER_API+"/count").then(r=>r.json()).then(j=>showGlobal(j.draws,j.salutes)).catch(()=>{});
 
 /* theme */
 const root=document.documentElement;
@@ -563,10 +571,18 @@ function fillSelects(){
 }
 
 function renderTicker(){
-  const items=[...C].sort((a,b)=>b.births-a.births).map(c=>'<span class="tk-item"><b>'+c.flag+' '+cname(c)+'</b> <span class="num">'+nf(c.births)+'</span><span class="num pc">'+pct(c.share)+'</span></span>').join("");
+  const items=[...C].sort((a,b)=>b.births-a.births).map(c=>'<button type="button" class="tk-item" data-iso="'+c.iso+'"><b>'+c.flag+' '+cname(c)+'</b> <span class="num">'+nf(c.births)+'</span><span class="num pc">'+pct(c.share)+'</span></button>').join("");
   const head='<span class="tk-item lead-i">'+L("tickerLead")+' <span class="num">'+nf(WORLD)+'</span></span>';
   $("ticker").innerHTML=(head+items).repeat(2);
 }
+$("ticker").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-iso]");if(!b)return;
+  const iso=b.dataset.iso;
+  $("simA").value=iso;$("simB").value=iso==="NLD"?"DZA":"NLD";
+  $("pA").value=iso;$("pB").value=$("simB").value;
+  simDone=[true,true,true,true];renderSim();compare();
+  $("playbook").scrollIntoView({behavior:still?"auto":"smooth",block:"start"});
+});
 
 /* Start From Zero Playbook Simulator */
 function stepEval(stepIdx,c){
@@ -657,16 +673,18 @@ let respected=false;
 try{respected=localStorage.getItem("devlottery-respect")==="1"}catch{}
 function updateRespectUI(c){
   const a=c||by[$("simA").value];
+  const cnt=gSalutes!==null?" ("+nf(gSalutes)+")":"";
   $("respectText").textContent=lang==="ar"
     ?"تبني منتجاتك من "+a.flag+" "+a.ar+" ("+a.tierAr+" · "+a.score+"/100)؟ كل الاحترام للمطورين الذين يطلقون رغم القيود."
     :"Building & shipping from "+a.flag+" "+a.en+" ("+a.tierEn+" Mode · "+a.score+"/100)? Respect to every builder overcoming friction.";
-  $("respectBtn").textContent=respected?L("respectDone"):L("respectBtn");
+  $("respectBtn").textContent=(respected?L("respectDone"):L("respectBtn"))+cnt;
   $("respectBtn").setAttribute("aria-pressed",respected);
 }
 $("respectBtn").addEventListener("click",()=>{
   respected=!respected;
   try{localStorage.setItem("devlottery-respect",respected?"1":"0")}catch{}
   if(respected)sfxWin();
+  sendSalute(respected?1:-1);
   updateRespectUI();
 });
 
@@ -716,7 +734,7 @@ function revealCurrent(){
   sc.hidden=true;$("reveal").hidden=true;
   settleStats(cur,curRoll);
   const ref=refFor(cur);setStub(ref);
-  $("imgBtn").hidden=false;$("copyImg").hidden=!(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write);
+  $("ticketSimBtn").hidden=false;$("imgBtn").hidden=false;$("copyImg").hidden=!(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write);
   $("share").href="https://x.com/intent/post?text="+encodeURIComponent(shareText(cur,ref,lastEscapeN));
   if(cur.tierKey==="easy")sfxWin();else if(cur.blocked||cur.tierKey==="nightmare")sfxStamp();
   if(cur.blocked){const st=$("tStampText");st.classList.remove("stamp-pop");void st.offsetWidth;st.classList.add("stamp-pop")}
@@ -724,6 +742,12 @@ function revealCurrent(){
     ?"نتيجة التذكرة: وُلدتَ في "+cur.ar+"، المستوى "+cur.tierAr+"، الدرجة "+cur.score+" من 100."
     :"Spawn result: "+cur.en+", "+cur.tierEn+" Mode, score "+cur.score+" out of 100.";
 }
+$("ticketSimBtn").addEventListener("click",()=>{
+  if(!cur)return;
+  $("simA").value=cur.iso;$("simB").value=cur.iso==="NLD"?"DZA":"NLD";
+  simDone=[true,true,true,true];renderSim();
+  $("playbook").scrollIntoView({behavior:still?"auto":"smooth",block:"start"});
+});
 function scratchPoint(e,isStart){
   const b=sc.getBoundingClientRect();if(!b.width||!b.height)return;
   const sx=sc.width/b.width,sy=sc.height/b.height;
@@ -773,10 +797,15 @@ function roll(ms,done){
     if(performance.now()-t0<ms)setTimeout(tick,75);else{n.classList.remove("rolling");done()}};
   tick();
 }
+function renderEscape(){
+  $("escape").textContent=lastEscapeN?(lang==="ar"
+    ?"احتجتَ "+birthsTxt(lastEscapeN)+" حتى تحصل على «سهل»."+(chN?(lastEscapeN<chN?" فزتَ على صديقك ("+chN+").":lastEscapeN>chN?" صديقك كان أسرع ("+chN+").":" تعادلتما."):"")
+    :"Took "+birthsTxt(lastEscapeN)+" to spawn on «Easy»."+(chN?(lastEscapeN<chN?" You beat your friend ("+chN+")!":lastEscapeN>chN?" Your friend was luckier ("+chN+").":" Tied!"):"")):"";
+}
 function startDraw(){
   if(busy)return false;
   if(!revealed&&cur)settleStats(cur,curRoll);
-  busy=true;revealed=true;lastEscapeN=0;$("escape").textContent="";$("imgBtn").hidden=true;$("copyImg").hidden=true;
+  busy=true;revealed=true;lastEscapeN=0;renderEscape();$("ticketSimBtn").hidden=true;$("imgBtn").hidden=true;$("copyImg").hidden=true;
   setStub(refFor(null));
   $("share").href="https://x.com/intent/post?text="+encodeURIComponent(defaultShare());
   return true;
@@ -800,9 +829,7 @@ $("untilEasy").addEventListener("click",()=>{
     $("cRolls").textContent=rolls;
     $("tNo").textContent=String(Math.floor(Math.random()*WORLD)).padStart(9,"0");
     renderTicketBody(c);revealCurrent();busy=false;
-    $("escape").textContent=lang==="ar"
-      ?"احتجتَ "+birthsTxt(n)+" حتى تحصل على «سهل»."+(chN?(n<chN?" فزتَ على صديقك ("+chN+").":n>chN?" صديقك كان أسرع ("+chN+").":" تعادلتما."):"")
-      :"Took "+birthsTxt(n)+" to spawn on «Easy»."+(chN?(n<chN?" You beat your friend ("+chN+")!":n>chN?" Your friend was luckier ("+chN+").":" Tied!"):"");
+    renderEscape();
     addGlobal(n);
   });
 });
@@ -872,10 +899,10 @@ async function vsBlob(){
   g.strokeStyle=I;g.lineWidth=4;g.strokeRect(24,24,W-48,H-48);
   // Header bar
   g.fillStyle=I;g.fillRect(24,24,W-48,74);
-  g.fillStyle=G;g.font='700 26px "Space Grotesk", "IBM Plex Sans Arabic", sans-serif';g.textAlign="left";g.direction="ltr";
-  g.fillText("DEV LOTTERY · START FROM ZERO RECEIPT",52,70);
-  g.fillStyle=P;g.font='600 20px "IBM Plex Mono", monospace';g.textAlign="right";
-  g.fillText("SAME HUSTLE. DIFFERENT SPAWN POINT.",W-52,69);
+  g.fillStyle=G;g.font=isAr?"30px Lalezar":'700 26px "Space Grotesk", sans-serif';g.textAlign=isAr?"right":"left";g.direction=isAr?"rtl":"ltr";
+  g.fillText(isAr?"DEV LOTTERY · إيصال الانطلاق من الصفر":"DEV LOTTERY · START FROM ZERO RECEIPT",isAr?W-52:52,70);
+  g.fillStyle=P;g.font=isAr?'600 20px "IBM Plex Sans Arabic", sans-serif':'600 19px "IBM Plex Mono", monospace';g.textAlign=isAr?"left":"right";
+  g.fillText(isAr?"المهارات نفسها. نقطة البداية مختلفة.":"SAME HUSTLE. DIFFERENT SPAWN POINT.",isAr?52:W-52,69);
   // Two split cards
   const drawSide=(c,ox)=>{
     const cw=536,cy=120,ch=444;
@@ -883,9 +910,9 @@ async function vsBlob(){
     g.fillStyle=K;g.fillRect(ox,cy,cw,ch);g.strokeStyle=I;g.lineWidth=3;g.strokeRect(ox,cy,cw,ch);
     g.fillStyle=look[0];g.fillRect(ox,cy,cw,108);g.strokeRect(ox,cy,cw,108);
     g.fillStyle=look[1];g.direction=isAr?"rtl":"ltr";g.textAlign=isAr?"right":"left";
-    const txX=isAr?ox+cw-24:ox+24;
-    g.font=isAr?"48px Lalezar":'700 38px "Space Grotesk", sans-serif';
-    g.fillText(c.flag+" "+cname(c),txX,cy+56);
+    const txX=isAr?ox+cw-24:ox+24,titleTxt=c.flag+" "+cname(c);
+    g.font=isAr?(titleTxt.length>15?"38px Lalezar":"46px Lalezar"):(titleTxt.length>15?'700 30px "Space Grotesk", sans-serif':'700 36px "Space Grotesk", sans-serif');
+    g.fillText(titleTxt,txX,cy+56,cw-48);
     g.font='700 22px "IBM Plex Mono","IBM Plex Sans Arabic",monospace';
     g.fillText(ctier(c)+" · "+c.score+"/100",txX,cy+92);
     const lines=[
@@ -942,6 +969,11 @@ function compare(){
     +row(L("thMove"),a.visa,b.visa,a.visa,b.visa,false);
 }
 $("pA").addEventListener("change",compare);$("pB").addEventListener("change",compare);
+$("cmpSimBtn").addEventListener("click",()=>{
+  $("simA").value=$("pA").value;$("simB").value=$("pB").value;
+  simDone=[true,true,true,true];renderSim();
+  $("playbook").scrollIntoView({behavior:still?"auto":"smooth",block:"start"});
+});
 $("copyLinkBtn").addEventListener("click",()=>{
   const u=PAGE+"?lang="+lang+"&a="+$("pA").value+"&b="+$("pB").value+"#index";
   navigator.clipboard?.writeText(u).then(()=>{$("copyLinkBtn").textContent=L("copied");setTimeout(()=>$("copyLinkBtn").textContent=L("copyCmpLink"),1800)}).catch(()=>{});
@@ -961,9 +993,16 @@ function table(){
     return (a[key]-b[key])*dir;
   });
   for(const b of document.querySelectorAll("thead button")){if(b.dataset.k===sk)b.setAttribute("aria-sort",dir>0?"ascending":"descending");else b.removeAttribute("aria-sort")}
-  $("tbody").innerHTML=rows.map(c=>'<tr><th scope="row">'+c.flag+' '+cname(c)+(c.blocked?' <span style="color:var(--red);font-weight:700">· '+L("blocked")+'</span>':'')+'</th><td class="n num">'+c.score+'</td><td><span class="tier t-'+c.tierKey+'">'+ctier(c)+'</span></td><td><span class="num">'+c.earn+'</span> <span class="note">· '+cnote(c)+'</span></td><td class="n num">'+fh(c.hours)+'</td><td class="n num">'+c.visa+'</td><td class="n num">'+pct(c.share)+'</td></tr>').join("");
+  $("tbody").innerHTML=rows.map(c=>'<tr data-iso="'+c.iso+'"><th scope="row">'+c.flag+' '+cname(c)+(c.blocked?' <span style="color:var(--red);font-weight:700">· '+L("blocked")+'</span>':'')+'</th><td class="n num">'+c.score+'</td><td><span class="tier t-'+c.tierKey+'">'+ctier(c)+'</span></td><td><span class="num">'+c.earn+'</span> <span class="note">· '+cnote(c)+'</span></td><td class="n num">'+fh(c.hours)+'</td><td class="n num">'+c.visa+'</td><td class="n num">'+pct(c.share)+'</td></tr>').join("");
   $("grid").innerHTML=rows.map(c=>'<article class="tile t-'+c.tierKey+'"><div class="tile-top"><div><small>'+ctier(c)+' · '+pct(c.share)+(lang==="ar"?' من المواليد':' births')+'</small><h3>'+c.flag+' '+cname(c)+'</h3></div><span class="num big">'+c.score+'</span></div>'+(c.blocked?'<span class="stamp">'+L("blocked")+'</span>':'')+'<div class="tile-stats"><div><small>'+L("thEarn")+'</small><b class="num">'+c.earn+'</b></div><div><small>'+L("thBuy")+'</small><b class="num">'+fh(c.hours)+'</b></div><div><small>'+L("thMove")+'</small><b class="num">'+c.visa+'</b></div></div><p>'+cnote(c)+'</p><button type="button" data-cmp="'+c.iso+'">'+L("compareBtn")+'</button></article>').join("");
 }
+$("tbody").addEventListener("click",e=>{
+  const tr=e.target.closest("tr[data-iso]");if(!tr)return;
+  const iso=tr.dataset.iso;
+  if($("pA").value===iso)$("pA").value=$("pB").value;$("pB").value=iso;compare();
+  $("simA").value=iso;if($("simB").value===iso)$("simB").value=iso==="NLD"?"DZA":"NLD";simDone=[true,true,true,true];renderSim();
+  document.querySelector(".compare").scrollIntoView({behavior:still?"auto":"smooth",block:"center"});
+});
 $("grid").addEventListener("click",e=>{const b=e.target.closest("button[data-cmp]");if(!b)return;const iso=b.dataset.cmp;
   if($("pA").value===iso)$("pA").value=$("pB").value;$("pB").value=iso;compare();
   $("simA").value=iso;if($("simB").value===iso)$("simB").value=iso==="NLD"?"DZA":"NLD";simDone=[true,true,true,true];renderSim();
@@ -976,6 +1015,13 @@ document.querySelector(".viewsw").addEventListener("click",e=>{const b=e.target.
 function applyLang(){
   root.lang=lang;root.dir=lang==="ar"?"rtl":"ltr";
   document.title=L("title");
+  document.querySelector("nav").setAttribute("aria-label",lang==="ar"?"الأقسام":"Navigation");
+  document.querySelector(".ticker").setAttribute("aria-label",lang==="ar"?"مواليد العالم 2024 حسب البلد":"World live births 2024");
+  $("filters").setAttribute("aria-label",lang==="ar"?"تصفية حسب المستوى":"Filter by difficulty");
+  document.querySelector(".viewsw").setAttribute("aria-label",lang==="ar"?"طريقة العرض":"View mode");
+  $("langBtn").setAttribute("aria-label",lang==="ar"?"التبديل إلى الإنجليزية":"Switch to Arabic");
+  $("sfxBtn").setAttribute("aria-label",lang==="ar"?"تشغيل أو كتم الصوت":"Toggle sound");
+  $("themeBtn").setAttribute("aria-label",lang==="ar"?"تبديل المظهر":"Toggle theme");
   for(const el of document.querySelectorAll("[data-t]"))el.textContent=L(el.dataset.t);
   $("langBtn").textContent=L("langBtn");
   $("tStampText").textContent=L("blocked");
@@ -1009,6 +1055,7 @@ function applyLang(){
     setStub(refFor(null));
     $("share").href="https://x.com/intent/post?text="+encodeURIComponent(defaultShare());
   }
+  renderEscape();
   if(firstEasyAt)$("firstEasy").textContent=lang==="ar"?"أول «سهل» في السحبة "+firstEasyAt:"First «Easy» on roll #"+firstEasyAt;
 }
 
