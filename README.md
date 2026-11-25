@@ -10,7 +10,7 @@ DEV Lottery measures how unequal the starting line is for software developers an
 - **"Start From Zero" Simulator**: test the classic 4-step indie hacker playbook from your passport vs. the Netherlands — paying an `$80/mo` AI stack, connecting Stripe (or Stripe-only hackathons like TrustMRR), flying to Bali, and attending a San Francisco tech conference — then export a **Split VS Card PNG** for X.
 - **Hard Mode Survival Guide & Builders Community**: practical country-specific payout & tool-tax playbooks, easier launchpads beyond the US & Western Europe, Easy Mode reference profiles (`Pieter Levels`, `Marc Lou`, `Danny Postma`, `AJ`), and a built-in database-backed community wall where developers publish their profile, spawn mode, project, and workarounds.
 - **Verified Voices on the Ovarian Lottery**: documented quotes from Warren Buffett, Sam Altman, and Bill Gates.
-- **Starting Line Index**: compare any 2 of **33 countries** (covering ~56% of world births), filter by difficulty (`Easy`, `Normal`, `Hard`, `Nightmare`), and switch between Cards and Table views.
+- **Starting Line Index**: compare any 2 of **35 countries** (covering ~63% of world births), filter by difficulty (`Easy`, `Normal`, `Hard`, `Nightmare`), and switch between Cards and Table views.
 
 > Not affiliated with the U.S. Diversity Visa (DV) program. This site offers no visa services.
 
@@ -29,7 +29,7 @@ Draw weights: annual live births 2024, UN World Population Prospects 2024.
 
 - Bilingual **English / Arabic** (`EN / AR`) with auto-detection and `?lang=en|ar` deep links
 - **Start From Zero Simulator** with 4 interactive steps & **Split VS Card PNG** export (`1200×675`)
-- **33 countries** including major global indie hacker hubs (Brazil, Indonesia, Philippines, Turkey, Poland, Ukraine, Mexico, Kenya, UAE, Saudi Arabia, Lebanon, plus original 22)
+- **35 countries** including China, Russia, and major global indie hacker hubs (Brazil, Indonesia, Philippines, Turkey, Poland, Ukraine, Mexico, Kenya, UAE, Saudi Arabia, Lebanon, plus original 22)
 - Shareable comparison URLs (`?a=DZA&b=NLD`) and challenge URLs (`#challenge-ISO-N`)
 - Optional zero-dependency global draw counter in `counter/`
 

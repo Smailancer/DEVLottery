@@ -22,13 +22,13 @@ const COUNTRIES = {
   NLD:["Netherlands",100,0.61,185], DEU:["Germany",100,0.69,185], FRA:["France",100,0.85,185],
   CHE:["Switzerland",100,0.38,185], JPN:["Japan",100,1.08,187], SGP:["Singapore",100,0.51,192],
   ARE:["UAE",100,0.81,187], POL:["Poland",100,1.63,183], MEX:["Mexico",100,3.02,156],
-  BRA:["Brazil",100,3.94,168], SAU:["Saudi Arabia",30,1.15,87], IND:["India",75,15.04,56],
+  BRA:["Brazil",100,3.94,168], SAU:["Saudi Arabia",30,1.15,87], CHN:["China",60,2.92,82], IND:["India",75,15.04,56],
   NGA:["Nigeria",75,32.47,44], KEN:["Kenya",75,18.87,69], IDN:["Indonesia",75,8.11,70],
   PHL:["Philippines",30,8.56,65], TUR:["Turkey",30,2.55,113], UKR:["Ukraine",30,7.54,142],
   PAK:["Pakistan",30,27.68,31], BGD:["Bangladesh",30,14.62,36], EGY:["Egypt",60,12.74,49],
   ETH:["Ethiopia",30,43.47,42], MAR:["Morocco",60,9.52,71], TUN:["Tunisia",60,9.66,66],
   DZA:["Algeria",30,12.55,55], ARG:["Argentina",30,2.97,168], LBN:["Lebanon",30,11.66,43],
-  IRN:["Iran",0,13.88,38], VEN:["Venezuela",0,12.58,116], SYR:["Syria",0,71.00,26]
+  RUS:["Russia",0,2.61,111], IRN:["Iran",0,13.88,38], VEN:["Venezuela",0,12.58,116], SYR:["Syria",0,71.00,26]
 };
 
 const lmin = Math.log1p(0.38), lmax = Math.log1p(71);
