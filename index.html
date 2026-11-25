@@ -107,6 +107,20 @@ canvas.scratch:active{cursor:grabbing}
 .sim-verdict .btn:hover,.sim-verdict button:hover{background:#111;color:#F2C230}
 .respect-bar{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border:2px dashed var(--line);background:var(--bg);font-size:15px}
 .respect-bar button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+/* Phase 1: Country Survival Playbook & Community */
+.surv-box{border:2px solid var(--line);background:var(--card);padding:clamp(18px,3vw,28px);margin-top:24px;box-shadow:6px 6px 0 var(--line)}
+.surv-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;padding-bottom:16px;border-bottom:2px dashed var(--line)}
+.surv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+.surv-card{border:2px solid var(--line);background:var(--bg);padding:16px;display:flex;flex-direction:column;gap:8px}
+.surv-card h3{margin:0;font-size:17px;line-height:1.3}
+.surv-card p{margin:0;font-size:14px;color:var(--mute)}
+.surv-card ul{margin:6px 0 0;padding-inline-start:18px;font-size:14px;display:grid;gap:6px}
+.alt-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.alt-chip{border:1px solid var(--line);background:var(--card);padding:4px 9px;font-size:13px;font-weight:700;cursor:pointer;min-height:32px}
+.alt-chip:hover{background:var(--gold);color:#111;border-color:#111}
+.comm-bar{margin-top:20px;border:2px solid var(--line);background:var(--bg);padding:16px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px}
+.comm-bar p{margin:4px 0 0;font-size:14px;color:var(--mute);max-width:58ch}
+@media(max-width:920px){.surv-grid{grid-template-columns:minmax(0,1fr)}}
 /* Compare & Index */
 .compare{border:2px solid var(--line);background:var(--card);padding:20px;margin:24px 0}
 .pickers{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
@@ -193,6 +207,7 @@ canvas.scratch{display:none!important}
 <div class="links">
 <a href="#draw" data-t="navDraw">Lottery</a>
 <a href="#playbook" data-t="navPlaybook">Start From Zero</a>
+<a href="#survival" data-t="navSurvival">Survival Guide</a>
 <a href="#index" data-t="navIndex">Index</a>
 <a href="#method" data-t="navMethod">Method</a>
 <button type="button" class="mini-btn" id="langBtn" aria-label="Switch language">عربي</button>
@@ -287,6 +302,35 @@ canvas.scratch{display:none!important}
 <div class="respect-bar">
 <span id="respectText"></span>
 <button type="button" id="respectBtn" aria-pressed="false"></button>
+</div>
+</div>
+</div></section>
+
+<section id="survival" class="band" style="border-top:2px solid var(--line)"><div class="wrap">
+<span class="kicker" data-t="survKicker">HARD MODE SURVIVAL PLAYBOOK</span>
+<h2 data-t="survH2">How builders actually ship from your starting line</h2>
+<p style="max-width:72ch" data-t="survIntro">When Stripe-only platforms or hackathons (like TrustMRR) lock you out before you write a line of code, you need real workarounds — and a clearer map of easier launchpads beyond just the US or Western Europe.</p>
+
+<div class="surv-box">
+<div class="surv-top">
+<div class="pickers">
+<label for="survSel" data-t="survPick">Survival playbook for</label><select id="survSel"></select>
+<span id="survBadge"></span>
+</div>
+<a class="btn mini-btn" id="survDiscussTop" href="https://github.com/Smailancer/DEVLottery/discussions" target="_blank" rel="noopener noreferrer" data-t="survJoin">Join Community Discussions ↗</a>
+</div>
+
+<div class="surv-grid" id="survGrid"></div>
+
+<div class="comm-bar">
+<div>
+<b data-t="commTitle">Share your daily friction & verified workarounds</b>
+<p data-t="commDesc">Found a payout method that works, a bank that didn't block your transfer, or a better local FX source? Share it with builders in your difficulty tier.</p>
+</div>
+<div class="actions" style="margin:0">
+<a class="btn primary" style="min-height:46px;font-size:16px" id="shareExpBtn" href="https://github.com/Smailancer/DEVLottery/discussions" target="_blank" rel="noopener noreferrer" data-t="shareExpBtn">Share Your Experience ↗</a>
+<a class="btn" id="reportDataBtn" href="https://github.com/Smailancer/DEVLottery/issues/new" target="_blank" rel="noopener noreferrer" data-t="reportDataBtn">Report Data Correction</a>
+</div>
 </div>
 </div>
 </div></section>
@@ -414,7 +458,7 @@ const PAGE=location.origin+location.pathname;
 const T={
   en:{
     title:"DEV Lottery · Same Hustle, Different Spawn Point",
-    navDraw:"Lottery",navPlaybook:"Start From Zero",navIndex:"Index",navMethod:"Method",langBtn:"عربي",
+    navDraw:"Lottery",navPlaybook:"Start From Zero",navSurvival:"Survival Guide",navIndex:"Index",navMethod:"Method",langBtn:"عربي",
     kicker:"INDIE HACKER SPAWN DIFFICULTY",
     heroH1:"Same hustle. Different spawn point.",
     heroQ:"What if you were born in…?",
@@ -445,11 +489,18 @@ const T={
     foot2:"Not affiliated with the U.S. Diversity Visa (DV) program. This site offers no visa services.",
     tickerLead:"WORLD BIRTHS 2024:",yourCountry:"Your real passport",sameSkills:"Same skills in",
     compareBtn:"+ Compare",hoursLabel:"$20/mo hours (lower is better)",
-    respectBtn:"I'm shipping from Hard Mode 🫡",respectDone:"Saluted! Keep shipping 🫡"
+    respectBtn:"I'm shipping from Hard Mode 🫡",respectDone:"Saluted! Keep shipping 🫡",
+    survKicker:"HARD MODE SURVIVAL PLAYBOOK",
+    survH2:"How builders actually ship from your starting line",
+    survIntro:"When Stripe-only platforms or hackathons (like TrustMRR) lock you out before you write a line of code, you need real workarounds — and a clearer map of easier launchpads beyond just the US or Western Europe.",
+    survPick:"Survival playbook for",survJoin:"Join Community Discussions ↗",
+    commTitle:"Share your daily friction & verified workarounds",
+    commDesc:"Found a payout method that works, a bank that didn't block your transfer, or a better local FX source? Share it with builders in your difficulty tier.",
+    shareExpBtn:"Share Your Experience ↗",reportDataBtn:"Report Data Correction"
   },
   ar:{
     title:"DEV Lottery · المهارات نفسها، خط البداية مختلف",
-    navDraw:"اليانصيب",navPlaybook:"محاكي الصفر",navIndex:"المؤشر",navMethod:"المنهجية",langBtn:"EN",
+    navDraw:"اليانصيب",navPlaybook:"محاكي الصفر",navSurvival:"دليل النجاة",navIndex:"المؤشر",navMethod:"المنهجية",langBtn:"EN",
     kicker:"مستوى صعوبة المطور حسب الولادة",
     heroH1:"المهارات نفسها. نقطة البداية مختلفة.",
     heroQ:"ماذا لو وُلدتَ في…؟",
@@ -480,7 +531,14 @@ const T={
     foot2:"لا علاقة لهذا الموقع ببرنامج تأشيرة التنوع الأمريكي (DV Lottery)، ولا يقدّم أي خدمة تأشيرات.",
     tickerLead:"مواليد العالم 2024:",yourCountry:"بلدك الحقيقي",sameSkills:"بالمهارات نفسها في",
     compareBtn:"+ قارن",hoursLabel:"ساعات 20$ (الأقل أفضل)",
-    respectBtn:"أنا أبني من المستوى الصعب 🫡",respectDone:"تحية لك! استمر في البناء 🫡"
+    respectBtn:"أنا أبني من المستوى الصعب 🫡",respectDone:"تحية لك! استمر في البناء 🫡",
+    survKicker:"دليل النجاة ومجتمع المستوى الصعب",
+    survH2:"كيف يبني المطورون ويطلقون مشاريعهم من خط بدايتك؟",
+    survIntro:"حين تستبعدك منصات أو هاكاثونات تشترط Stripe (مثل TrustMRR) قبل أن تكتب سطر كود واحداً، تحتاج لحلول واقعية مجرّبة — وخريطة أوسع لأماكن بناء أسهل خارج أمريكا وأوروبا الغربية فقط.",
+    survPick:"دليل النجاة لدولة",survJoin:"انضم لنقاشات المجتمع ↗",
+    commTitle:"شارك معاناتك اليومية وحلولك المجرّبة",
+    commDesc:"هل وجدت طريقة قبض تعمل في بلدك، أو بديلاً عملياً لأدوات مكلفة، أو تصحيحاً لسعر صرف؟ شاركها مع المطورين في نفس مستوى صعوبتك.",
+    shareExpBtn:"شارك تجربتك وحلولك ↗",reportDataBtn:"بلّغ عن تصحيح رقم"
   }
 };
 
@@ -565,10 +623,12 @@ function fillSelects(){
   const opts=sorted.map(c=>'<option value="'+c.iso+'">'+c.flag+' '+cname(c)+'</option>').join("");
   const keepHome=home,keepPA=$("pA").value||(by[qA]?qA:(home||"DZA")),keepPB=$("pB").value||(by[qB]?qB:(keepPA==="NLD"?"DZA":"NLD"));
   const keepSA=$("simA").value||(by[qA]?qA:(home||"DZA")),keepSB=$("simB").value||(by[qB]?qB:(keepSA==="NLD"?"DZA":"NLD"));
+  const keepSurv=$("survSel").value||keepSA;
   $("home").innerHTML='<option value="">'+L("pickCountry")+'</option>'+opts;
   $("home").value=keepHome;
   $("pA").innerHTML=opts;$("pB").innerHTML=opts;$("pA").value=keepPA;$("pB").value=keepPB;
   $("simA").innerHTML=opts;$("simB").innerHTML=opts;$("simA").value=keepSA;$("simB").value=keepSB;
+  $("survSel").innerHTML=opts;$("survSel").value=keepSurv;
 }
 
 function renderTicker(){
@@ -635,12 +695,12 @@ function stepEval(stepIdx,c){
 function simMeta(){
   return lang==="ar"?[
     ["01","حزمة أدوات الذكاء الاصطناعي ($80/شهر)","Cursor + Claude + استضافة + نطاق شهرياً"],
-    ["02","اربط Stripe واقبض أول 1$","«فقط ضع رابط Stripe على صفحة الهبوط»"],
+    ["02","اربط Stripe واقبض أول 1$","«فقط ضع رابط Stripe أو اربط TrustMRR للمشاركة في الهاكاثون»"],
     ["03","تذكرة ذهاب لبالي لبدء البناء","«احجز تذكرة إلى شرق آسيا وانطلق من الصفر»"],
     ["04","احضر YC أو مؤتمراً في سان فرانسيسكو","لقاء المستثمرين والمؤسسين وجهاً لوجه"]
   ]:[
     ["01","Pay the $80/mo AI Indie Stack","Cursor + Claude + Hosting + Domain every month"],
-    ["02","Connect Stripe for your first $1","\"Just slap a Stripe Checkout link on your landing page\""],
+    ["02","Connect Stripe for your first $1","\"Just add Stripe Checkout — or connect TrustMRR to join a hackathon\""],
     ["03","Buy a ticket to Bali & grind","\"Just fly to Southeast Asia and build from zero\""],
     ["04","Fly to San Francisco for YC / Tech Conf","Meet founders, customers & investors in person"]
   ];
@@ -714,8 +774,93 @@ $("runSimBtn").addEventListener("click",()=>{
     setTimeout(()=>{simDone[i]=true;renderSim()},still?0:i*160);
   });
 });
-$("simA").addEventListener("change",()=>{simDone=[true,true,true,true];renderSim()});
+$("simA").addEventListener("change",()=>{simDone=[true,true,true,true];$("survSel").value=$("simA").value;renderSim();renderSurvival()});
 $("simB").addEventListener("change",()=>{simDone=[true,true,true,true];renderSim()});
+
+/* Phase 1: Country Survival Playbook */
+const ALT_HUBS=["ARE","SGP","POL","JPN","MEX","BRA"];
+function renderSurvival(){
+  const c=by[$("survSel").value]||by.DZA;
+  const isAr=lang==="ar";
+  $("survBadge").innerHTML='<span class="tier t-'+c.tierKey+'">'+ctier(c)+' · <span class="num">'+c.score+'/100</span></span>';
+
+  let payItems=[];
+  if(c.earn===100){
+    payItems=isAr?[
+      "حساب Stripe مباشر متاح في بلدك دون الحاجة لتأسيس شركة أجنبية.",
+      "يمكنك ربط منصات التحقق من الإيرادات (مثل TrustMRR) والهاكاثونات مباشرةً.",
+      "يمكنك مساعدة مطوري «المستوى الصعب» بمشاركة تجربتك في المجتمع أدناه."
+    ]:[
+      "Direct Stripe is available in your country — no foreign LLC required.",
+      "Stripe-dependent verifiers and hackathons (like TrustMRR) work out of the box.",
+      "Consider mentoring or sharing feedback with Hard Mode builders in the discussions below."
+    ];
+  }else if(c.earn===75){
+    payItems=isAr?[
+      "الوضع الحالي: "+cnote(c)+" — قد يتطلب دعوة خاصة أو يخضع لقيود تحويل العملة.",
+      "بديل سريع من اليوم الأول: استخدم Paddle (تاجر مسجّل MoR) لتفادي تعقيد الضرائب والانتظار.",
+      "إن احتجت Stripe كاملاً للهاكاثونات أو منصات مثل TrustMRR: فكّر في Stripe Atlas (500$) فقط بعد التحقق من الطلب."
+    ]:[
+      "Current rail: "+cnote(c)+" — may require invite approval or face local FX rules.",
+      "Day-1 alternative: Paddle (Merchant of Record) handles global VAT/taxes with no foreign company.",
+      "If a hackathon/platform requires direct Stripe (e.g. TrustMRR): only invest in Stripe Atlas ($500) once you validate demand."
+    ];
+  }else if(c.earn===60||c.earn===30){
+    payItems=isAr?[
+      "الوضع الحالي: "+cnote(c)+" — المنصات والهاكاثونات التي تشترط Stripe (مثل TrustMRR) مغلقة أمامك افتراضياً.",
+      "المسار الأول (0$ مبدئياً): استخدم Paddle كـ Merchant of Record لقبول البطاقات العالمية وPayPal دون شركة أمريكية.",
+      "المسار الثاني (عند النمو): تأسيس شركة أمريكية عبر Stripe Atlas (500$ ثم 100$/سنة) لفتح Stripe وحساب بنكي أمريكي."
+    ]:[
+      "Current rail: "+cnote(c)+" — Stripe-only platforms and hackathons (like TrustMRR) block you by default.",
+      "Path A ($0 upfront): Start with Paddle (Merchant of Record) to accept global cards & PayPal without a US LLC.",
+      "Path B (Once validated): Form a US company via Stripe Atlas ($500 + $100/yr) to unlock direct Stripe & US banking."
+    ];
+  }else{
+    payItems=isAr?[
+      "الوضع الحالي: "+cnote(c)+" — بوابات الدفع العالمية مغلقة بسبب العقوبات.",
+      "التركيز العملي: بناء سمعة علنية عبر المساهمات مفتوحة المصدر، أو العمل مع عملاء محليين/إقليميين، أو استكشاف مسارات الانتقال القانوني.",
+      "اطّلع على تجارب المطورين في نقاشات المجتمع لمعرفة المسارات القانونية المتاحة."
+    ]:[
+      "Current rail: "+cnote(c)+" — global payment rails are closed due to sanctions.",
+      "Practical focus: build public proof-of-work via open source, local/regional clients, or legal relocation paths.",
+      "Check community discussions below for real builder stories and legal paths."
+    ];
+  }
+
+  const h80=c.hours*4;
+  const stackItems=isAr?[
+    "حزمة AI القياسية (80$/شهر) تساوي "+fh(h80)+" عمل شهرياً في "+c.ar+" — لا تدفعها قبل أول مستخدم حقيقي.",
+    "ابدأ باستضافة مجانية (GitHub Pages / Cloudflare Pages) وبملف واحد خفيف بلا خوادم مكلفة.",
+    "اعتمد على النماذج المجانية أو مفتوحة المصدر للتطوير الأولي، واستثمر في الاشتراكات المدفوعة بعد أول عائد."
+  ]:[
+    "An $80/mo AI stack costs "+fh(h80)+" of work/mo in "+c.en+" — don't pay it before validating with real users.",
+    "Ship on $0 infrastructure first (GitHub Pages / Cloudflare Pages) with lean static or serverless architecture.",
+    "Use free tiers & open-weight models for your MVP; upgrade tools only after your first paying users."
+  ];
+
+  const alts=ALT_HUBS.filter(iso=>iso!==c.iso&&by[iso]).map(iso=>by[iso]);
+  const altChips=alts.map(x=>'<button type="button" class="alt-chip" data-alt="'+x.iso+'">'+x.flag+' '+cname(x)+' · <span class="num">'+x.score+'</span></button>').join("");
+
+  $("survGrid").innerHTML=
+    '<div class="surv-card"><h3>'+(isAr?'1. قبض المال والهاكاثونات (Stripe / TrustMRR)':'1. Payouts & Stripe-only Hackathons')+'</h3><ul>'+payItems.map(i=>'<li>'+i+'</li>').join("")+'</ul></div>'
+    +'<div class="surv-card"><h3>'+(isAr?'2. تقليص «ضريبة الأدوات» قبل أول دولار':'2. Cutting the Tool Tax before $1')+'</h3><ul>'+stackItems.map(i=>'<li>'+i+'</li>').join("")+'</ul></div>'
+    +'<div class="surv-card"><h3>'+(isAr?'3. محطات بناء أسهل خارج أمريكا وأوروبا':'3. Easier Launchpads Beyond US & Western Europe')+'</h3><p>'+(isAr?'ليست أمريكا وأوروبا الغربية الخيار الوحيد للبناء على «مستوى سهل» مع Stripe مباشر. انقر على أي محطة لمقارنتها ببلدك:':'The US and Western Europe are not the only «Easy» launchpads with direct Stripe. Click any hub to compare it with '+c.en+':')+'</p><div class="alt-chips">'+altChips+'</div></div>';
+
+  const dTitle=encodeURIComponent("["+c.iso+" · "+c.tierEn+" Mode] Builder experience & workarounds from "+c.en);
+  const dBody=encodeURIComponent("Country: "+c.flag+" "+c.en+" ("+c.score+"/100 — "+c.tierEn+" Mode)\n\n1. Biggest daily friction:\n\n2. Payout / tool workaround that actually worked for me:\n\n3. What I'm shipping:");
+  $("shareExpBtn").href="https://github.com/Smailancer/DEVLottery/discussions/new?category=general&title="+dTitle+"&body="+dBody;
+  const iTitle=encodeURIComponent("Data correction: "+c.en+" ("+c.iso+")");
+  const iBody=encodeURIComponent("Country: "+c.en+" ("+c.iso+")\nField to correct (Earn / Buy / Move / Births):\nVerified source URL:");
+  $("reportDataBtn").href="https://github.com/Smailancer/DEVLottery/issues/new?title="+iTitle+"&body="+iBody;
+}
+$("survSel").addEventListener("change",renderSurvival);
+$("survGrid").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-alt]");if(!b)return;
+  const alt=b.dataset.alt,curIso=$("survSel").value;
+  $("simA").value=curIso;$("simB").value=alt;$("pA").value=curIso;$("pB").value=alt;
+  simDone=[true,true,true,true];renderSim();compare();
+  $("playbook").scrollIntoView({behavior:still?"auto":"smooth",block:"start"});
+});
 
 /* draw & scratch */
 const sc=$("scratch"),ctx=sc.getContext("2d",{willReadFrequently:true});
@@ -867,6 +1012,7 @@ $("home").addEventListener("change",()=>{
   if(home){
     $("pA").value=home;if($("pB").value===home)$("pB").value=home==="NLD"?"DZA":"NLD";compare();
     $("simA").value=home;if($("simB").value===home)$("simB").value=home==="NLD"?"DZA":"NLD";renderSim();
+    $("survSel").value=home;renderSurvival();
   }
   const ref=refFor(revealed?cur:null);setStub(ref);
   if(revealed&&cur)$("share").href="https://x.com/intent/post?text="+encodeURIComponent(shareText(cur,ref,lastEscapeN));
@@ -1069,6 +1215,7 @@ function applyLang(){
   compare();
   table();
   renderSim();
+  renderSurvival();
   if(cur){
     renderTicketBody(cur);
     if(revealed){

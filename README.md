@@ -7,7 +7,8 @@
 DEV Lottery measures how unequal the starting line is for software developers and indie hackers, country by country — built in one zero-dependency HTML file (`EN / AR`).
 
 - **Birth Lottery**: spin to respawn using real UN birth odds, scratch your ticket, or click **Spin until «Easy»** to challenge friends.
-- **"Start From Zero" Simulator**: test the classic 4-step indie hacker playbook from your passport vs. the Netherlands — paying an `$80/mo` AI stack, connecting Stripe, flying to Bali, and attending a San Francisco tech conference — then export a **Split VS Card PNG** for X.
+- **"Start From Zero" Simulator**: test the classic 4-step indie hacker playbook from your passport vs. the Netherlands — paying an `$80/mo` AI stack, connecting Stripe (or Stripe-only hackathons like TrustMRR), flying to Bali, and attending a San Francisco tech conference — then export a **Split VS Card PNG** for X.
+- **Hard Mode Survival Guide & Community**: practical country-specific payout & tool-tax playbooks, easier launchpads beyond the US & Western Europe, and pre-tagged GitHub Discussions for builders to share verified local workarounds.
 - **Starting Line Index**: compare any 2 of **33 countries** (covering ~56% of world births), filter by difficulty (`Easy`, `Normal`, `Hard`, `Nightmare`), and switch between Cards and Table views.
 
 > Not affiliated with the U.S. Diversity Visa (DV) program. This site offers no visa services.
