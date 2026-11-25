@@ -130,8 +130,14 @@ canvas.scratch:active{cursor:grabbing}
 .b-handle:hover{text-decoration:underline}
 .b-ref-tag{font-size:11px;font-weight:700;padding:2px 7px;border:1px solid var(--line);background:var(--bg);color:var(--mute);text-transform:uppercase}
 .b-note{margin:0;font-size:14px;line-height:1.55}
-.b-foot{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}
+.b-foot{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;font-size:13px}
 .b-foot a{font-weight:700;color:inherit}
+.b-tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border:1px solid var(--line);background:var(--bg);color:var(--mute)}
+.vote-btn{min-height:32px;padding:0 10px;font-size:12px;border:1px solid var(--line)}
+.vote-btn[aria-pressed=true]{background:var(--gold);color:#111;border-color:#111}
+.badge-box{border:2px solid var(--line);background:var(--card);padding:20px;margin-top:22px;display:flex;flex-direction:column;gap:14px}
+.badge-preview{padding:14px;border:2px dashed var(--line);background:var(--bg);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.badge-code{font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--bg);border:1px solid var(--line);padding:10px 12px;overflow-x:auto;white-space:nowrap;direction:ltr;text-align:left;user-select:all}
 .b-form{border:2px solid var(--line);background:var(--card);padding:20px;margin-top:22px;box-shadow:5px 5px 0 var(--line)}
 .b-form h3{margin:0 0 6px;font-size:20px}
 .b-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
@@ -355,8 +361,27 @@ canvas.scratch{display:none!important}
 <h2 data-t="commH2">Builders shipping from every difficulty mode</h2>
 <p style="max-width:72ch" data-t="commIntro">Compare famous Easy Mode reference spawns with real developers building their way out of Hard & Nightmare Mode — sharing daily friction, payout workarounds, and shipped products.</p>
 
+<div class="toolbar">
 <div class="filters" role="group" aria-label="Filter builders by mode" id="bFilters"></div>
+<div class="pickers"><label for="bCountryFilter" class="sr-only" data-t="bfCountry">Country</label><select id="bCountryFilter"></select></div>
+</div>
 <div class="b-grid" id="bGrid"></div>
+
+<div class="badge-box" id="badgeWidget">
+<div>
+<h3 style="margin:0 0 4px;font-size:20px" data-t="badgeTitle">Embed your «Shipping from Mode» badge</h3>
+<p class="note" style="margin:0" data-t="badgeSub">Add your live SVG difficulty badge to your GitHub README or personal site.</p>
+</div>
+<div class="badge-preview">
+<div class="pickers"><label for="badgeSel" data-t="bfCountry">Country</label><select id="badgeSel"></select></div>
+<div id="badgeSvgPreview" style="line-height:0"></div>
+</div>
+<div class="badge-code" id="badgeMdCode"></div>
+<div class="actions" style="margin:0">
+<button type="button" class="mini-btn" id="copyBadgeMd" data-t="copyBadgeMd">Copy GitHub Markdown</button>
+<button type="button" class="mini-btn" id="copyBadgeHtml" data-t="copyBadgeHtml">Copy HTML</button>
+</div>
+</div>
 
 <form class="b-form" id="bForm">
 <h3 data-t="bFormTitle">Add your builder profile</h3>
@@ -365,8 +390,9 @@ canvas.scratch{display:none!important}
 <label><span data-t="bfName">Your name</span><input id="bfName" required maxlength="48" placeholder="Smail"></label>
 <label><span data-t="bfHandle">X / GitHub handle (optional)</span><input id="bfHandle" maxlength="40" placeholder="@smailancer"></label>
 <label><span data-t="bfCountry">Country</span><select id="bfCountry" required></select></label>
+<label><span data-t="bfTag">Topic</span><select id="bfTag"></select></label>
 <label><span data-t="bfProject">Project name (optional)</span><input id="bfProject" maxlength="60" placeholder="DEV Lottery"></label>
-<label class="full"><span data-t="bfUrl">Project URL (optional)</span><input id="bfUrl" type="url" maxlength="200" placeholder="https://..."></label>
+<label><span data-t="bfUrl">Project URL (optional)</span><input id="bfUrl" type="url" maxlength="200" placeholder="https://..."></label>
 <label class="full"><span data-t="bfNote">Daily friction or workaround that helped you</span><textarea id="bfNote" required maxlength="240" placeholder="No Stripe in Algeria — building with Paddle & zero-cost stack..."></textarea></label>
 </div>
 <div class="actions">
@@ -547,8 +573,12 @@ const T={
     commIntro:"Compare famous Easy Mode reference spawns with real developers building their way out of Hard & Nightmare Mode — sharing daily friction, payout workarounds, and shipped products.",
     bFormTitle:"Add your builder profile",
     bFormSub:"Your spawn mode is calculated automatically from your country. Share what you're building and the workaround helping you ship.",
-    bfName:"Your name",bfHandle:"X / GitHub handle (optional)",bfCountry:"Country",bfProject:"Project name (optional)",bfUrl:"Project URL (optional)",
+    bfName:"Your name",bfHandle:"X / GitHub handle (optional)",bfCountry:"Country",bfTag:"Topic",bfProject:"Project name (optional)",bfUrl:"Project URL (optional)",
     bfNote:"Daily friction or workaround that helped you",bfSubmit:"Publish Profile",
+    allCountries:"All countries",workedBtn:"Worked for me ✓",
+    badgeTitle:"Embed your «Shipping from Mode» badge",
+    badgeSub:"Add your live SVG difficulty badge to your GitHub README or personal site.",
+    copyBadgeMd:"Copy GitHub Markdown",copyBadgeHtml:"Copy HTML",
     refTag:"Reference · Easy Mode",refFilter:"Reference (Easy)",
     qKicker:"THE OVARIAN LOTTERY",qH2:"Even the luckiest builders admit it",
     qIntro:"Acknowledging where you started doesn't diminish hard work — some of the most successful figures in business and tech have said so openly."
@@ -596,8 +626,12 @@ const T={
     commIntro:"قارن بين نقاط انطلاق مشاهير الـ Indie Hacking (المستوى السهل) وبين مطورين حقيقيين يبتكرون حلولاً للخروج من صعوبة خط البداية — يشاركون معاناتهم اليومية وتجاربهم ومشاريعهم.",
     bFormTitle:"أضف بروفايلك كمطوّر",
     bFormSub:"يُحسب مستوى الصعوبة (Mode) تلقائياً حسب بلدك. شاركنا ما تبنيه والحل الذي ساعدك على تجاوز العقبات.",
-    bfName:"الاسم",bfHandle:"حساب X أو GitHub (اختياري)",bfCountry:"الدولة",bfProject:"اسم المشروع (اختياري)",bfUrl:"رابط المشروع (اختياري)",
+    bfName:"الاسم",bfHandle:"حساب X أو GitHub (اختياري)",bfCountry:"الدولة",bfTag:"التصنيف",bfProject:"اسم المشروع (اختياري)",bfUrl:"رابط المشروع (اختياري)",
     bfNote:"أكبر عقبة يومية أو الحل الذي ساعدك",bfSubmit:"انشر البروفايل",
+    allCountries:"كل الدول",workedBtn:"نجحت معي ✓",
+    badgeTitle:"ضمّن شارة «Shipping from Mode» في حسابك",
+    badgeSub:"أضف شارة مستوى الصعوبة الحية (SVG) إلى ملف GitHub README أو موقعك الشخصي.",
+    copyBadgeMd:"انسخ كود GitHub Markdown",copyBadgeHtml:"انسخ كود HTML",
     refTag:"مرجعي · سهل",refFilter:"حسابات مرجعية (سهل)",
     qKicker:"يانصيب الولادة",qH2:"حتى أنجح الناس في العالم يعترفون بها",
     qIntro:"الاعتراف بميزة خط البداية لا يقلل من قيمة الاجتهاد — بل إن أبرز رموز الأعمال والتقنية صرّحوا بذلك علناً."
@@ -685,13 +719,17 @@ function fillSelects(){
   const opts=sorted.map(c=>'<option value="'+c.iso+'">'+c.flag+' '+cname(c)+'</option>').join("");
   const keepHome=home,keepPA=$("pA").value||(by[qA]?qA:(home||"DZA")),keepPB=$("pB").value||(by[qB]?qB:(keepPA==="NLD"?"DZA":"NLD"));
   const keepSA=$("simA").value||(by[qA]?qA:(home||"DZA")),keepSB=$("simB").value||(by[qB]?qB:(keepSA==="NLD"?"DZA":"NLD"));
-  const keepSurv=$("survSel").value||keepSA,keepBf=$("bfCountry").value||keepSA;
+  const keepSurv=$("survSel").value||keepSA,keepBf=$("bfCountry").value||keepSA,keepBC=$("bCountryFilter").value||"",keepBadge=$("badgeSel").value||keepSA,keepTag=$("bfTag").value||"shipping";
   $("home").innerHTML='<option value="">'+L("pickCountry")+'</option>'+opts;
   $("home").value=keepHome;
   $("pA").innerHTML=opts;$("pB").innerHTML=opts;$("pA").value=keepPA;$("pB").value=keepPB;
   $("simA").innerHTML=opts;$("simB").innerHTML=opts;$("simA").value=keepSA;$("simB").value=keepSB;
   $("survSel").innerHTML=opts;$("survSel").value=keepSurv;
   $("bfCountry").innerHTML=opts;$("bfCountry").value=keepBf;
+  $("bCountryFilter").innerHTML='<option value="">'+L("allCountries")+'</option>'+opts;$("bCountryFilter").value=keepBC;
+  $("badgeSel").innerHTML=opts;$("badgeSel").value=keepBadge;
+  const tagOpts=[["payouts",lang==="ar"?"قبض المال وStripe":"Payouts & Stripe"],["tools",lang==="ar"?"أدوات وتكاليف AI":"Tools & AI Costs"],["relocation",lang==="ar"?"الانتقال والبدائل":"Relocation & Hubs"],["shipping",lang==="ar"?"إطلاق مشروع":"Shipping Product"]];
+  $("bfTag").innerHTML=tagOpts.map(([k,l])=>'<option value="'+k+'">'+l+'</option>').join("");$("bfTag").value=keepTag;
 }
 
 function renderTicker(){
@@ -951,37 +989,73 @@ const VERIFIED_QUOTES=[
   }
 ];
 
-let communityBuilders=[],bFilter="all";
+let communityBuilders=[],bFilter="all",votedIds=new Set();
 try{const loc=JSON.parse(localStorage.getItem("devlottery-builders")||"[]");if(Array.isArray(loc))communityBuilders=loc}catch{}
+try{const v=JSON.parse(localStorage.getItem("devlottery-votes")||"[]");if(Array.isArray(v))votedIds=new Set(v)}catch{}
 function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
+const TAG_LABEL={
+  payouts:{en:"Payouts",ar:"قبض المال"},
+  tools:{en:"Tools",ar:"أدوات وتكاليف"},
+  relocation:{en:"Relocation",ar:"بدائل وانتقال"},
+  shipping:{en:"Shipping",ar:"إطلاق مشروع"}
+};
 
 function renderBFilters(){
   const items=[["all",L("all")],["nightmare",lang==="ar"?"كابوس":"Nightmare"],["hard",lang==="ar"?"صعب":"Hard"],["normal",lang==="ar"?"عادي":"Normal"],["easy",lang==="ar"?"سهل":"Easy"],["ref",L("refFilter")]];
   $("bFilters").innerHTML=items.map(([k,l])=>'<button type="button" data-bf="'+k+'" aria-pressed="'+(k===bFilter)+'">'+l+'</button>').join("");
 }
 function renderBuilders(){
+  const cFilt=$("bCountryFilter").value;
   const all=[...communityBuilders,...REF_BUILDERS];
   const list=all.filter(b=>{
     const c=by[b.iso];if(!c)return false;
+    if(cFilt&&b.iso!==cFilt)return false;
     if(bFilter==="all")return true;
     if(bFilter==="ref")return !!b.ref;
     return c.tierKey===bFilter;
   });
+  if(!list.length){
+    $("bGrid").innerHTML='<p class="note" style="grid-column:1/-1;margin:8px 0">'+(lang==="ar"?"لا توجد بروفايلات مطابقة لهذا الفلتر بعد — كن أول من يشارك تجربته أدناه!":"No profiles match this filter yet — be the first to share your experience below!")+'</p>';
+    return;
+  }
   $("bGrid").innerHTML=list.map(b=>{
     const c=by[b.iso];
     const hLink=b.handle?'<a class="b-handle" href="https://x.com/'+encodeURIComponent(b.handle)+'" target="_blank" rel="noopener noreferrer">@'+esc(b.handle)+'</a>':'';
     const note=b.ref?(lang==="ar"?b.noteAr:b.noteEn):esc(b.note);
     const proj=b.project?(b.url?'<a href="'+esc(b.url)+'" target="_blank" rel="noopener noreferrer">'+esc(b.project)+' ↗</a>':'<b>'+esc(b.project)+'</b>'):'';
+    const tInfo=TAG_LABEL[b.tag||"shipping"]||TAG_LABEL.shipping;
+    const isVoted=b.id&&votedIds.has(b.id);
+    const voteBtn=b.ref?'<span class="note">'+ctier(c)+'</span>':'<button type="button" class="vote-btn" data-vote="'+esc(b.id)+'" aria-pressed="'+(isVoted?"true":"false")+'">'+L("workedBtn")+' <span class="num">'+(Number(b.votes)||0)+'</span></button>';
     return '<article class="b-card'+(b.ref?' is-ref':'')+'">'
       +'<div class="b-head"><div><div class="b-name">'+esc(b.name)+'</div>'+hLink+'</div>'
       +(b.ref?'<span class="b-ref-tag">'+L("refTag")+'</span>':'<span class="tier t-'+c.tierKey+'" style="font-size:12px">'+ctier(c)+'</span>')
       +'</div>'
-      +'<div style="display:flex;align-items:center;gap:8px;font-size:14px"><b>'+c.flag+' '+cname(c)+'</b><span class="note num">'+c.score+'/100</span></div>'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:14px"><span><b>'+c.flag+' '+cname(c)+'</b> <span class="note num">'+c.score+'/100</span></span>'+(b.ref?'':'<span class="b-tag">'+(lang==="ar"?tInfo.ar:tInfo.en)+'</span>')+'</div>'
       +'<p class="b-note">'+note+'</p>'
-      +'<div class="b-foot"><span>'+proj+'</span><span class="note">'+(b.ref?ctier(c):(b.createdAt||""))+'</span></div>'
+      +'<div class="b-foot"><span>'+proj+'</span>'+voteBtn+'</div>'
       +'</article>';
   }).join("");
 }
+function renderBadgeWidget(){
+  const c=by[$("badgeSel").value]||by.DZA;
+  const tierColors={easy:["EASY MODE","#F2C230","#111111"],normal:["NORMAL MODE","#FBF9F3","#111111"],hard:["HARD MODE","#2B2924","#F0EDE5"],nightmare:["NIGHTMARE MODE","#C8201A","#FFFFFF"]}[c.tierKey];
+  const rightText="SHIPPING FROM "+tierColors[0]+" · "+c.iso+" "+c.score+"/100";
+  const lw=112,rw=Math.max(240,rightText.length*7.6+24),w=Math.round(lw+rw);
+  $("badgeSvgPreview").innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="30" style="max-width:100%;height:auto" role="img" aria-label="DEV Lottery '+rightText+'"><rect x="1" y="1" width="'+(w-2)+'" height="28" fill="'+tierColors[1]+'" stroke="#111111" stroke-width="2"/><rect x="1" y="1" width="'+lw+'" height="28" fill="#111111"/><text x="56" y="19" fill="#F2C230" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="700" text-anchor="middle">DEV LOTTERY</text><text x="'+(lw+rw/2)+'" y="19" fill="'+tierColors[2]+'" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="700" text-anchor="middle">'+rightText+'</text></svg>';
+  const origin=(location.protocol==="http:"||location.protocol==="https:")?location.origin:"https://smailancer.github.io/DEVLottery";
+  const badgeUrl=origin+"/badge/"+c.iso+".svg";
+  const linkUrl=origin+"/?a="+c.iso;
+  $("badgeMdCode").textContent="[![DEV Lottery — "+c.en+" ("+c.score+"/100)]("+badgeUrl+")]("+linkUrl+")";
+  $("copyBadgeMd").dataset.val=$("badgeMdCode").textContent;
+  $("copyBadgeHtml").dataset.val='<a href="'+linkUrl+'" target="_blank" rel="noopener"><img src="'+badgeUrl+'" alt="DEV Lottery: '+rightText+'"></a>';
+}
+$("badgeSel").addEventListener("change",renderBadgeWidget);
+$("copyBadgeMd").addEventListener("click",()=>{
+  navigator.clipboard?.writeText($("copyBadgeMd").dataset.val||"").then(()=>{$("copyBadgeMd").textContent=L("copied");setTimeout(()=>$("copyBadgeMd").textContent=L("copyBadgeMd"),1800)}).catch(()=>{});
+});
+$("copyBadgeHtml").addEventListener("click",()=>{
+  navigator.clipboard?.writeText($("copyBadgeHtml").dataset.val||"").then(()=>{$("copyBadgeHtml").textContent=L("copied");setTimeout(()=>$("copyBadgeHtml").textContent=L("copyBadgeHtml"),1800)}).catch(()=>{});
+});
 function renderQuotes(){
   $("quotesGrid").innerHTML=VERIFIED_QUOTES.map(q=>'<figure class="q-quote"><blockquote>'+(lang==="ar"?q.ar:q.en)+'</blockquote><cite><b>'+(lang==="ar"?q.whoAr:q.whoEn)+'</b>'+(lang==="ar"?q.srcAr:q.srcEn)+'</cite></figure>').join("");
 }
@@ -989,6 +1063,23 @@ $("bFilters").addEventListener("click",e=>{
   const b=e.target.closest("button[data-bf]");if(!b)return;
   bFilter=b.dataset.bf;for(const x of $("bFilters").children)x.setAttribute("aria-pressed",x===b);
   renderBuilders();
+});
+$("bCountryFilter").addEventListener("change",renderBuilders);
+$("bGrid").addEventListener("click",async e=>{
+  const btn=e.target.closest("button[data-vote]");if(!btn)return;
+  const id=btn.dataset.vote;
+  const item=communityBuilders.find(x=>x.id===id);if(!item)return;
+  const was=votedIds.has(id),delta=was?-1:1;
+  if(was)votedIds.delete(id);else votedIds.add(id);
+  item.votes=Math.max(0,(Number(item.votes)||0)+delta);
+  try{localStorage.setItem("devlottery-votes",JSON.stringify([...votedIds]));localStorage.setItem("devlottery-builders",JSON.stringify(communityBuilders.slice(0,50)))}catch{}
+  renderBuilders();
+  if(API_BASE){
+    try{
+      const r=await fetch(API_BASE+"/builders/"+encodeURIComponent(id)+"/vote",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({delta})});
+      if(r.ok){const j=await r.json();item.votes=j.votes;renderBuilders()}
+    }catch{}
+  }
 });
 if(API_BASE){
   fetch(API_BASE+"/builders").then(r=>r.ok?r.json():null).then(j=>{
@@ -1001,6 +1092,7 @@ $("bForm").addEventListener("submit",async e=>{
     name:$("bfName").value.trim(),
     handle:$("bfHandle").value.trim().replace(/^@+/,""),
     iso:$("bfCountry").value,
+    tag:$("bfTag").value||"shipping",
     project:$("bfProject").value.trim(),
     url:$("bfUrl").value.trim(),
     note:$("bfNote").value.trim()
@@ -1016,12 +1108,12 @@ $("bForm").addEventListener("submit",async e=>{
     }catch{}
   }
   if(!saved){
-    saved={...payload,id:Date.now().toString(36),createdAt:new Date().toISOString().slice(0,10)};
+    saved={...payload,id:Date.now().toString(36),votes:0,createdAt:new Date().toISOString().slice(0,10)};
   }
   communityBuilders.unshift(saved);
   try{localStorage.setItem("devlottery-builders",JSON.stringify(communityBuilders.slice(0,50)))}catch{}
-  $("bForm").reset();$("bfCountry").value=payload.iso;
-  bFilter="all";renderBFilters();renderBuilders();
+  $("bForm").reset();$("bfCountry").value=payload.iso;$("bfTag").value=payload.tag;
+  bFilter="all";$("bCountryFilter").value="";renderBFilters();renderBuilders();
   msg.textContent=lang==="ar"?"تم نشر بروفايلك بنجاح ✓":"Profile published ✓";
   setTimeout(()=>{msg.textContent=""},3500);
 });
@@ -1382,6 +1474,7 @@ function applyLang(){
   renderSurvival();
   renderBFilters();
   renderBuilders();
+  renderBadgeWidget();
   renderQuotes();
   if(cur){
     renderTicketBody(cur);

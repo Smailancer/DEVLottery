@@ -35,12 +35,12 @@ Draw weights: annual live births 2024, UN World Population Prospects 2024.
 
 ## Deploy on Coolify (Recommended — Full Stack)
 
-The root `Dockerfile` + `server.js` runs the complete app (static frontend + zero-dependency Node API + persistent database in `/data/db.json` for draws, salutes, and builder profiles):
+The root `Dockerfile` (`node:22-alpine`) + `server.js` runs the complete app (static frontend + zero-dependency Node API + built-in **SQLite** database in `/data/devlottery.sqlite` for draws, salutes, builder profiles, and upvotes + live SVG badges at `/badge/:iso.svg`):
 
 1. In Coolify, create a **New Resource → Public/Private Git Repository** pointing to this repo.
 2. Choose **Build Pack: Dockerfile** (Base directory: `/`, Port: `3000`).
-3. Add a **Persistent Storage Volume** mounted at `/data` so builder profiles and counters survive redeploys.
-4. Deploy! Everything works out of the box on the same domain (`/api/builders`, `/api/count`, `/api/salute`, `/health`).
+3. Add a **Persistent Storage Volume** mounted at `/data` so the SQLite database survives redeploys.
+4. Deploy! Endpoints ready out of the box: `/api/builders`, `/api/builders/:id/vote`, `/api/count`, `/api/salute`, `/badge/DZA.svg`, `/health`.
 
 ## Run locally
 
