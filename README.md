@@ -8,7 +8,8 @@ DEV Lottery measures how unequal the starting line is for software developers an
 
 - **Birth Lottery**: spin to respawn using real UN birth odds, scratch your ticket, or click **Spin until «Easy»** to challenge friends.
 - **"Start From Zero" Simulator**: test the classic 4-step indie hacker playbook from your passport vs. the Netherlands — paying an `$80/mo` AI stack, connecting Stripe (or Stripe-only hackathons like TrustMRR), flying to Bali, and attending a San Francisco tech conference — then export a **Split VS Card PNG** for X.
-- **Hard Mode Survival Guide & Community**: practical country-specific payout & tool-tax playbooks, easier launchpads beyond the US & Western Europe, and pre-tagged GitHub Discussions for builders to share verified local workarounds.
+- **Hard Mode Survival Guide & Builders Community**: practical country-specific payout & tool-tax playbooks, easier launchpads beyond the US & Western Europe, Easy Mode reference profiles (`Pieter Levels`, `Marc Lou`, `Danny Postma`, `AJ`), and a built-in database-backed community wall where developers publish their profile, spawn mode, project, and workarounds.
+- **Verified Voices on the Ovarian Lottery**: documented quotes from Warren Buffett, Sam Altman, and Bill Gates.
 - **Starting Line Index**: compare any 2 of **33 countries** (covering ~56% of world births), filter by difficulty (`Easy`, `Normal`, `Hard`, `Nightmare`), and switch between Cards and Table views.
 
 > Not affiliated with the U.S. Diversity Visa (DV) program. This site offers no visa services.
@@ -32,19 +33,18 @@ Draw weights: annual live births 2024, UN World Population Prospects 2024.
 - Shareable comparison URLs (`?a=DZA&b=NLD`) and challenge URLs (`#challenge-ISO-N`)
 - Optional zero-dependency global draw counter in `counter/`
 
-## Run it
+## Deploy on Coolify (Recommended — Full Stack)
 
-One static file, no build step, no dependencies.
+The root `Dockerfile` + `server.js` runs the complete app (static frontend + zero-dependency Node API + persistent database in `/data/db.json` for draws, salutes, and builder profiles):
+
+1. In Coolify, create a **New Resource → Public/Private Git Repository** pointing to this repo.
+2. Choose **Build Pack: Dockerfile** (Base directory: `/`, Port: `3000`).
+3. Add a **Persistent Storage Volume** mounted at `/data` so builder profiles and counters survive redeploys.
+4. Deploy! Everything works out of the box on the same domain (`/api/builders`, `/api/count`, `/api/salute`, `/health`).
+
+## Run locally
 
 ```bash
-open index.html            # or: python3 -m http.server 8000
+node server.js             # full stack on http://localhost:3000
+# or open index.html directly (falls back to localStorage)
 ```
-
-Deploy anywhere that serves static files (GitHub Pages, Coolify, Nginx).
-
-## Global draw counter (optional)
-
-`counter/` is a tiny Node server (no dependencies) that counts draws across all visitors.
-
-1. Deploy `/counter` (Dockerfile included) with a persistent volume at `/data` and `ALLOWED_ORIGIN` set to your site URL.
-2. Put the counter's public URL in `COUNTER_API` inside `index.html`. Leave it empty to hide the counter.

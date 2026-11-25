@@ -120,7 +120,32 @@ canvas.scratch:active{cursor:grabbing}
 .alt-chip:hover{background:var(--gold);color:#111;border-color:#111}
 .comm-bar{margin-top:20px;border:2px solid var(--line);background:var(--bg);padding:16px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px}
 .comm-bar p{margin:4px 0 0;font-size:14px;color:var(--mute);max-width:58ch}
-@media(max-width:920px){.surv-grid{grid-template-columns:minmax(0,1fr)}}
+/* Builders Community Wall & Verified Quotes */
+.b-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;margin-top:18px}
+.b-card{border:2px solid var(--line);background:var(--card);padding:16px;display:flex;flex-direction:column;gap:10px}
+.b-card.is-ref{border-style:dashed}
+.b-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.b-name{font-weight:700;font-size:17px;line-height:1.2}
+.b-handle{font-size:13px;color:var(--mute);text-decoration:none}
+.b-handle:hover{text-decoration:underline}
+.b-ref-tag{font-size:11px;font-weight:700;padding:2px 7px;border:1px solid var(--line);background:var(--bg);color:var(--mute);text-transform:uppercase}
+.b-note{margin:0;font-size:14px;line-height:1.55}
+.b-foot{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}
+.b-foot a{font-weight:700;color:inherit}
+.b-form{border:2px solid var(--line);background:var(--card);padding:20px;margin-top:22px;box-shadow:5px 5px 0 var(--line)}
+.b-form h3{margin:0 0 6px;font-size:20px}
+.b-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.b-fields label{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:700}
+.b-fields .full{grid-column:1/-1}
+.b-fields input,.b-fields textarea{font:inherit;font-size:15px;padding:10px 12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.b-fields textarea{min-height:82px;resize:vertical}
+.b-msg{font-size:14px;font-weight:700;margin-inline-start:8px}
+.quotes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:20px}
+.q-quote{border:2px solid var(--line);background:var(--card);padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:4px 4px 0 var(--line)}
+.q-quote blockquote{margin:0;font-size:16px;line-height:1.6;font-weight:500}
+.q-quote cite{margin-top:auto;font-style:normal;font-size:13px;color:var(--mute);border-top:1px dashed var(--line);padding-top:10px}
+.q-quote cite b{color:var(--ink);display:block;font-size:15px}
+@media(max-width:920px){.surv-grid,.quotes-grid{grid-template-columns:minmax(0,1fr)}.b-fields{grid-template-columns:minmax(0,1fr)}}
 /* Compare & Index */
 .compare{border:2px solid var(--line);background:var(--card);padding:20px;margin:24px 0}
 .pickers{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
@@ -208,6 +233,7 @@ canvas.scratch{display:none!important}
 <a href="#draw" data-t="navDraw">Lottery</a>
 <a href="#playbook" data-t="navPlaybook">Start From Zero</a>
 <a href="#survival" data-t="navSurvival">Survival Guide</a>
+<a href="#community" data-t="navCommunity">Builders</a>
 <a href="#index" data-t="navIndex">Index</a>
 <a href="#method" data-t="navMethod">Method</a>
 <button type="button" class="mini-btn" id="langBtn" aria-label="Switch language">عربي</button>
@@ -317,22 +343,44 @@ canvas.scratch{display:none!important}
 <label for="survSel" data-t="survPick">Survival playbook for</label><select id="survSel"></select>
 <span id="survBadge"></span>
 </div>
-<a class="btn mini-btn" id="survDiscussTop" href="https://github.com/Smailancer/DEVLottery/discussions" target="_blank" rel="noopener noreferrer" data-t="survJoin">Join Community Discussions ↗</a>
+<a class="btn mini-btn" href="#community" data-t="survJoin">Join Hard Mode Builders ↓</a>
 </div>
 
 <div class="surv-grid" id="survGrid"></div>
+</div>
+</div></section>
 
-<div class="comm-bar">
-<div>
-<b data-t="commTitle">Share your daily friction & verified workarounds</b>
-<p data-t="commDesc">Found a payout method that works, a bank that didn't block your transfer, or a better local FX source? Share it with builders in your difficulty tier.</p>
+<section id="community" class="band" style="border-top:2px solid var(--line)"><div class="wrap">
+<span class="kicker" data-t="commKicker">HARD MODE BUILDERS COMMUNITY</span>
+<h2 data-t="commH2">Builders shipping from every difficulty mode</h2>
+<p style="max-width:72ch" data-t="commIntro">Compare famous Easy Mode reference spawns with real developers building their way out of Hard & Nightmare Mode — sharing daily friction, payout workarounds, and shipped products.</p>
+
+<div class="filters" role="group" aria-label="Filter builders by mode" id="bFilters"></div>
+<div class="b-grid" id="bGrid"></div>
+
+<form class="b-form" id="bForm">
+<h3 data-t="bFormTitle">Add your builder profile</h3>
+<p class="note" style="margin:0" data-t="bFormSub">Your spawn mode is calculated automatically from your country. Share what you're building and the workaround helping you ship.</p>
+<div class="b-fields">
+<label><span data-t="bfName">Your name</span><input id="bfName" required maxlength="48" placeholder="Smail"></label>
+<label><span data-t="bfHandle">X / GitHub handle (optional)</span><input id="bfHandle" maxlength="40" placeholder="@smailancer"></label>
+<label><span data-t="bfCountry">Country</span><select id="bfCountry" required></select></label>
+<label><span data-t="bfProject">Project name (optional)</span><input id="bfProject" maxlength="60" placeholder="DEV Lottery"></label>
+<label class="full"><span data-t="bfUrl">Project URL (optional)</span><input id="bfUrl" type="url" maxlength="200" placeholder="https://..."></label>
+<label class="full"><span data-t="bfNote">Daily friction or workaround that helped you</span><textarea id="bfNote" required maxlength="240" placeholder="No Stripe in Algeria — building with Paddle & zero-cost stack..."></textarea></label>
 </div>
-<div class="actions" style="margin:0">
-<a class="btn primary" style="min-height:46px;font-size:16px" id="shareExpBtn" href="https://github.com/Smailancer/DEVLottery/discussions" target="_blank" rel="noopener noreferrer" data-t="shareExpBtn">Share Your Experience ↗</a>
-<a class="btn" id="reportDataBtn" href="https://github.com/Smailancer/DEVLottery/issues/new" target="_blank" rel="noopener noreferrer" data-t="reportDataBtn">Report Data Correction</a>
+<div class="actions">
+<button type="submit" class="primary" style="min-height:48px;font-size:18px" data-t="bfSubmit">Publish Profile</button>
+<span class="b-msg" id="bMsg" aria-live="polite"></span>
 </div>
-</div>
-</div>
+</form>
+</div></section>
+
+<section id="voices" class="band" style="border-top:2px solid var(--line)"><div class="wrap">
+<span class="kicker" data-t="qKicker">THE OVARIAN LOTTERY</span>
+<h2 data-t="qH2">Even the luckiest builders admit it</h2>
+<p style="max-width:68ch" data-t="qIntro">Acknowledging where you started doesn't diminish hard work — some of the most successful figures in business and tech have said so openly.</p>
+<div class="quotes-grid" id="quotesGrid"></div>
 </div></section>
 
 <section id="index" class="band" style="border-top:2px solid var(--line)"><div class="wrap">
@@ -458,7 +506,7 @@ const PAGE=location.origin+location.pathname;
 const T={
   en:{
     title:"DEV Lottery · Same Hustle, Different Spawn Point",
-    navDraw:"Lottery",navPlaybook:"Start From Zero",navSurvival:"Survival Guide",navIndex:"Index",navMethod:"Method",langBtn:"عربي",
+    navDraw:"Lottery",navPlaybook:"Start From Zero",navSurvival:"Survival Guide",navCommunity:"Builders",navIndex:"Index",navMethod:"Method",langBtn:"عربي",
     kicker:"INDIE HACKER SPAWN DIFFICULTY",
     heroH1:"Same hustle. Different spawn point.",
     heroQ:"What if you were born in…?",
@@ -493,14 +541,21 @@ const T={
     survKicker:"HARD MODE SURVIVAL PLAYBOOK",
     survH2:"How builders actually ship from your starting line",
     survIntro:"When Stripe-only platforms or hackathons (like TrustMRR) lock you out before you write a line of code, you need real workarounds — and a clearer map of easier launchpads beyond just the US or Western Europe.",
-    survPick:"Survival playbook for",survJoin:"Join Community Discussions ↗",
-    commTitle:"Share your daily friction & verified workarounds",
-    commDesc:"Found a payout method that works, a bank that didn't block your transfer, or a better local FX source? Share it with builders in your difficulty tier.",
-    shareExpBtn:"Share Your Experience ↗",reportDataBtn:"Report Data Correction"
+    survPick:"Survival playbook for",survJoin:"Join Hard Mode Builders ↓",
+    commKicker:"HARD MODE BUILDERS COMMUNITY",
+    commH2:"Builders shipping from every difficulty mode",
+    commIntro:"Compare famous Easy Mode reference spawns with real developers building their way out of Hard & Nightmare Mode — sharing daily friction, payout workarounds, and shipped products.",
+    bFormTitle:"Add your builder profile",
+    bFormSub:"Your spawn mode is calculated automatically from your country. Share what you're building and the workaround helping you ship.",
+    bfName:"Your name",bfHandle:"X / GitHub handle (optional)",bfCountry:"Country",bfProject:"Project name (optional)",bfUrl:"Project URL (optional)",
+    bfNote:"Daily friction or workaround that helped you",bfSubmit:"Publish Profile",
+    refTag:"Reference · Easy Mode",refFilter:"Reference (Easy)",
+    qKicker:"THE OVARIAN LOTTERY",qH2:"Even the luckiest builders admit it",
+    qIntro:"Acknowledging where you started doesn't diminish hard work — some of the most successful figures in business and tech have said so openly."
   },
   ar:{
     title:"DEV Lottery · المهارات نفسها، خط البداية مختلف",
-    navDraw:"اليانصيب",navPlaybook:"محاكي الصفر",navSurvival:"دليل النجاة",navIndex:"المؤشر",navMethod:"المنهجية",langBtn:"EN",
+    navDraw:"اليانصيب",navPlaybook:"محاكي الصفر",navSurvival:"دليل النجاة",navCommunity:"البناؤون",navIndex:"المؤشر",navMethod:"المنهجية",langBtn:"EN",
     kicker:"مستوى صعوبة المطور حسب الولادة",
     heroH1:"المهارات نفسها. نقطة البداية مختلفة.",
     heroQ:"ماذا لو وُلدتَ في…؟",
@@ -535,10 +590,17 @@ const T={
     survKicker:"دليل النجاة ومجتمع المستوى الصعب",
     survH2:"كيف يبني المطورون ويطلقون مشاريعهم من خط بدايتك؟",
     survIntro:"حين تستبعدك منصات أو هاكاثونات تشترط Stripe (مثل TrustMRR) قبل أن تكتب سطر كود واحداً، تحتاج لحلول واقعية مجرّبة — وخريطة أوسع لأماكن بناء أسهل خارج أمريكا وأوروبا الغربية فقط.",
-    survPick:"دليل النجاة لدولة",survJoin:"انضم لنقاشات المجتمع ↗",
-    commTitle:"شارك معاناتك اليومية وحلولك المجرّبة",
-    commDesc:"هل وجدت طريقة قبض تعمل في بلدك، أو بديلاً عملياً لأدوات مكلفة، أو تصحيحاً لسعر صرف؟ شاركها مع المطورين في نفس مستوى صعوبتك.",
-    shareExpBtn:"شارك تجربتك وحلولك ↗",reportDataBtn:"بلّغ عن تصحيح رقم"
+    survPick:"دليل النجاة لدولة",survJoin:"انضم لمجتمع البنائين ↓",
+    commKicker:"مجتمع البنائين من المستوى الصعب",
+    commH2:"مطورون يبنون ويطلقون مشاريعهم من كل مستويات الصعوبة",
+    commIntro:"قارن بين نقاط انطلاق مشاهير الـ Indie Hacking (المستوى السهل) وبين مطورين حقيقيين يبتكرون حلولاً للخروج من صعوبة خط البداية — يشاركون معاناتهم اليومية وتجاربهم ومشاريعهم.",
+    bFormTitle:"أضف بروفايلك كمطوّر",
+    bFormSub:"يُحسب مستوى الصعوبة (Mode) تلقائياً حسب بلدك. شاركنا ما تبنيه والحل الذي ساعدك على تجاوز العقبات.",
+    bfName:"الاسم",bfHandle:"حساب X أو GitHub (اختياري)",bfCountry:"الدولة",bfProject:"اسم المشروع (اختياري)",bfUrl:"رابط المشروع (اختياري)",
+    bfNote:"أكبر عقبة يومية أو الحل الذي ساعدك",bfSubmit:"انشر البروفايل",
+    refTag:"مرجعي · سهل",refFilter:"حسابات مرجعية (سهل)",
+    qKicker:"يانصيب الولادة",qH2:"حتى أنجح الناس في العالم يعترفون بها",
+    qIntro:"الاعتراف بميزة خط البداية لا يقلل من قيمة الاجتهاد — بل إن أبرز رموز الأعمال والتقنية صرّحوا بذلك علناً."
   }
 };
 
@@ -560,14 +622,14 @@ const birthsTxt=n=>lang==="ar"?(n===1?"ولادة واحدة":n===2?"ولادت�
 
 const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-/* global counter */
-const COUNTER_API="";
+/* API base: auto-uses same-origin /api when hosted on Coolify (http/https) */
+const API_BASE=(location.protocol==="http:"||location.protocol==="https:")?"/api":"";
 let gCount=null,gSalutes=null,pending=0,flushT=0;
 function showGlobal(n,s){if(Number.isFinite(n)){gCount=n;$("cGlobal").textContent=nf(n);$("globalWrap").hidden=false;$("statsBar").hidden=false}if(Number.isFinite(s)){gSalutes=s;updateRespectUI()}}
-function addGlobal(n){if(!COUNTER_API)return;if(gCount!==null)showGlobal(gCount+n,gSalutes);pending+=n;clearTimeout(flushT);flushT=setTimeout(()=>{const k=pending;pending=0;
-  fetch(COUNTER_API+"/draws",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({n:k})}).then(r=>r.ok?r.json():null).then(j=>{if(j)showGlobal(j.draws,j.salutes)}).catch(()=>{})},1200)}
-function sendSalute(delta){if(!COUNTER_API)return;fetch(COUNTER_API+"/salute",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({delta})}).then(r=>r.ok?r.json():null).then(j=>{if(j)showGlobal(j.draws,j.salutes)}).catch(()=>{})}
-if(COUNTER_API)fetch(COUNTER_API+"/count").then(r=>r.json()).then(j=>showGlobal(j.draws,j.salutes)).catch(()=>{});
+function addGlobal(n){if(!API_BASE)return;if(gCount!==null)showGlobal(gCount+n,gSalutes);pending+=n;clearTimeout(flushT);flushT=setTimeout(()=>{const k=pending;pending=0;
+  fetch(API_BASE+"/draws",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({n:k})}).then(r=>r.ok?r.json():null).then(j=>{if(j)showGlobal(j.draws,j.salutes)}).catch(()=>{})},1200)}
+function sendSalute(delta){if(!API_BASE)return;fetch(API_BASE+"/salute",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({delta})}).then(r=>r.ok?r.json():null).then(j=>{if(j)showGlobal(j.draws,j.salutes)}).catch(()=>{})}
+if(API_BASE)fetch(API_BASE+"/count").then(r=>r.ok?r.json():null).then(j=>{if(j)showGlobal(j.draws,j.salutes)}).catch(()=>{});
 
 /* theme */
 const root=document.documentElement;
@@ -623,12 +685,13 @@ function fillSelects(){
   const opts=sorted.map(c=>'<option value="'+c.iso+'">'+c.flag+' '+cname(c)+'</option>').join("");
   const keepHome=home,keepPA=$("pA").value||(by[qA]?qA:(home||"DZA")),keepPB=$("pB").value||(by[qB]?qB:(keepPA==="NLD"?"DZA":"NLD"));
   const keepSA=$("simA").value||(by[qA]?qA:(home||"DZA")),keepSB=$("simB").value||(by[qB]?qB:(keepSA==="NLD"?"DZA":"NLD"));
-  const keepSurv=$("survSel").value||keepSA;
+  const keepSurv=$("survSel").value||keepSA,keepBf=$("bfCountry").value||keepSA;
   $("home").innerHTML='<option value="">'+L("pickCountry")+'</option>'+opts;
   $("home").value=keepHome;
   $("pA").innerHTML=opts;$("pB").innerHTML=opts;$("pA").value=keepPA;$("pB").value=keepPB;
   $("simA").innerHTML=opts;$("simB").innerHTML=opts;$("simA").value=keepSA;$("simB").value=keepSB;
   $("survSel").innerHTML=opts;$("survSel").value=keepSurv;
+  $("bfCountry").innerHTML=opts;$("bfCountry").value=keepBf;
 }
 
 function renderTicker(){
@@ -845,13 +908,6 @@ function renderSurvival(){
     '<div class="surv-card"><h3>'+(isAr?'1. قبض المال والهاكاثونات (Stripe / TrustMRR)':'1. Payouts & Stripe-only Hackathons')+'</h3><ul>'+payItems.map(i=>'<li>'+i+'</li>').join("")+'</ul></div>'
     +'<div class="surv-card"><h3>'+(isAr?'2. تقليص «ضريبة الأدوات» قبل أول دولار':'2. Cutting the Tool Tax before $1')+'</h3><ul>'+stackItems.map(i=>'<li>'+i+'</li>').join("")+'</ul></div>'
     +'<div class="surv-card"><h3>'+(isAr?'3. محطات بناء أسهل خارج أمريكا وأوروبا':'3. Easier Launchpads Beyond US & Western Europe')+'</h3><p>'+(isAr?'ليست أمريكا وأوروبا الغربية الخيار الوحيد للبناء على «مستوى سهل» مع Stripe مباشر. انقر على أي محطة لمقارنتها ببلدك:':'The US and Western Europe are not the only «Easy» launchpads with direct Stripe. Click any hub to compare it with '+c.en+':')+'</p><div class="alt-chips">'+altChips+'</div></div>';
-
-  const dTitle=encodeURIComponent("["+c.iso+" · "+c.tierEn+" Mode] Builder experience & workarounds from "+c.en);
-  const dBody=encodeURIComponent("Country: "+c.flag+" "+c.en+" ("+c.score+"/100 — "+c.tierEn+" Mode)\n\n1. Biggest daily friction:\n\n2. Payout / tool workaround that actually worked for me:\n\n3. What I'm shipping:");
-  $("shareExpBtn").href="https://github.com/Smailancer/DEVLottery/discussions/new?category=general&title="+dTitle+"&body="+dBody;
-  const iTitle=encodeURIComponent("Data correction: "+c.en+" ("+c.iso+")");
-  const iBody=encodeURIComponent("Country: "+c.en+" ("+c.iso+")\nField to correct (Earn / Buy / Move / Births):\nVerified source URL:");
-  $("reportDataBtn").href="https://github.com/Smailancer/DEVLottery/issues/new?title="+iTitle+"&body="+iBody;
 }
 $("survSel").addEventListener("change",renderSurvival);
 $("survGrid").addEventListener("click",e=>{
@@ -860,6 +916,114 @@ $("survGrid").addEventListener("click",e=>{
   $("simA").value=curIso;$("simB").value=alt;$("pA").value=curIso;$("pB").value=alt;
   simDone=[true,true,true,true];renderSim();compare();
   $("playbook").scrollIntoView({behavior:still?"auto":"smooth",block:"start"});
+});
+
+/* Builders Community Wall (Reference Easy Mode + Real Coolify DB profiles) */
+const REF_BUILDERS=[
+  {ref:true,name:"Pieter Levels",handle:"levelsio",iso:"NLD",project:"Nomad List · Photo AI",url:"https://levelsio.com",
+   noteEn:"Spawned with EU passport, direct Stripe, and 185 visa-free destinations — then shipped relentlessly.",
+   noteAr:"نقطة بداية بجواز أوروبي وStripe مباشر و185 وجهة بلا تأشيرة — ثم بنى وأطلق باستمرار."},
+  {ref:true,name:"Marc Lou",handle:"marc_louvion",iso:"FRA",project:"ShipFast · TrustMRR",url:"https://marclou.com",
+   noteEn:"Spawned in France with direct Stripe & EU passport. TrustMRR revenue verification requires Stripe.",
+   noteAr:"نقطة بداية في فرنسا مع Stripe مباشر وجواز أوروبي. التحقق من الإيرادات في TrustMRR يتطلب Stripe."},
+  {ref:true,name:"Danny Postma",handle:"dannypostmaa",iso:"NLD",project:"HeadshotPro",url:"https://dannypostma.com",
+   noteEn:"Spawned in the Netherlands: direct Stripe payouts, low tool-to-income ratio, easy SEA travel.",
+   noteAr:"نقطة بداية في هولندا: Stripe مباشر، تكلفة أدوات منخفضة مقارنة بالدخل، وسفر سهل لشرق آسيا."},
+  {ref:true,name:"AJ",handle:"ajlkn",iso:"USA",project:"Carrd",url:"https://carrd.co",
+   noteEn:"Spawned in the US: domestic access to Stripe, USD banking, and the world's largest SaaS market.",
+   noteAr:"نقطة بداية في أمريكا: وصول مباشر لـ Stripe والبنوك الأمريكية وأكبر سوق SaaS في العالم."}
+];
+const VERIFIED_QUOTES=[
+  {
+    en:"\"Both my children and I won what I call the ovarian lottery. For starters, the odds against my 1930 birth taking place in the U.S. were at least 30 to 1.\"",
+    ar:"«لقد فزتُ أنا وأبنائي بما أسمّيه يانصيب الولادة (Ovarian Lottery). في البداية فقط، كانت احتمالات أن أولد في الولايات المتحدة عام 1930 أقل من 1 إلى 30.»",
+    whoEn:"Warren Buffett",whoAr:"وارن بافيت",srcEn:"Berkshire Hathaway · Annual Letters & Interviews",srcAr:"بيركشاير هاثاواي · رسائل المساهمين والمقابلات"
+  },
+  {
+    en:"\"I am deeply aware of the fact that I personally would not be where I am if I weren't born incredibly lucky... It is obviously an incredible shame and waste that opportunity is so unevenly distributed.\"",
+    ar:"«أدرك بعمق أنني شخصياً لم أكن لأصل إلى ما أنا عليه لولا أنني وُلدتُ محظوظاً للغاية… من المؤسف حقاً أن تتوزع الفرص بهذا التفاوت الشديد.»",
+    whoEn:"Sam Altman",whoAr:"سام ألتمان",srcEn:"CEO of OpenAI · \"How to Be Successful\" (2019)",srcAr:"الرئيس التنفيذي لـ OpenAI · مقال How to Be Successful (2019)"
+  },
+  {
+    en:"\"I was lucky to be in the right place at the right time. But many others were also in the same place. The difference was that I took action.\"",
+    ar:"«كنتُ محظوظاً بوجودي في المكان المناسب والوقت المناسب. لكن كثيرين غيري كانوا في المكان نفسه؛ الفارق أنني بادرتُ بالعمل.»",
+    whoEn:"Bill Gates",whoAr:"بيل غيتس",srcEn:"Co-founder of Microsoft",srcAr:"الشريك المؤسس لمايكروسوفت"
+  }
+];
+
+let communityBuilders=[],bFilter="all";
+try{const loc=JSON.parse(localStorage.getItem("devlottery-builders")||"[]");if(Array.isArray(loc))communityBuilders=loc}catch{}
+function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
+
+function renderBFilters(){
+  const items=[["all",L("all")],["nightmare",lang==="ar"?"كابوس":"Nightmare"],["hard",lang==="ar"?"صعب":"Hard"],["normal",lang==="ar"?"عادي":"Normal"],["easy",lang==="ar"?"سهل":"Easy"],["ref",L("refFilter")]];
+  $("bFilters").innerHTML=items.map(([k,l])=>'<button type="button" data-bf="'+k+'" aria-pressed="'+(k===bFilter)+'">'+l+'</button>').join("");
+}
+function renderBuilders(){
+  const all=[...communityBuilders,...REF_BUILDERS];
+  const list=all.filter(b=>{
+    const c=by[b.iso];if(!c)return false;
+    if(bFilter==="all")return true;
+    if(bFilter==="ref")return !!b.ref;
+    return c.tierKey===bFilter;
+  });
+  $("bGrid").innerHTML=list.map(b=>{
+    const c=by[b.iso];
+    const hLink=b.handle?'<a class="b-handle" href="https://x.com/'+encodeURIComponent(b.handle)+'" target="_blank" rel="noopener noreferrer">@'+esc(b.handle)+'</a>':'';
+    const note=b.ref?(lang==="ar"?b.noteAr:b.noteEn):esc(b.note);
+    const proj=b.project?(b.url?'<a href="'+esc(b.url)+'" target="_blank" rel="noopener noreferrer">'+esc(b.project)+' ↗</a>':'<b>'+esc(b.project)+'</b>'):'';
+    return '<article class="b-card'+(b.ref?' is-ref':'')+'">'
+      +'<div class="b-head"><div><div class="b-name">'+esc(b.name)+'</div>'+hLink+'</div>'
+      +(b.ref?'<span class="b-ref-tag">'+L("refTag")+'</span>':'<span class="tier t-'+c.tierKey+'" style="font-size:12px">'+ctier(c)+'</span>')
+      +'</div>'
+      +'<div style="display:flex;align-items:center;gap:8px;font-size:14px"><b>'+c.flag+' '+cname(c)+'</b><span class="note num">'+c.score+'/100</span></div>'
+      +'<p class="b-note">'+note+'</p>'
+      +'<div class="b-foot"><span>'+proj+'</span><span class="note">'+(b.ref?ctier(c):(b.createdAt||""))+'</span></div>'
+      +'</article>';
+  }).join("");
+}
+function renderQuotes(){
+  $("quotesGrid").innerHTML=VERIFIED_QUOTES.map(q=>'<figure class="q-quote"><blockquote>'+(lang==="ar"?q.ar:q.en)+'</blockquote><cite><b>'+(lang==="ar"?q.whoAr:q.whoEn)+'</b>'+(lang==="ar"?q.srcAr:q.srcEn)+'</cite></figure>').join("");
+}
+$("bFilters").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-bf]");if(!b)return;
+  bFilter=b.dataset.bf;for(const x of $("bFilters").children)x.setAttribute("aria-pressed",x===b);
+  renderBuilders();
+});
+if(API_BASE){
+  fetch(API_BASE+"/builders").then(r=>r.ok?r.json():null).then(j=>{
+    if(j&&Array.isArray(j.builders)){communityBuilders=j.builders;renderBuilders()}
+  }).catch(()=>{});
+}
+$("bForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const payload={
+    name:$("bfName").value.trim(),
+    handle:$("bfHandle").value.trim().replace(/^@+/,""),
+    iso:$("bfCountry").value,
+    project:$("bfProject").value.trim(),
+    url:$("bfUrl").value.trim(),
+    note:$("bfNote").value.trim()
+  };
+  if(!payload.name||!payload.iso||!payload.note)return;
+  const msg=$("bMsg");
+  msg.textContent=lang==="ar"?"جارٍ النشر…":"Publishing…";
+  let saved=null;
+  if(API_BASE){
+    try{
+      const r=await fetch(API_BASE+"/builders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+      if(r.ok){const j=await r.json();saved=j.builder}
+    }catch{}
+  }
+  if(!saved){
+    saved={...payload,id:Date.now().toString(36),createdAt:new Date().toISOString().slice(0,10)};
+  }
+  communityBuilders.unshift(saved);
+  try{localStorage.setItem("devlottery-builders",JSON.stringify(communityBuilders.slice(0,50)))}catch{}
+  $("bForm").reset();$("bfCountry").value=payload.iso;
+  bFilter="all";renderBFilters();renderBuilders();
+  msg.textContent=lang==="ar"?"تم نشر بروفايلك بنجاح ✓":"Profile published ✓";
+  setTimeout(()=>{msg.textContent=""},3500);
 });
 
 /* draw & scratch */
@@ -1216,6 +1380,9 @@ function applyLang(){
   table();
   renderSim();
   renderSurvival();
+  renderBFilters();
+  renderBuilders();
+  renderQuotes();
   if(cur){
     renderTicketBody(cur);
     if(revealed){
