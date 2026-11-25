@@ -6,7 +6,7 @@
 
 DEV Lottery measures how unequal the starting line is for software developers and indie hackers, country by country — built in one zero-dependency HTML file (`EN / AR`).
 
-- **Birth Lottery**: spin to respawn using real UN birth odds, scratch your ticket, or click **Spin until «Easy»** to challenge friends.
+- **Birth Lottery**: spin to respawn using real UN birth odds, see your passport difficulty stamped live, or click **Spin until «Easy»** to challenge friends.
 - **"Start From Zero" Simulator**: test the classic 4-step indie hacker playbook from your passport vs. the Netherlands — paying an `$80/mo` AI stack, connecting Stripe (or Stripe-only hackathons like TrustMRR), flying to Bali, and attending a San Francisco tech conference — then export a **Split VS Card PNG** for X.
 - **Hard Mode Survival Guide & Builders Community**: practical country-specific payout & tool-tax playbooks, easier launchpads beyond the US & Western Europe, Easy Mode reference profiles (`Pieter Levels`, `Marc Lou`, `Danny Postma`, `AJ`), and a built-in database-backed community wall where developers publish their profile, spawn mode, project, and workarounds.
 - **Verified Voices on the Ovarian Lottery**: documented quotes from Warren Buffett, Sam Altman, and Bill Gates.
@@ -30,17 +30,20 @@ Draw weights: annual live births 2024, UN World Population Prospects 2024.
 - Bilingual **English / Arabic** (`EN / AR`) with auto-detection and `?lang=en|ar` deep links
 - **Start From Zero Simulator** with 4 interactive steps & **Split VS Card PNG** export (`1200×675`)
 - **35 countries** including China, Russia, and major global indie hacker hubs (Brazil, Indonesia, Philippines, Turkey, Poland, Ukraine, Mexico, Kenya, UAE, Saudi Arabia, Lebanon, plus original 22)
-- Shareable comparison URLs (`?a=DZA&b=NLD`) and challenge URLs (`#challenge-ISO-N`)
-- Optional zero-dependency global draw counter in `counter/`
+- Shareable comparison URLs (`?a=DZA&b=NLD` with dynamic server-side Open Graph preview titles) and challenge URLs (`#challenge-ISO-N`)
+- Public JSON index endpoint (`/api/countries`), live SVG badges (`/badge/:iso.svg`), privacy-preserving vote deduplication, and `ADMIN_TOKEN` moderation
 
 ## Deploy on Coolify (Recommended — Full Stack)
 
-The root `Dockerfile` (`node:22-alpine`) + `server.js` runs the complete app (static frontend + zero-dependency Node API + built-in **SQLite** database in `/data/devlottery.sqlite` for draws, salutes, builder profiles, and upvotes + live SVG badges at `/badge/:iso.svg`):
+The root `Dockerfile` (`node:22-alpine`) + `server.js` runs the complete app (static frontend + zero-dependency Node API + built-in **SQLite** database in `/data/devlottery.sqlite`):
 
 1. In Coolify, create a **New Resource → Public/Private Git Repository** pointing to this repo.
 2. Choose **Build Pack: Dockerfile** (Base directory: `/`, Port: `3000`).
 3. Add a **Persistent Storage Volume** mounted at `/data` so the SQLite database survives redeploys.
-4. Deploy! Endpoints ready out of the box: `/api/builders`, `/api/builders/:id/vote`, `/api/count`, `/api/salute`, `/badge/DZA.svg`, `/health`.
+4. *(Optional)* Set environment variables in Coolify:
+   - `ADMIN_TOKEN`: secret password to delete spam profiles (visit `https://your-domain/?admin=1` in your browser to activate moderation buttons).
+   - `PUBLIC_URL`: e.g. `https://devlottery.yourdomain.com` (auto-detected from headers if omitted).
+5. Deploy! Endpoints ready out of the box: `/api/countries`, `/api/builders`, `/api/builders/:id/vote`, `/api/count`, `/api/salute`, `/badge/DZA.svg`, `/health`.
 
 ## Run locally
 

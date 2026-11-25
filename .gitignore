@@ -1,0 +1,10 @@
+data/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+db.json*
+.env
+.env.*
+node_modules/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,8 @@
+.git
+.gitignore
+.dockerignore
+data
+*.sqlite*
+.env*
+README.md
+node_modules

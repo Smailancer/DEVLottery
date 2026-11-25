@@ -70,8 +70,6 @@ html[dir=rtl] .t-name{font-family:Lalezar,sans-serif;font-weight:400;font-size:c
 .rows>div:last-child{border-bottom:0}
 .rows b{font-size:15px}.rows .num{font-size:20px;font-weight:700}
 .rows span{font-size:14px}
-canvas.scratch{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:none}
-canvas.scratch:active{cursor:grabbing}
 .stub{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;border-top:2px dashed var(--line)}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .tier{display:inline-block;padding:3px 10px;font-weight:700;border:2px solid var(--line);white-space:nowrap}
@@ -118,8 +116,6 @@ canvas.scratch:active{cursor:grabbing}
 .alt-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .alt-chip{border:1px solid var(--line);background:var(--card);padding:4px 9px;font-size:13px;font-weight:700;cursor:pointer;min-height:32px}
 .alt-chip:hover{background:var(--gold);color:#111;border-color:#111}
-.comm-bar{margin-top:20px;border:2px solid var(--line);background:var(--bg);padding:16px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px}
-.comm-bar p{margin:4px 0 0;font-size:14px;color:var(--mute);max-width:58ch}
 /* Builders Community Wall & Verified Quotes */
 .b-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;margin-top:18px}
 .b-card{border:2px solid var(--line);background:var(--card);padding:16px;display:flex;flex-direction:column;gap:10px}
@@ -135,6 +131,8 @@ canvas.scratch:active{cursor:grabbing}
 .b-tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border:1px solid var(--line);background:var(--bg);color:var(--mute)}
 .vote-btn{min-height:32px;padding:0 10px;font-size:12px;border:1px solid var(--line)}
 .vote-btn[aria-pressed=true]{background:var(--gold);color:#111;border-color:#111}
+.del-btn{min-height:28px;padding:0 8px;font-size:12px;border:1px solid var(--red);color:var(--red)}
+.del-btn:hover{background:var(--red);color:#fff}
 .badge-box{border:2px solid var(--line);background:var(--card);padding:20px;margin-top:22px;display:flex;flex-direction:column;gap:14px}
 .badge-preview{padding:14px;border:2px dashed var(--line);background:var(--bg);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
 .badge-code{font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--bg);border:1px solid var(--line);padding:10px 12px;overflow-x:auto;white-space:nowrap;direction:ltr;text-align:left;user-select:all}
@@ -205,18 +203,14 @@ html[dir=rtl] .tile h3{font-family:Lalezar,sans-serif;font-weight:400;font-size:
 .tile button{margin-top:auto;border-color:currentColor;min-height:40px}
 .tile .stamp{border-color:currentColor;color:inherit;font-size:16px;align-self:flex-start}
 [hidden]{display:none!important}
-.ticker{overflow:hidden;background:var(--ink);color:var(--bg);border-bottom:2px solid var(--line);font-size:14px}
-.tk-track{display:flex;width:max-content;animation:tk-ltr 95s linear infinite}
-html[dir=rtl] .tk-track{animation-name:tk-rtl}
-.ticker:hover .tk-track{animation-play-state:paused}
+.ticker{overflow:hidden;background:var(--ink);color:var(--bg);border-bottom:2px solid var(--line);font-size:14px;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.ticker.dragging{cursor:grabbing}
+.tk-track{display:flex;width:max-content;will-change:transform}
 .tk-item{padding:8px 16px;white-space:nowrap;border-inline-start:1px solid color-mix(in srgb,var(--bg) 30%,transparent)}
 button.tk-item{border:0;border-inline-start:1px solid color-mix(in srgb,var(--bg) 30%,transparent);min-height:0;font-weight:400;font-size:inherit;color:inherit;background:transparent}
 button.tk-item:hover{background:color-mix(in srgb,var(--gold) 22%,transparent)}
 tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix(in srgb,var(--gold) 14%,var(--card))}
 .tk-item b{font-weight:700}.tk-item .pc{color:var(--gold)}.tk-item .sep{opacity:.45;margin-inline:8px}
-.ticker{cursor:grab;user-select:none;-webkit-user-select:none;touch-action:pan-y}.ticker.dragging{cursor:grabbing}
-.tk-track{animation:none!important;will-change:transform}
-canvas.scratch{display:none!important}
 @keyframes land{0%{transform:translateY(8px);opacity:.25}100%{transform:none;opacity:1}}
 .t-body.land{animation:land .35s ease-out}
 @keyframes slam{0%{transform:scale(1.7) rotate(-10deg);opacity:0}70%{transform:scale(.95);opacity:1}100%{transform:none}}
@@ -224,10 +218,9 @@ canvas.scratch{display:none!important}
 .tile-score{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid currentColor;padding-top:8px}
 .tile-score small{font-size:13px}
 .tk-item.lead-i{background:var(--gold);color:#111}
-@keyframes tk-ltr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes tk-rtl{from{transform:translateX(0)}to{transform:translateX(50%)}}
 .challenge{display:flex;flex-wrap:wrap;align-items:center;gap:12px;border:2px solid var(--line);background:var(--card);padding:12px 14px;margin:14px 0;font-weight:700}
 @media(max-width:920px){.hero,.method,.sim-steps{grid-template-columns:minmax(0,1fr)}.bar-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.bar-row>b{grid-column:1/-1}}
+@media(max-width:760px){html{scroll-padding-top:104px}nav .wrap{gap:8px;padding:8px 14px}nav .links{width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}nav .links::-webkit-scrollbar{display:none}nav a,.mini-btn{white-space:nowrap;flex-shrink:0}}
 @media(max-width:560px){.q-res{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){.ticker{overflow-x:auto}*{transition:none!important;animation:none!important}}
 </style>
@@ -286,12 +279,10 @@ canvas.scratch{display:none!important}
 <div><div class="t-sub" data-t="scoreLabel">Starting Line</div><div class="num" style="font-size:26px;font-weight:700"><span id="tScore">—</span>/100</div></div>
 <div id="tStamp" hidden style="align-self:center"><span class="stamp" id="tStampText">BLOCKED</span></div>
 </div>
-<canvas class="scratch" id="scratch" hidden aria-hidden="true"></canvas>
 </div>
 <div class="stub">
 <span id="stubRef"><span id="sLabel"></span> <b id="sName"></b>: <span class="num"><span id="sScore">—</span>/100</span></span>
 <span class="actions" style="margin:0">
-<button type="button" id="reveal" hidden data-t="revealBtn">Reveal All</button>
 <button type="button" id="ticketSimBtn" hidden data-t="ticketSimBtn">Test Playbook ↓</button>
 <button type="button" id="imgBtn" hidden data-t="dlTicketBtn">PNG Ticket</button>
 <button type="button" id="copyImg" hidden data-t="copyImgBtn">Copy PNG</button>
@@ -545,8 +536,8 @@ const T={
     ticketBrand:"SPAWN TICKET",ticketNo:"Ticket #",bornIn:"You spawned in",
     oddsPrompt:"Hit «Spin Spawn Ticket» to see your starting line",tierLabel:"Difficulty",scoreLabel:"Starting Line",blocked:"BLOCKED",
     rowEarn:"EARN",rowEarnInit:"Can you get paid from abroad?",rowBuy:"BUY",rowBuyDesc:"Work hours for a $20/mo tool",rowMove:"MOVE",rowMoveDesc:"Visa-free destinations",
-    revealBtn:"Reveal All",ticketSimBtn:"Test Playbook ↓",dlTicketBtn:"PNG Ticket",copyImgBtn:"Copy PNG",copied:"Copied ✓",shareX:"Post on X",
-    scratchText:"SCRATCH HERE",rolling:"Rolling…",
+    ticketSimBtn:"Test Playbook ↓",dlTicketBtn:"PNG Ticket",copyImgBtn:"Copy PNG",copied:"Copied ✓",shareX:"Post on X",
+    rolling:"Rolling…",
     simKicker:"THE \"START FROM ZERO\" SIMULATOR",
     simH2:"Can you actually run the Bali indie-hacker playbook?",
     simIntro:"Hard work matters. Shipping matters. AND where you spawn sets the difficulty multiplier. Test the classic 4-step indie hacker journey from your passport vs. the Netherlands — no excuses, just real friction.",
@@ -598,8 +589,8 @@ const T={
     ticketBrand:"تذكرة الولادة",ticketNo:"تذكرة رقم ",bornIn:"وُلدتَ في",
     oddsPrompt:"اضغط «اسحب تذكرة» لمعرفة خط البداية",tierLabel:"المستوى",scoreLabel:"نقطة البداية",blocked:"محظور",
     rowEarn:"الكسب",rowEarnInit:"هل تستطيع قبض المال من الخارج؟",rowBuy:"الشراء",rowBuyDesc:"ساعات عمل لدفع اشتراك 20$ شهرياً",rowMove:"التنقل",rowMoveDesc:"وجهات بلا تأشيرة",
-    revealBtn:"اكشف الكل",ticketSimBtn:"جرّبها في المحاكي ↓",dlTicketBtn:"صورة التذكرة",copyImgBtn:"انسخ الصورة",copied:"نُسخت ✓",shareX:"شارك على X",
-    scratchText:"اكشط هنا",rolling:"جارٍ السحب…",
+    ticketSimBtn:"جرّبها في المحاكي ↓",dlTicketBtn:"صورة التذكرة",copyImgBtn:"انسخ الصورة",copied:"نُسخت ✓",shareX:"شارك على X",
+    rolling:"جارٍ السحب…",
     simKicker:"محاكي «الانطلاق من الصفر»",
     simH2:"هل تنجح خطة الـ Indie Hacker إلى بالي بجواز سفرك؟",
     simIntro:"العمل الجاد يصنع الفرق، وإطلاق المنتجات يصنع الفرق — لكن مكان ولادتك يضبط معامل الصعوبة. اختبر الخطوات الأربع الشهيرة للانطلاق من الصفر مقارنة بهولندا بلا تذمّر، بل بالأرقام الواقعية.",
@@ -679,9 +670,16 @@ let home="";
 try{const h=localStorage.getItem("devlottery-home");if(h&&by[h])home=h}catch{}
 const qA=(qs.get("a")||"").toUpperCase(),qB=(qs.get("b")||"").toUpperCase();
 let rolls=0,easy=0,firstEasyAt=0,cur=null,curRoll=0,revealed=true,lastEscapeN=0;
-let down=false,moves=0,lastX=0,lastY=0,busy=false,chN=0,chIso="";
+let busy=false,chN=0,chIso="";
 let fTier="all",sk="score",dir=-1;
 let simDone=[false,false,false,false];
+
+let adminToken="";
+try{adminToken=sessionStorage.getItem("devlottery-admin")||""}catch{}
+if(qs.get("admin")==="1"||location.hash==="#admin"){
+  const t=prompt("Enter ADMIN_TOKEN for moderation:");
+  if(t!==null){adminToken=t.trim();try{sessionStorage.setItem("devlottery-admin",adminToken)}catch{}}
+}
 
 {const m=location.hash.match(/^#challenge-([A-Z]{3})-(\d{1,4})$/);
  if(m){chIso=m[1];chN=+m[2];$("challenge").hidden=false}}
@@ -949,7 +947,11 @@ function renderSurvival(){
     +'<div class="surv-card"><h3>'+(isAr?'2. تقليص «ضريبة الأدوات» قبل أول دولار':'2. Cutting the Tool Tax before $1')+'</h3><ul>'+stackItems.map(i=>'<li>'+i+'</li>').join("")+'</ul></div>'
     +'<div class="surv-card"><h3>'+(isAr?'3. محطات بناء أسهل خارج أمريكا وأوروبا':'3. Easier Launchpads Beyond US & Western Europe')+'</h3><p>'+(isAr?'ليست أمريكا وأوروبا الغربية الخيار الوحيد للبناء على «مستوى سهل» مع Stripe مباشر. انقر على أي محطة لمقارنتها ببلدك:':'The US and Western Europe are not the only «Easy» launchpads with direct Stripe. Click any hub to compare it with '+c.en+':')+'</p><div class="alt-chips">'+altChips+'</div></div>';
 }
-$("survSel").addEventListener("change",renderSurvival);
+$("survSel").addEventListener("change",()=>{
+  const v=$("survSel").value;
+  $("badgeSel").value=v;$("bfCountry").value=v;
+  renderSurvival();renderBadgeWidget();
+});
 $("survGrid").addEventListener("click",e=>{
   const b=e.target.closest("button[data-alt]");if(!b)return;
   const alt=b.dataset.alt,curIso=$("survSel").value;
@@ -1027,7 +1029,7 @@ function renderBuilders(){
     const proj=b.project?(b.url?'<a href="'+esc(b.url)+'" target="_blank" rel="noopener noreferrer">'+esc(b.project)+' ↗</a>':'<b>'+esc(b.project)+'</b>'):'';
     const tInfo=TAG_LABEL[b.tag||"shipping"]||TAG_LABEL.shipping;
     const isVoted=b.id&&votedIds.has(b.id);
-    const voteBtn=b.ref?'<span class="note">'+ctier(c)+'</span>':'<button type="button" class="vote-btn" data-vote="'+esc(b.id)+'" aria-pressed="'+(isVoted?"true":"false")+'">'+L("workedBtn")+' <span class="num">'+(Number(b.votes)||0)+'</span></button>';
+    const voteBtn=b.ref?'<span class="note">'+ctier(c)+'</span>':'<span style="display:inline-flex;gap:6px;align-items:center">'+(adminToken?'<button type="button" class="del-btn" data-del="'+esc(b.id)+'" title="Delete">✕</button>':'')+'<button type="button" class="vote-btn" data-vote="'+esc(b.id)+'" aria-pressed="'+(isVoted?"true":"false")+'">'+L("workedBtn")+' <span class="num">'+(Number(b.votes)||0)+'</span></button></span>';
     return '<article class="b-card'+(b.ref?' is-ref':'')+'">'
       +'<div class="b-head"><div><div class="b-name">'+esc(b.name)+'</div>'+hLink+'</div>'
       +(b.ref?'<span class="b-ref-tag">'+L("refTag")+'</span>':'<span class="tier t-'+c.tierKey+'" style="font-size:12px">'+ctier(c)+'</span>')
@@ -1068,6 +1070,21 @@ $("bFilters").addEventListener("click",e=>{
 });
 $("bCountryFilter").addEventListener("change",renderBuilders);
 $("bGrid").addEventListener("click",async e=>{
+  const del=e.target.closest("button[data-del]");
+  if(del&&adminToken){
+    const id=del.dataset.del;
+    if(!confirm(lang==="ar"?"حذف هذا البروفايل نهائياً؟":"Delete this profile permanently?"))return;
+    if(API_BASE){
+      try{
+        const r=await fetch(API_BASE+"/builders/"+encodeURIComponent(id),{method:"DELETE",headers:{"Authorization":"Bearer "+adminToken}});
+        if(!r.ok){alert("Unauthorized or failed ("+r.status+")");return}
+      }catch{return}
+    }
+    communityBuilders=communityBuilders.filter(x=>x.id!==id);
+    try{localStorage.setItem("devlottery-builders",JSON.stringify(communityBuilders.slice(0,50)))}catch{}
+    renderBuilders();
+    return;
+  }
   const btn=e.target.closest("button[data-vote]");if(!btn)return;
   const id=btn.dataset.vote;
   const item=communityBuilders.find(x=>x.id===id);if(!item)return;
@@ -1120,24 +1137,9 @@ $("bForm").addEventListener("submit",async e=>{
   setTimeout(()=>{msg.textContent=""},3500);
 });
 
-/* draw & scratch */
-const sc=$("scratch"),ctx=sc.getContext("2d",{willReadFrequently:true});
+/* draw */
 function pick(){let r=Math.random()*total;for(const c of C){r-=c.births;if(r<=0)return c}return C[C.length-1]}
 
-function drawCoverSurface(){
-  const b=$("tBody").getBoundingClientRect(),dpr=devicePixelRatio||1;
-  if(!b.width||!b.height)return;
-  sc.width=Math.round(b.width*dpr);sc.height=Math.round(b.height*dpr);
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  ctx.globalCompositeOperation="source-over";
-  ctx.fillStyle="#8A857A";ctx.fillRect(0,0,b.width,b.height);
-  ctx.strokeStyle="#9C978C";ctx.lineWidth=6;
-  for(let x=-b.height;x<b.width;x+=14){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+b.height,b.height);ctx.stroke()}
-  ctx.fillStyle="#111";ctx.font=lang==="ar"?"28px Lalezar, sans-serif":'700 24px "Space Grotesk", sans-serif';
-  ctx.textAlign="center";ctx.textBaseline="middle";
-  ctx.fillText(L("scratchText"),b.width/2,b.height/2);
-}
-function cover(){moves=0;down=false;sc.hidden=false;$("reveal").hidden=false;drawCoverSurface()}
 function renderRollSummary(){
   if(!rolls){$("rollSummary").textContent="";if(gCount===null)$("statsBar").hidden=true;return}
   $("statsBar").hidden=false;
@@ -1158,8 +1160,7 @@ function settleStats(c,rollNo){
 }
 function revealCurrent(){
   if(revealed||!cur)return;
-  revealed=true;down=false;
-  sc.hidden=true;$("reveal").hidden=true;
+  revealed=true;
   settleStats(cur,curRoll);
   const ref=refFor(cur);setStub(ref);
   $("ticketSimBtn").hidden=false;$("imgBtn").hidden=false;$("copyImg").hidden=!(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write);
@@ -1175,33 +1176,6 @@ $("ticketSimBtn").addEventListener("click",()=>{
   simDone=[true,true,true,true];renderSim();
   $("playbook").scrollIntoView({behavior:still?"auto":"smooth",block:"start"});
 });
-function scratchPoint(e,isStart){
-  const b=sc.getBoundingClientRect();if(!b.width||!b.height)return;
-  const sx=sc.width/b.width,sy=sc.height/b.height;
-  const x=e.clientX-b.left,y=e.clientY-b.top;
-  ctx.setTransform(sx,0,0,sy,0,0);
-  ctx.globalCompositeOperation="destination-out";
-  ctx.lineCap="round";ctx.lineJoin="round";ctx.lineWidth=52;
-  ctx.beginPath();
-  if(isStart){ctx.arc(x,y,26,0,Math.PI*2);ctx.fill()}
-  else{ctx.moveTo(lastX,lastY);ctx.lineTo(x,y);ctx.stroke()}
-  lastX=x;lastY=y;
-  if(++moves%12===0&&cleared()>.45)revealCurrent();
-}
-function cleared(){
-  if(!sc.width||!sc.height)return 0;
-  const d=ctx.getImageData(0,0,sc.width,sc.height).data;
-  let z=0,n=0;for(let i=3;i<d.length;i+=64){n++;if(d[i]===0)z++}
-  return n?z/n:0;
-}
-sc.addEventListener("pointerdown",e=>{down=true;sc.setPointerCapture(e.pointerId);scratchPoint(e,true)});
-sc.addEventListener("pointermove",e=>{if(down)scratchPoint(e,false)});
-const endScratch=()=>{if(!down)return;down=false;if(cleared()>.45)revealCurrent()};
-sc.addEventListener("pointerup",endScratch);
-sc.addEventListener("pointercancel",endScratch);
-$("reveal").addEventListener("click",revealCurrent);
-if(window.ResizeObserver)new ResizeObserver(()=>{if(!sc.hidden&&moves===0)drawCoverSurface()}).observe($("tBody"));
-document.fonts?.ready.then(()=>{if(!sc.hidden&&moves===0)drawCoverSurface()});
 
 function landFx(){
   for(const el of [$("tBody"),$("tTierBox")]){el.classList.remove("land","slam");void el.offsetWidth}
@@ -1219,7 +1193,7 @@ function renderTicketBody(c){
   $("tHours").textContent=fh(c.hours);$("tVisa").textContent=c.visa;$("tStamp").hidden=!c.blocked;
 }
 function roll(ms,done){
-  sc.hidden=true;$("reveal").hidden=true;$("tStamp").hidden=true;
+  $("tStamp").hidden=true;
   for(const id of ["tTier","tScore","tEarn","tHours","tVisa"])$(id).textContent="—";
   $("tTierBox").className="t-tier-box";$("tOdds").textContent=L("rolling");
   const n=$("tName");n.classList.add("rolling");
@@ -1270,7 +1244,8 @@ $("home").addEventListener("change",()=>{
   if(home){
     $("pA").value=home;if($("pB").value===home)$("pB").value=home==="NLD"?"DZA":"NLD";compare();
     $("simA").value=home;if($("simB").value===home)$("simB").value=home==="NLD"?"DZA":"NLD";renderSim();
-    $("survSel").value=home;renderSurvival();
+    $("survSel").value=home;$("badgeSel").value=home;$("bfCountry").value=home;
+    renderSurvival();renderBadgeWidget();
   }
   const ref=refFor(revealed?cur:null);setStub(ref);
   if(revealed&&cur)$("share").href="https://x.com/intent/post?text="+encodeURIComponent(shareText(cur,ref,lastEscapeN));
@@ -1367,7 +1342,8 @@ async function vsBlob(){
   const hi=a.hours>=b.hours?a:b,lo=hi===a?b:a,mult=hi.hours/lo.hours,mStr=mult>=1.95?Math.round(mult)+"x":mult.toFixed(1)+"x";
   g.fillStyle=G;g.fillRect(48,582,W-96,54);g.strokeStyle=I;g.lineWidth=3;g.strokeRect(48,582,W-96,54);
   g.fillStyle=I;g.font='700 24px "IBM Plex Sans Arabic","Space Grotesk",sans-serif';g.textAlign="center";g.direction=isAr?"rtl":"ltr";
-  const punch=a===b?(isAr?"اختر دولتين مختلفتين":"Pick two countries"):(isAr?"خط البداية في "+hi.ar+" أصعب بـ "+mStr+" من "+lo.ar+" — smailancer.github.io/DEVLottery":hi.en+"'s \"starting from zero\" is "+mStr+" harder than "+lo.en+" — smailancer.github.io/DEVLottery");
+  const siteHost=(location.host&&(location.protocol==="http:"||location.protocol==="https:"))?(location.host+location.pathname.replace(/\/$/,"")):"smailancer.github.io/DEVLottery";
+  const punch=a===b?(isAr?"اختر دولتين مختلفتين":"Pick two countries"):(isAr?"خط البداية في "+hi.ar+" أصعب بـ "+mStr+" من "+lo.ar+" — "+siteHost:hi.en+"'s \"starting from zero\" is "+mStr+" harder than "+lo.en+" — "+siteHost);
   g.fillText(punch,W/2,618);
   return new Promise(r=>cv.toBlob(r,"image/png"));
 }
@@ -1483,7 +1459,7 @@ function applyLang(){
     if(revealed){
       const ref=refFor(cur);setStub(ref);
       $("share").href="https://x.com/intent/post?text="+encodeURIComponent(shareText(cur,ref,lastEscapeN));
-    }else{setStub(refFor(null));if(moves===0)drawCoverSurface()}
+    }else setStub(refFor(null));
   }else{
     $("tBornLabel").textContent=L("heroQ");
     $("tOdds").textContent=L("oddsPrompt");
