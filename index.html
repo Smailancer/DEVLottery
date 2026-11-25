@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEV Lottery · Same Hustle, Different Spawn Point</title>
+<meta name="description" content="Birth Lottery & Indie Hacker Starting Line Index. Test the 'Start From Zero' playbook from your passport vs. the Netherlands: Stripe access, $80/mo AI stack cost, and Bali/US visa friction.">
+<meta property="og:title" content="DEV Lottery · Same Hustle, Different Spawn Point">
+<meta property="og:description" content="Spin to be born again using real UN birth odds, or test the 'Start From Zero' indie hacker playbook from your passport.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DEV Lottery · Same Hustle, Different Spawn Point">
+<meta name="twitter:description" content="Hard work matters. Shipping matters. AND where you spawn sets the difficulty multiplier.">
+<meta property="og:image" content="https://smailancer.github.io/DEVLottery/assets/og-image.png">
+<meta name="twitter:image" content="https://smailancer.github.io/DEVLottery/assets/og-image.png">
+<meta property="og:url" content="https://smailancer.github.io/DEVLottery/">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Lalezar&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+:root{color-scheme:light;--bg:#F3F0E8;--ink:#111111;--card:#FBF9F3;--mute:#5E5A52;--line:#111111;--gold:#F2C230;--red:#C8201A;--green:#15803D;--track:#E4E0D6}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#121212;--ink:#F0EDE5;--card:#1D1D1B;--mute:#B3AEA3;--line:#F0EDE5;--green:#4ADE80;--track:#2C2B28}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#121212;--ink:#F0EDE5;--card:#1D1D1B;--mute:#B3AEA3;--line:#F0EDE5;--green:#4ADE80;--track:#2C2B28}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans Arabic",system-ui,sans-serif;overflow-x:clip}
+html{scroll-padding-top:76px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.num{font-family:"IBM Plex Mono","IBM Plex Sans Arabic",monospace;font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+h1,h2,.display{font-family:"Space Grotesk",Lalezar,"IBM Plex Sans Arabic",sans-serif;font-weight:700;line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-0.02em}
+html[dir=rtl] h1,html[dir=rtl] h2,html[dir=rtl] .display{font-family:Lalezar,"IBM Plex Sans Arabic",sans-serif;font-weight:400;letter-spacing:0}
+h1{font-size:clamp(38px,5.6vw,62px)}h2{font-size:clamp(30px,4vw,44px)}
+nav{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:2px solid var(--line)}
+nav .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:10px max(5vw,16px)}
+nav .links{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+nav a,.chip,button{font:inherit;color:inherit}
+nav a{padding:8px 11px;text-decoration:none;font-weight:600;font-size:15px}nav a:hover{text-decoration:underline}
+.logo{display:block;line-height:0}.logo img{height:48px;width:auto}
+.logo .on-dark{display:none}
+:root[data-theme=dark] .logo .on-light{display:none}:root[data-theme=dark] .logo .on-dark{display:block}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .logo .on-light{display:none}:root:not([data-theme=light]) .logo .on-dark{display:block}}
+button,.btn{min-height:44px;padding:0 16px;border:2px solid var(--line);background:transparent;cursor:pointer;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:transform .1s,box-shadow .1s}
+.mini-btn{padding:0 11px;min-height:36px;font-size:13px}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.primary{background:var(--gold);color:#111;border-color:#111;font-family:"Space Grotesk",Lalezar,sans-serif;font-size:21px;font-weight:700;min-height:56px;padding:0 22px;box-shadow:4px 4px 0 var(--line)}
+html[dir=rtl] .primary{font-family:Lalezar,sans-serif;font-size:25px;font-weight:400}
+.primary:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--line)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(24px,4vw,52px);align-items:center}
+.kicker{display:inline-block;background:var(--ink);color:var(--bg);font-size:12px;font-weight:700;padding:4px 10px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.lead p{font-size:17px;max-width:48ch;margin:14px 0}
+.stats{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;color:var(--mute);font-size:14px}
+.stats b{color:var(--ink)}
+.ticket{background:var(--card);border:2px solid var(--line);position:relative;box-shadow:6px 6px 0 var(--line)}
+.t-head{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:2px dashed var(--line);font-size:14px}
+.t-body{position:relative;padding:20px 18px}
+.t-name{font-family:"Space Grotesk",Lalezar,sans-serif;font-weight:700;font-size:clamp(36px,5.6vw,60px);line-height:1.05;margin:4px 0}
+html[dir=rtl] .t-name{font-family:Lalezar,sans-serif;font-weight:400;font-size:clamp(42px,6.4vw,68px)}
+.t-sub{color:var(--mute);font-size:14px}
+.t-score{display:flex;flex-wrap:wrap;border:2px solid var(--line);margin:16px 0}
+.t-score>div{padding:10px 14px}
+.t-tier-box{background:var(--ink);color:var(--bg);border-inline-end:2px solid var(--line)}
+.rows>div{display:grid;grid-template-columns:6em minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px dashed var(--line)}
+.rows>div:last-child{border-bottom:0}
+.rows b{font-size:15px}.rows .num{font-size:20px;font-weight:700}
+.rows span{font-size:14px}
+canvas.scratch{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:none}
+canvas.scratch:active{cursor:grabbing}
+.stub{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;border-top:2px dashed var(--line)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tier{display:inline-block;padding:3px 10px;font-weight:700;border:2px solid var(--line);white-space:nowrap}
+.t-easy{background:var(--gold);color:#111;border-color:var(--line)}
+.t-normal{background:var(--card);color:var(--ink)}
+.t-hard{background:var(--ink);color:var(--bg)}
+.t-nightmare{background:var(--red);color:#fff;border-color:var(--red)}
+.t-tier-box.t-easy,.t-tier-box.t-normal,.t-tier-box.t-hard,.t-tier-box.t-nightmare{border-color:var(--line)}
+.stamp{display:inline-block;border:3px solid var(--red);color:var(--red);font-family:"Space Grotesk",Lalezar,sans-serif;font-weight:700;font-size:20px;padding:2px 10px;transform:rotate(-6deg);text-transform:uppercase}
+@keyframes stampIn{0%{transform:scale(1.8) rotate(-14deg);opacity:0}70%{transform:scale(.94) rotate(-5deg);opacity:1}100%{transform:scale(1) rotate(-6deg);opacity:1}}
+.stamp-pop{animation:stampIn .26s cubic-bezier(.2,.8,.3,1)}
+/* Start From Zero Playbook Simulator */
+.sim-box{border:2px solid var(--line);background:var(--card);padding:clamp(18px,3vw,28px);margin-top:24px;box-shadow:6px 6px 0 var(--line)}
+.sim-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;padding-bottom:18px;border-bottom:2px dashed var(--line)}
+.sim-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
+.q-card{border:2px solid var(--line);background:var(--bg);padding:16px;display:flex;flex-direction:column;gap:10px;position:relative;transition:transform .15s,box-shadow .15s}
+.q-card.done{box-shadow:4px 4px 0 var(--line)}
+.q-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.q-num{font-size:12px;font-weight:700;padding:2px 8px;background:var(--ink);color:var(--bg)}
+.q-title{font-weight:700;font-size:17px;margin:0}
+.q-desc{font-size:14px;color:var(--mute);margin:0}
+.q-res{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;border-top:1px dashed var(--line);padding-top:10px;font-size:14px}
+.q-col{padding:10px;border:1px solid var(--line);background:var(--card)}
+.q-col small{display:block;font-weight:700;margin-bottom:4px;font-size:13px}
+.q-badge{display:inline-block;font-size:12px;font-weight:700;padding:2px 7px;margin-bottom:4px;border:1px solid var(--line)}
+.q-ok{background:var(--gold);color:#111;border-color:#111}
+.q-warn{background:var(--card);color:var(--ink)}
+.q-fail{background:var(--red);color:#fff;border-color:var(--red)}
+.sim-verdict{margin-top:20px;border:2px solid var(--line);background:var(--gold);color:#111;padding:18px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px}
+.sim-verdict h3{margin:0 0 4px;font-family:"Space Grotesk",Lalezar,sans-serif;font-size:clamp(22px,3vw,30px);line-height:1.15}
+.sim-verdict p{margin:0;font-size:15px;max-width:60ch}
+.sim-verdict .btn,.sim-verdict button{border-color:#111;color:#111;background:rgba(255,255,255,.35)}
+.sim-verdict .btn:hover,.sim-verdict button:hover{background:#111;color:#F2C230}
+.respect-bar{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border:2px dashed var(--line);background:var(--bg);font-size:15px}
+.respect-bar button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+/* Compare & Index */
+.compare{border:2px solid var(--line);background:var(--card);padding:20px;margin:24px 0}
+.pickers{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+select{font:inherit;font-size:15px;min-height:44px;padding:0 12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.headline{background:var(--gold);color:#111;font-weight:700;padding:10px 14px;margin:16px 0;display:inline-block;font-size:17px}
+.bars{display:grid;gap:14px}
+.bar-row{display:grid;grid-template-columns:10em minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:center}
+.bar-row small{display:block;font-size:14px;margin-bottom:4px}
+.bar{height:12px;background:var(--track);border:1px solid var(--line)}.bar i{display:block;height:100%;background:var(--ink)}
+.bar i.win{background:var(--gold)}.bar i.bad{background:var(--red)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+.filters button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.scroll{overflow-x:auto;border:2px solid var(--line);background:var(--card)}
+table{width:100%;min-width:780px;border-collapse:collapse}
+th,td{padding:10px 14px;text-align:start;border-top:1px solid var(--line);white-space:nowrap}
+thead th{background:var(--ink);color:var(--bg);border-top:0;padding:0}
+thead th:first-child,tbody th[scope=row]{position:sticky;inset-inline-start:0;z-index:1}
+tbody th[scope=row]{background:var(--card);border-inline-end:1px solid var(--line)}
+thead th:first-child{z-index:2;border-inline-end:1px solid var(--bg)}
+thead button{border:0;width:100%;justify-content:flex-start;color:var(--bg);padding:0 14px;font-weight:700}
+thead button[aria-sort]{text-decoration:underline}
+thead button[aria-sort=ascending]::after{content:" ↑";font-size:13px}
+thead button[aria-sort=descending]::after{content:" ↓";font-size:13px}
+td.n{text-align:end}
+.note{color:var(--mute);font-size:14px}
+.method{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:20px}
+.method div{border-top:2px solid var(--line);padding-top:12px}
+footer{border-top:2px solid var(--line)}
+.home{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0 4px}
+.home label{font-weight:700}
+.spin-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
+.escape{font-weight:700;font-size:16px;background:var(--gold);color:#111;padding:8px 12px;display:inline-block;margin-top:12px}
+.escape:empty{display:none}
+.t-name.rolling{opacity:.55}
+.toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin:20px 0}
+.toolbar .filters{margin:0}
+.viewsw{display:flex}
+.viewsw button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:14px}
+.tile{border:2px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:12px;min-height:220px;transition:transform .15s,box-shadow .15s}
+.tile:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--line)}
+.tile-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.tile h3{font-family:"Space Grotesk",Lalezar,sans-serif;font-weight:700;font-size:24px;line-height:1.1;margin:2px 0 0}
+html[dir=rtl] .tile h3{font-family:Lalezar,sans-serif;font-weight:400;font-size:28px}
+.tile small{font-size:13px;opacity:.85}
+.tile .big{font-size:32px;font-weight:700;line-height:1}
+.tile-stats{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr) minmax(0,.8fr);gap:6px;border-top:1px dashed currentColor;padding-top:10px}
+.tile-stats div{display:flex;flex-direction:column}
+.tile-stats b{font-size:16px}
+.tile p{margin:0;font-size:13px}
+.tile button{margin-top:auto;border-color:currentColor;min-height:40px}
+.tile .stamp{border-color:currentColor;color:inherit;font-size:16px;align-self:flex-start}
+[hidden]{display:none!important}
+.ticker{overflow:hidden;background:var(--ink);color:var(--bg);border-bottom:2px solid var(--line);font-size:14px}
+.tk-track{display:flex;width:max-content;animation:tk-ltr 95s linear infinite}
+html[dir=rtl] .tk-track{animation-name:tk-rtl}
+.ticker:hover .tk-track{animation-play-state:paused}
+.tk-item{padding:8px 16px;white-space:nowrap;border-inline-start:1px solid color-mix(in srgb,var(--bg) 30%,transparent)}
+.tk-item b{font-weight:700}.tk-item .pc{color:var(--gold);margin-inline-start:6px}
+.tk-item.lead-i{background:var(--gold);color:#111}
+@keyframes tk-ltr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes tk-rtl{from{transform:translateX(0)}to{transform:translateX(50%)}}
+.challenge{display:flex;flex-wrap:wrap;align-items:center;gap:12px;border:2px solid var(--line);background:var(--card);padding:12px 14px;margin:14px 0;font-weight:700}
+@media(max-width:920px){.hero,.method,.sim-steps{grid-template-columns:minmax(0,1fr)}.bar-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.bar-row>b{grid-column:1/-1}}
+@media(max-width:560px){.q-res{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.ticker{overflow-x:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<nav aria-label="Navigation"><div class="wrap">
+<a class="logo" href="#draw"><img class="on-light" src="assets/logo.svg" alt="DEV Lottery · Starting Line Index" width="160" height="48"><img class="on-dark" src="assets/logo-on-dark.svg" alt="DEV Lottery · Starting Line Index" width="160" height="48"></a>
+<div class="links">
+<a href="#draw" data-t="navDraw">Lottery</a>
+<a href="#playbook" data-t="navPlaybook">Start From Zero</a>
+<a href="#index" data-t="navIndex">Index</a>
+<a href="#method" data-t="navMethod">Method</a>
+<button type="button" class="mini-btn" id="langBtn" aria-label="Switch language">عربي</button>
+<button type="button" class="mini-btn" id="sfxBtn" aria-label="Toggle sound">🔊</button>
+<button type="button" class="mini-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
+</div>
+</div></nav>
+<div class="ticker" aria-label="World live births 2024"><div class="tk-track" id="ticker"></div></div>
+
+<div id="srAnnounce" class="sr-only" aria-live="polite"></div>
+
+<section id="draw" class="band"><div class="wrap hero">
+<div class="lead">
+<span class="kicker" data-t="kicker">INDIE HACKER SPAWN DIFFICULTY</span>
+<h1 data-t="heroH1">Same hustle. Different spawn point.</h1>
+<p data-t="heroP">You didn't choose where you were born. Spin to respawn using real UN birth odds — then test whether the "start from zero" playbook works from your passport.</p>
+<div class="challenge" id="challenge" hidden><span id="chText"></span><button type="button" id="chGo" data-t="acceptChallenge">Accept Challenge</button></div>
+<div class="home"><label for="home" data-t="whereBorn">Where were you actually born?</label><select id="home"></select></div>
+<div class="spin-row">
+<button class="primary" id="spin" type="button" data-t="spinBtn">Spin Spawn Ticket</button>
+<button type="button" id="untilEasy" data-t="untilEasyBtn">Spin until «Easy»</button>
+</div>
+<div class="escape" id="escape" aria-live="polite"></div>
+<div class="stats" aria-live="polite">
+<span><span data-t="statRolls">Respawns</span>: <b class="num" id="cRolls">0</b></span>
+<span><span data-t="statEasy">«Easy» tickets</span>: <b class="num" id="cEasy">0</b></span>
+<span id="firstEasy"></span>
+<span id="globalWrap" hidden><span data-t="statGlobal">Tickets spun worldwide</span>: <b class="num" id="cGlobal">0</b></span>
+</div>
+<p class="note" id="coverage"></p>
+</div>
+
+<div class="ticket">
+<div class="t-head"><span class="display" style="font-size:20px" data-t="ticketBrand">SPAWN TICKET</span><span><span data-t="ticketNo">Ticket #</span><span class="num" id="tNo">—</span></span></div>
+<div class="t-body" id="tBody">
+<div class="t-sub" data-t="bornIn">You spawned in</div>
+<div class="t-name" id="tName">?</div>
+<div class="t-sub" id="tOdds"></div>
+<div class="t-score">
+<div class="t-tier-box" id="tTierBox"><div class="t-sub" style="color:inherit" data-t="tierLabel">Difficulty</div><div class="display" style="font-size:26px" id="tTier">—</div></div>
+<div><div class="t-sub" data-t="scoreLabel">Starting Line</div><div class="num" style="font-size:26px;font-weight:700"><span id="tScore">—</span>/100</div></div>
+<div id="tStamp" hidden style="align-self:center"><span class="stamp" id="tStampText">BLOCKED</span></div>
+</div>
+<div class="rows">
+<div><b data-t="rowEarn">EARN</b><span id="tEarnNote"></span><span class="num" id="tEarn">—</span></div>
+<div><b data-t="rowBuy">BUY</b><span data-t="rowBuyDesc">Work hours for a $20/mo tool</span><span class="num" id="tHours">—</span></div>
+<div><b data-t="rowMove">MOVE</b><span data-t="rowMoveDesc">Visa-free destinations</span><span class="num" id="tVisa">—</span></div>
+</div>
+<canvas class="scratch" id="scratch" hidden aria-hidden="true"></canvas>
+</div>
+<div class="stub">
+<span id="stubRef"><span id="sLabel"></span> <b id="sName"></b>: <span class="num"><span id="sScore">—</span>/100</span></span>
+<span class="actions" style="margin:0">
+<button type="button" id="reveal" hidden data-t="revealBtn">Reveal All</button>
+<button type="button" id="imgBtn" hidden data-t="dlTicketBtn">PNG Ticket</button>
+<button type="button" id="copyImg" hidden data-t="copyImgBtn">Copy PNG</button>
+<a class="btn" id="share" href="https://x.com/intent/post" target="_blank" rel="noopener noreferrer" data-t="shareX">Post on X</a>
+</span>
+</div>
+</div>
+</div></section>
+
+<section id="playbook" class="band" style="border-top:2px solid var(--line)"><div class="wrap">
+<span class="kicker" data-t="simKicker">THE "START FROM ZERO" SIMULATOR</span>
+<h2 data-t="simH2">Can you actually run the Bali indie-hacker playbook?</h2>
+<p style="max-width:70ch" data-t="simIntro">Hard work matters. Shipping matters. AND where you spawn sets the difficulty multiplier. Test the classic 4-step indie hacker journey from your passport vs. the Netherlands — no excuses, just real friction.</p>
+
+<div class="sim-box">
+<div class="sim-top">
+<div class="pickers">
+<label for="simA" data-t="simYour">Your Passport</label><select id="simA"></select>
+<label for="simB" data-t="simVs">vs.</label><select id="simB"></select>
+</div>
+<div class="actions" style="margin:0">
+<button type="button" class="primary" id="runSimBtn" style="min-height:46px;font-size:18px" data-t="runSimBtn">Run All 4 Steps →</button>
+</div>
+</div>
+
+<div class="sim-steps" id="simSteps"></div>
+
+<div class="sim-verdict" id="simVerdict" hidden>
+<div>
+<h3 id="simVerdictTitle"></h3>
+<p id="simVerdictSub"></p>
+</div>
+<div class="actions" style="margin:0">
+<button type="button" id="vsDlBtn" data-t="dlVsBtn">Download VS Card PNG</button>
+<button type="button" id="vsCopyBtn" data-t="copyVsBtn">Copy VS Card</button>
+<a class="btn" id="vsShareBtn" href="https://x.com/intent/post" target="_blank" rel="noopener noreferrer" data-t="shareVsBtn">Post Receipt on X</a>
+</div>
+</div>
+
+<div class="respect-bar">
+<span id="respectText"></span>
+<button type="button" id="respectBtn" aria-pressed="false"></button>
+</div>
+</div>
+</div></section>
+
+<section id="index" class="band" style="border-top:2px solid var(--line)"><div class="wrap">
+<h2 data-t="idxH2">Starting Line Index</h2>
+<p style="max-width:68ch" id="idxSub"></p>
+
+<div class="compare">
+<div class="pickers">
+<label for="pA" data-t="cmpA">Compare</label><select id="pA"></select>
+<label for="pB" data-t="cmpB">with</label><select id="pB"></select>
+<button type="button" class="mini-btn" id="copyLinkBtn" data-t="copyCmpLink">Copy Link</button>
+</div>
+<div class="headline" id="cHead"></div>
+<div class="bars" id="cBars"></div>
+</div>
+
+<div class="toolbar">
+<div class="filters" role="group" aria-label="Filter by difficulty" id="filters"></div>
+<div class="viewsw" role="group" aria-label="View mode"><button type="button" data-v="grid" aria-pressed="true" data-t="viewCards">Cards</button><button type="button" data-v="table" aria-pressed="false" data-t="viewTable">Table</button></div>
+</div>
+<div class="grid" id="grid"></div>
+<div class="scroll" id="tableWrap" hidden>
+<table>
+<caption class="note" style="text-align:start;padding:10px 14px;caption-side:bottom" data-t="tblCap">Data snapshot: Nov 2026. Score = 40% Earn + 40% Buy + 20% Move.</caption>
+<thead><tr>
+<th scope="col"><button type="button" data-k="name" data-t="thCountry">Country</button></th>
+<th scope="col"><button type="button" data-k="score" data-t="thScore">Score</button></th>
+<th scope="col"><button type="button" data-k="tier" data-t="thTier">Difficulty</button></th>
+<th scope="col"><button type="button" data-k="earn" data-t="thEarn">Earn</button></th>
+<th scope="col"><button type="button" data-k="hours" data-t="thBuy">Buy ($20)</button></th>
+<th scope="col"><button type="button" data-k="visa" data-t="thMove">Move</button></th>
+<th scope="col"><button type="button" data-k="share" data-t="thShare">Birth Share</button></th>
+</tr></thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+</div></section>
+
+<section id="method" class="band" style="border-top:2px solid var(--line)"><div class="wrap">
+<h2 data-t="mH2">Methodology & Sources</h2>
+<div class="method">
+<div><b data-t="mEarnT">EARN (40%)</b><p data-t="mEarnP">100 = Direct Stripe; 75 = Stripe with restrictions/local partner (Paystack, Invite-only Preview); 60 = PayPal can receive; 30 = Paddle (MoR) only; 0 = Sanctioned / no reliable rail. Sources: stripe.com/global, Paddle supported countries, PayPal docs.</p></div>
+<div><b data-t="mBuyT">BUY (40%)</b><p data-t="mBuyP">Work hours required for a $20/mo dev tool (or $80/mo AI stack in the simulator), using World Bank GNI per capita ÷ 12 at market FX where parallel rates exist (e.g. Algeria Square rate). Log-scaled with fixed goalposts (0.38h best, 71h worst).</p></div>
+<div><b data-t="mMoveT">MOVE (20%)</b><p data-t="mMoveP">Visa-free destinations from Henley Passport Index 2026 (23–192 scale), plus Bali/Indonesia entry policy & US Visa Waiver (ESTA) eligibility. Birth odds: UN World Population Prospects 2024.</p></div>
+</div>
+<p class="note" style="margin-top:16px" data-t="mWeak">Known limitations: GNI per capita is a national baseline, not a senior developer salary (Stack Overflow salary overlay planned). Some countries still use official FX where market FX is unsourced. Birth draw weights reflect the 33 countries included in v2.</p>
+</div></section>
+
+<footer class="band"><div class="wrap note">
+<p style="margin:0 0 6px"><span data-t="foot1">DEV Lottery v2 · Every number has a source · Respect to everyone shipping on Hard Mode 🫡 ·</span> <a href="https://github.com/Smailancer/DEVLottery" data-t="footCode">Code on GitHub</a></p>
+<p style="margin:0" data-t="foot2">Not affiliated with the U.S. Diversity Visa (DV) program. This site offers no visa services.</p>
+</div></footer>
+
+<script>
+{
+/* [iso, flag, en, ar, earn, noteEn, noteAr, hours($20), visa, births, blocked, baliVisa('free'|'voa'|'visa'|'home'), usVisa('home'|'esta'|'visa'), flightUsd] */
+const RAW=[
+["USA","🇺🇸","United States","الولايات المتحدة",100,"Direct Stripe","Stripe مباشر",0.47,179,3654449,0,"voa","home",850],
+["GBR","🇬🇧","United Kingdom","المملكة المتحدة",100,"Direct Stripe","Stripe مباشر",0.76,183,683910,0,"voa","esta",720],
+["CAN","🇨🇦","Canada","كندا",100,"Direct Stripe","Stripe مباشر",0.74,182,361079,0,"voa","esta",820],
+["NLD","🇳🇱","Netherlands","هولندا",100,"Direct Stripe","Stripe مباشر",0.61,185,171524,0,"voa","esta",680],
+["DEU","🇩🇪","Germany","ألمانيا",100,"Direct Stripe","Stripe مباشر",0.69,185,717268,0,"voa","esta",680],
+["FRA","🇫🇷","France","فرنسا",100,"Direct Stripe","Stripe مباشر",0.85,185,635995,0,"voa","esta",690],
+["CHE","🇨🇭","Switzerland","سويسرا",100,"Direct Stripe","Stripe مباشر",0.38,185,82864,0,"voa","esta",700],
+["JPN","🇯🇵","Japan","اليابان",100,"Direct Stripe","Stripe مباشر",1.08,187,750570,0,"voa","esta",380],
+["SGP","🇸🇬","Singapore","سنغافورة",100,"Direct Stripe","Stripe مباشر",0.51,192,48802,0,"free","esta",120],
+["ARE","🇦🇪","UAE","الإمارات",100,"Direct Stripe","Stripe مباشر",0.72,185,98000,0,"voa","visa",460],
+["POL","🇵🇱","Poland","بولندا",100,"Direct Stripe","Stripe مباشر",1.80,188,290000,0,"voa","esta",690],
+["MEX","🇲🇽","Mexico","المكسيك",100,"Direct Stripe","Stripe مباشر",3.10,159,1890000,0,"voa","visa",950],
+["BRA","🇧🇷","Brazil","البرازيل",100,"Direct Stripe","Stripe مباشر",3.60,170,2520000,0,"voa","visa",1050],
+["SAU","🇸🇦","Saudi Arabia","السعودية",60,"PayPal receives / Tap","PayPal يستقبل / Tap",1.15,88,560000,0,"voa","visa",520],
+["IND","🇮🇳","India","الهند",75,"Stripe Invite-Only (Preview)","Stripe بالدعوة فقط (Preview)",15.04,56,23186978,0,"voa","visa",290],
+["NGA","🇳🇬","Nigeria","نيجيريا",75,"Stripe via Paystack","Stripe عبر Paystack",32.47,44,7560407,0,"visa","visa",920],
+["KEN","🇰🇪","Kenya","كينيا",75,"Stripe via Paystack","Stripe عبر Paystack",18.50,74,1450000,0,"voa","visa",740],
+["IDN","🇮🇩","Indonesia","إندونيسيا",60,"PayPal receives / Xendit","PayPal يستقبل / Xendit",7.80,76,4480000,0,"home","visa",90],
+["PHL","🇵🇭","Philippines","الفلبين",60,"PayPal receives","PayPal يستقبل",9.20,67,1850000,0,"free","visa",210],
+["TUR","🇹🇷","Turkey","تركيا",30,"No Stripe/PayPal · Paddle only","بلا Stripe/PayPal · Paddle فقط",3.20,116,1190000,0,"voa","visa",620],
+["UKR","🇺🇦","Ukraine","أوكرانيا",30,"No Stripe · Paddle/Payoneer","بلا Stripe · Paddle/Payoneer",7.50,148,210000,0,"voa","visa",760],
+["PAK","🇵🇰","Pakistan","باكستان",30,"Paddle only","Paddle فقط",27.68,31,6887798,0,"visa","visa",440],
+["BGD","🇧🇩","Bangladesh","بنغلاديش",30,"Paddle only","Paddle فقط",14.62,36,3469124,0,"visa","visa",340],
+["EGY","🇪🇬","Egypt","مصر",60,"PayPal receives","PayPal يستقبل",12.74,49,2437410,0,"voa","visa",610],
+["ETH","🇪🇹","Ethiopia","إثيوبيا",30,"Paddle only","Paddle فقط",43.47,42,4155828,0,"visa","visa",760],
+["MAR","🇲🇦","Morocco","المغرب",60,"PayPal receive & withdraw","PayPal يستقبل ويسحب",9.52,71,624620,0,"voa","visa",740],
+["TUN","🇹🇳","Tunisia","تونس",60,"PayPal (US bank withdraw only)","PayPal (سحب لبنك أمريكي فقط)",9.66,66,164145,0,"voa","visa",730],
+["DZA","🇩🇿","Algeria","الجزائر",30,"No PayPal receive · Paddle only","PayPal لا يستقبل · Paddle فقط",12.55,55,881823,0,"visa","visa",760],
+["ARG","🇦🇷","Argentina","الأرجنتين",30,"Paddle only","Paddle فقط",2.97,168,506609,0,"voa","visa",1100],
+["LBN","🇱🇧","Lebanon","لبنان",30,"No Stripe/PayPal · Paddle only","بلا Stripe/PayPal · Paddle فقط",14.20,44,95000,0,"visa","visa",640],
+["IRN","🇮🇷","Iran","إيران",0,"Sanctions block global rails","العقوبات تغلق كل الطرق",13.88,38,1151057,1,"visa","visa",650],
+["VEN","🇻🇪","Venezuela","فنزويلا",0,"No reliable payout rail","لا طريقة دفع مؤكدة",12.58,116,432648,0,"voa","visa",1150],
+["SYR","🇸🇾","Syria","سوريا",0,"Sanctions & platform bans","العقوبات وقوائم المنصات",71.00,26,571460,1,"visa","visa",720]
+];
+
+const C=RAW.map(([iso,flag,en,ar,earn,noteEn,noteAr,hours,visa,births,blocked,baliVisa,usVisa,flightUsd])=>({
+  iso,flag,en,ar,earn,noteEn,noteAr,hours,visa,births,blocked:!!blocked,baliVisa,usVisa,flightUsd
+}));
+
+const WORLD=132405927,W={earn:.4,buy:.4,move:.2},V_MIN=23,V_MAX=192,H_MIN=0.38,H_MAX=71;
+const lmin=Math.log1p(H_MIN),lmax=Math.log1p(H_MAX),cl=x=>Math.max(0,Math.min(1,x));
+const TIERS=[
+  {k:"easy",en:"Easy",ar:"سهل",min:75},
+  {k:"normal",en:"Normal",ar:"عادي",min:50},
+  {k:"hard",en:"Hard",ar:"صعب",min:25},
+  {k:"nightmare",en:"Nightmare",ar:"كابوس",min:0}
+];
+const total=C.reduce((s,c)=>s+c.births,0);
+for(const c of C){
+  const buy=100*(1-cl((Math.log1p(c.hours)-lmin)/(lmax-lmin)));
+  const move=100*cl((c.visa-V_MIN)/(V_MAX-V_MIN));
+  c.score=Math.round(W.earn*c.earn+W.buy*buy+W.move*move);
+  const t=TIERS.find(t=>c.score>=t.min);
+  c.tierKey=t.k;c.tierEn=t.en;c.tierAr=t.ar;c.tierRank=TIERS.indexOf(t);
+  c.share=c.births/WORLD*100;
+  c.sampleShare=c.births/total*100;
+}
+const by=Object.fromEntries(C.map(c=>[c.iso,c]));
+const $=id=>document.getElementById(id);
+const nf=n=>n.toLocaleString("en-US");
+const pct=x=>x.toFixed(x<1?2:1)+"%";
+const PAGE=location.origin+location.pathname;
+
+/* i18n */
+const T={
+  en:{
+    title:"DEV Lottery · Same Hustle, Different Spawn Point",
+    navDraw:"Lottery",navPlaybook:"Start From Zero",navIndex:"Index",navMethod:"Method",langBtn:"عربي",
+    kicker:"INDIE HACKER SPAWN DIFFICULTY",
+    heroH1:"Same hustle. Different spawn point.",
+    heroP:"You didn't choose where you were born. Spin to respawn using real UN birth odds — then test whether the \"start from zero\" playbook works from your passport.",
+    acceptChallenge:"Accept Challenge",whereBorn:"Where were you actually born?",pickCountry:"Select your country",
+    spinBtn:"Spin Spawn Ticket",untilEasyBtn:"Spin until «Easy»",
+    statRolls:"Respawns",statEasy:"«Easy» tickets",statGlobal:"Tickets spun worldwide",
+    ticketBrand:"SPAWN TICKET",ticketNo:"Ticket #",bornIn:"You spawned in",
+    oddsPrompt:"Hit «Spin Spawn Ticket» then scratch",tierLabel:"Difficulty",scoreLabel:"Starting Line",blocked:"BLOCKED",
+    rowEarn:"EARN",rowEarnInit:"Can you get paid from abroad?",rowBuy:"BUY",rowBuyDesc:"Work hours for a $20/mo tool",rowMove:"MOVE",rowMoveDesc:"Visa-free destinations",
+    revealBtn:"Reveal All",dlTicketBtn:"PNG Ticket",copyImgBtn:"Copy PNG",copied:"Copied ✓",shareX:"Post on X",
+    scratchText:"SCRATCH HERE",rolling:"Rolling…",
+    simKicker:"THE \"START FROM ZERO\" SIMULATOR",
+    simH2:"Can you actually run the Bali indie-hacker playbook?",
+    simIntro:"Hard work matters. Shipping matters. AND where you spawn sets the difficulty multiplier. Test the classic 4-step indie hacker journey from your passport vs. the Netherlands — no excuses, just real friction.",
+    simYour:"Your Passport",simVs:"vs.",runSimBtn:"Run All 4 Steps →",
+    dlVsBtn:"Download VS Card PNG",copyVsBtn:"Copy VS Card",shareVsBtn:"Post Receipt on X",
+    idxH2:"Starting Line Index",cmpA:"Compare",cmpB:"with",copyCmpLink:"Copy Link",
+    viewCards:"Cards",viewTable:"Table",all:"All",
+    tblCap:"Data snapshot: Nov 2026. Score = 40% Earn + 40% Buy + 20% Move.",
+    thCountry:"Country",thScore:"Score",thTier:"Difficulty",thEarn:"Earn",thBuy:"Buy ($20)",thMove:"Move",thShare:"Birth Share",
+    mH2:"Methodology & Sources",
+    mEarnT:"EARN (40%)",mEarnP:"100 = Direct Stripe; 75 = Stripe with restrictions/local partner (Paystack, Invite-only Preview); 60 = PayPal receives; 30 = Paddle (MoR) only; 0 = Sanctioned / no reliable rail. Sources: stripe.com/global, Paddle & PayPal docs.",
+    mBuyT:"BUY (40%)",mBuyP:"Work hours required for a $20/mo dev tool (or $80/mo AI stack in the simulator), using World Bank GNI per capita ÷ 12 at market FX where parallel rates exist (e.g. Algeria Square rate). Log-scaled with fixed goalposts (0.38h best, 71h worst).",
+    mMoveT:"MOVE (20%)",mMoveP:"Visa-free destinations from Henley Passport Index 2026 (23–192 scale), plus Bali/Indonesia entry rules & US Visa Waiver (ESTA) eligibility. Birth odds: UN WPP 2024.",
+    mWeak:"Known limitations: GNI per capita is a national baseline, not a senior developer salary (Stack Overflow salary overlay planned). Some countries still use official FX where market FX is unsourced. Birth draw weights reflect the 33 countries included in v2.",
+    foot1:"DEV Lottery v2 · Every number has a source · Respect to everyone shipping on Hard Mode 🫡 ·",footCode:"Code on GitHub",
+    foot2:"Not affiliated with the U.S. Diversity Visa (DV) program. This site offers no visa services.",
+    tickerLead:"WORLD BIRTHS 2024:",yourCountry:"Your real passport",sameSkills:"Same skills in",
+    compareBtn:"+ Compare",hoursLabel:"$20/mo hours (lower is better)",
+    respectBtn:"I'm shipping from Hard Mode 🫡",respectDone:"Saluted! Keep shipping 🫡"
+  },
+  ar:{
+    title:"DEV Lottery · المهارات نفسها، خط البداية مختلف",
+    navDraw:"اليانصيب",navPlaybook:"محاكي الصفر",navIndex:"المؤشر",navMethod:"المنهجية",langBtn:"EN",
+    kicker:"مستوى صعوبة المطور حسب الولادة",
+    heroH1:"المهارات نفسها. نقطة البداية مختلفة.",
+    heroP:"لم تختر أين وُلدت. اسحب تذكرة لتولد من جديد وفق احتمالات المواليد الحقيقية — ثم اختبر هل تنجح خطة «الانطلاق من الصفر إلى بالي» بجواز سفرك.",
+    acceptChallenge:"اقبل التحدي",whereBorn:"أين وُلدتَ فعلاً؟",pickCountry:"اختر بلدك",
+    spinBtn:"اسحب تذكرة",untilEasyBtn:"اسحب حتى «سهل»",
+    statRolls:"عدد الولادات",statEasy:"تذاكر «سهل»",statGlobal:"تذاكر سُحبت حول العالم",
+    ticketBrand:"تذكرة الولادة",ticketNo:"تذكرة رقم ",bornIn:"وُلدتَ في",
+    oddsPrompt:"اضغط «اسحب تذكرة» ثم اكشط",tierLabel:"المستوى",scoreLabel:"نقطة البداية",blocked:"محظور",
+    rowEarn:"الكسب",rowEarnInit:"هل تستطيع قبض المال من الخارج؟",rowBuy:"الشراء",rowBuyDesc:"ساعات عمل لدفع اشتراك 20$ شهرياً",rowMove:"التنقل",rowMoveDesc:"وجهات بلا تأشيرة",
+    revealBtn:"اكشف الكل",dlTicketBtn:"صورة التذكرة",copyImgBtn:"انسخ الصورة",copied:"نُسخت ✓",shareX:"شارك على X",
+    scratchText:"اكشط هنا",rolling:"جارٍ السحب…",
+    simKicker:"محاكي «الانطلاق من الصفر»",
+    simH2:"هل تنجح خطة الـ Indie Hacker إلى بالي بجواز سفرك؟",
+    simIntro:"العمل الجاد يصنع الفرق، وإطلاق المنتجات يصنع الفرق — لكن مكان ولادتك يضبط معامل الصعوبة. اختبر الخطوات الأربع الشهيرة للانطلاق من الصفر مقارنة بهولندا بلا تذمّر، بل بالأرقام الواقعية.",
+    simYour:"جواز سفرك",simVs:"مقابل",runSimBtn:"شغّل الخطوات الأربع ←",
+    dlVsBtn:"نزّل بطاقة المقارنة PNG",copyVsBtn:"انسخ البطاقة",shareVsBtn:"شارك الإيصال على X",
+    idxH2:"مؤشر خط البداية",cmpA:"قارن",cmpB:"مع",copyCmpLink:"انسخ الرابط",
+    viewCards:"بطاقات",viewTable:"جدول",all:"الكل",
+    tblCap:"بيانات نوفمبر 2026. الدرجة = 40% كسب + 40% شراء + 20% تنقل.",
+    thCountry:"الدولة",thScore:"الدرجة",thTier:"المستوى",thEarn:"الكسب",thBuy:"الشراء (20$)",thMove:"التنقل",thShare:"نصيب المواليد",
+    mH2:"المنهجية والمصادر",
+    mEarnT:"الكسب (40%)",mEarnP:"100 إذا كان Stripe متاحاً مباشرةً، 75 إذا كان متاحاً بقيود أو عبر شريك محلي (مثل Paystack أو الوصول بالدعوة)، 60 إذا كان PayPal يستقبل، 30 إذا كان Paddle فقط، 0 إذا لم توجد طريقة. المصادر: stripe.com/global، قائمة Paddle، ووثائق PayPal.",
+    mBuyT:"الشراء (40%)",mBuyP:"ساعات العمل اللازمة لدفع 20$ شهرياً (أو حزمة AI بـ 80$ في المحاكي)، بدخل الفرد من البنك الدولي مقسوماً على 12 وبسعر السوق الموازي حيث يوجد (مثل السكوار في الجزائر). مقياس لوغاريتمي بحدود ثابتة: 0.38 إلى 71 ساعة.",
+    mMoveT:"التنقل (20%)",mMoveP:"عدد الوجهات بلا تأشيرة في مؤشر Henley 2026 (23–192)، بالإضافة لسياسة دخول بالي/إندونيسيا وتصريح ESTA الأمريكي. المواليد: UN WPP 2024.",
+    mWeak:"نقاط ضعف معلنة: الدخل الوطني ليس راتب مطوّر (رواتب Stack Overflow قادمة). بعض الدول لا تزال بالسعر الرسمي لعدم توثيق السوق الموازي. السحب يشمل 33 دولة تمثل أكثر من نصف مواليد العالم.",
+    foot1:"DEV Lottery v2 · كل رقم له مصدر · تحية لكل من يبني منتجاته من المستوى الصعب 🫡 ·",footCode:"الكود على GitHub",
+    foot2:"لا علاقة لهذا الموقع ببرنامج تأشيرة التنوع الأمريكي (DV Lottery)، ولا يقدّم أي خدمة تأشيرات.",
+    tickerLead:"مواليد العالم 2024:",yourCountry:"بلدك الحقيقي",sameSkills:"بالمهارات نفسها في",
+    compareBtn:"+ قارن",hoursLabel:"ساعات 20$ (الأقل أفضل)",
+    respectBtn:"أنا أبني من المستوى الصعب 🫡",respectDone:"تحية لك! استمر في البناء 🫡"
+  }
+};
+
+const qs=new URLSearchParams(location.search);
+let lang=qs.get("lang");
+if(lang!=="ar"&&lang!=="en"){
+  try{lang=localStorage.getItem("devlottery-lang")}catch{}
+}
+if(lang!=="ar"&&lang!=="en"){
+  lang=(navigator.language||"").toLowerCase().startsWith("ar")?"ar":"en";
+}
+const L=k=>T[lang][k];
+const cname=c=>lang==="ar"?c.ar:c.en;
+const ctier=c=>lang==="ar"?c.tierAr:c.tierEn;
+const cnote=c=>lang==="ar"?c.noteAr:c.noteEn;
+const fh=h=>lang==="ar"?(h<1?Math.round(h*60)+" دقيقة":h.toFixed(1)+" ساعة"):(h<1?Math.round(h*60)+"m":h.toFixed(1)+"h");
+const fdays=d=>lang==="ar"?(d>=22?(d/22).toFixed(1)+" شهر عمل":Math.max(1,Math.round(d))+" يوم عمل"):(d>=22?(d/22).toFixed(1)+" work mos":Math.max(1,Math.round(d))+" work days");
+const birthsTxt=n=>lang==="ar"?(n===1?"ولادة واحدة":n===2?"ولادتين":n<=10?n+" ولادات":n+" ولادة"):(n===1?"1 respawn":n+" respawns");
+
+/* Web Audio SFX (zero external assets) */
+let sfxOn=true,ac=null;
+const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+try{if(localStorage.getItem("devlottery-sfx")==="0")sfxOn=false}catch{}
+function updateSfxBtn(){$("sfxBtn").textContent=sfxOn?"🔊":"🔇";$("sfxBtn").setAttribute("aria-pressed",sfxOn)}
+updateSfxBtn();
+$("sfxBtn").addEventListener("click",()=>{sfxOn=!sfxOn;try{localStorage.setItem("devlottery-sfx",sfxOn?"1":"0")}catch{}updateSfxBtn();if(sfxOn)sfxTick()});
+function audio(){if(!sfxOn||still)return null;if(!ac){const Ctx=window.AudioContext||window.webkitAudioContext;if(Ctx)ac=new Ctx()}if(ac&&ac.state==="suspended")ac.resume().catch(()=>{});return ac}
+function sfxTick(){const a=audio();if(!a)return;const o=a.createOscillator(),g=a.createGain();o.type="triangle";o.frequency.setValueAtTime(520+Math.random()*140,a.currentTime);g.gain.setValueAtTime(.04,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.035);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.04)}
+function sfxWin(){const a=audio();if(!a)return;[523.25,659.25,783.99].forEach((f,i)=>{const o=a.createOscillator(),g=a.createGain();o.type="sine";const t=a.currentTime+i*.07;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(.06,t);g.gain.exponentialRampToValueAtTime(.001,t+.18);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+.19)})}
+function sfxStamp(){const a=audio();if(!a)return;const o=a.createOscillator(),g=a.createGain();o.type="sawtooth";o.frequency.setValueAtTime(140,a.currentTime);o.frequency.exponentialRampToValueAtTime(42,a.currentTime+.14);g.gain.setValueAtTime(.1,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.16);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.17)}
+
+/* global counter */
+const COUNTER_API="";
+let gCount=null,pending=0,flushT=0;
+function showGlobal(n){gCount=n;$("cGlobal").textContent=nf(n);$("globalWrap").hidden=false}
+function addGlobal(n){if(!COUNTER_API)return;if(gCount!==null)showGlobal(gCount+n);pending+=n;clearTimeout(flushT);flushT=setTimeout(()=>{const k=pending;pending=0;
+  fetch(COUNTER_API+"/draws",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({n:k})}).then(r=>r.ok?r.json():null).then(j=>{if(j)showGlobal(j.draws)}).catch(()=>{})},1200)}
+if(COUNTER_API)fetch(COUNTER_API+"/count").then(r=>r.json()).then(j=>showGlobal(j.draws)).catch(()=>{});
+
+/* theme */
+const root=document.documentElement;
+function currentTheme(){return root.dataset.theme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light")}
+function applyTheme(t){root.dataset.theme=t;$("themeBtn").textContent=t==="dark"?"☀":"☾"}
+try{const saved=localStorage.getItem("devlottery-theme");if(saved==="light"||saved==="dark")applyTheme(saved);else $("themeBtn").textContent=currentTheme()==="dark"?"☀":"☾"}catch{$("themeBtn").textContent=currentTheme()==="dark"?"☀":"☾"}
+$("themeBtn").addEventListener("click",()=>{const next=currentTheme()==="dark"?"light":"dark";applyTheme(next);try{localStorage.setItem("devlottery-theme",next)}catch{}});
+
+/* state */
+let home="";
+try{const h=localStorage.getItem("devlottery-home");if(h&&by[h])home=h}catch{}
+const qA=(qs.get("a")||"").toUpperCase(),qB=(qs.get("b")||"").toUpperCase();
+let rolls=0,easy=0,firstEasyAt=0,cur=null,curRoll=0,revealed=true,lastEscapeN=0;
+let down=false,moves=0,lastX=0,lastY=0,busy=false,chN=0,chIso="";
+let fTier="all",sk="score",dir=-1;
+let simDone=[false,false,false,false];
+
+{const m=location.hash.match(/^#challenge-([A-Z]{3})-(\d{1,4})$/);
+ if(m){chIso=m[1];chN=+m[2];$("challenge").hidden=false}}
+
+function refFor(c){const h=by[home];if(h&&h!==c)return h;return c&&c.iso==="NLD"?by.DZA:by.NLD}
+function setStub(ref){
+  $("sLabel").textContent=by[home]===ref?L("yourCountry"):L("sameSkills");
+  $("sName").textContent=ref.flag+" "+cname(ref);
+  $("sScore").textContent=ref.score;
+}
+function defaultShare(){
+  return lang==="ar"
+    ?"يانصيب الولادة للمطورين (#DEVLottery): المهارات نفسها، لكن نقطة البداية مختلفة. اختبر جواز سفرك: "+PAGE
+    :"Same hustle. Different spawn point. Test the 'Start From Zero' indie hacker playbook from your passport on #DEVLottery: "+PAGE;
+}
+function shareText(c,ref,escapeN){
+  const h=by[home];
+  if(escapeN){
+    const url=PAGE+"#challenge-"+(home||"ANY")+"-"+escapeN;
+    return lang==="ar"
+      ?"احتجتُ "+birthsTxt(escapeN)+" في #DEVLottery حتى أحصل على خط بداية «سهل» ("+c.flag+" "+c.ar+"، "+c.score+"/100)."+(h?" بلدي الحقيقي "+h.ar+": "+h.score+"/100.":"")+" أتحدّاك: كم ولادة ستحتاج أنت؟ "+url
+      :"It took me "+birthsTxt(escapeN)+" on #DEVLottery to spawn on «Easy» ("+c.flag+" "+c.en+", "+c.score+"/100)."+(h?" My real spawn: "+h.flag+" "+h.en+" ("+h.score+"/100).":"")+" How many tries does it take you? "+url;
+  }
+  if(h&&h!==c){
+    return lang==="ar"
+      ?"وُلدتُ في "+h.flag+" "+h.ar+" ("+h.score+"/100). في #DEVLottery وُلدتُ من جديد في "+c.flag+" "+c.ar+" («"+c.tierAr+"»، "+c.score+"/100). اشتراك 20$ يكلّف "+fh(h.hours)+" في "+h.ar+" و"+fh(c.hours)+" في "+c.ar+". "+PAGE
+      :"Real spawn: "+h.flag+" "+h.en+" ("+h.score+"/100). Respawned in "+c.flag+" "+c.en+" ("+c.tierEn+", "+c.score+"/100) on #DEVLottery. A $20/mo tool takes "+fh(h.hours)+" of work in "+h.en+" vs "+fh(c.hours)+" in "+c.en+". "+PAGE;
+  }
+  return lang==="ar"
+    ?"سحبتُ تذكرتي في #DEVLottery: وُلدتُ في "+c.flag+" "+c.ar+"، المستوى «"+c.tierAr+"» ("+c.score+"/100). اشتراك 20$ يكلّفني "+fh(c.hours)+" مقابل "+fh(ref.hours)+" في "+ref.ar+". "+PAGE
+    :"Spun my #DEVLottery ticket: spawned in "+c.flag+" "+c.en+" ("+c.tierEn+" Mode, "+c.score+"/100). A $20/mo dev tool takes "+fh(c.hours)+" of work vs "+fh(ref.hours)+" in "+ref.en+". "+PAGE;
+}
+
+/* populate selects */
+function fillSelects(){
+  const sorted=[...C].sort((a,b)=>cname(a).localeCompare(cname(b),lang));
+  const opts=sorted.map(c=>'<option value="'+c.iso+'">'+c.flag+' '+cname(c)+'</option>').join("");
+  const keepHome=home,keepPA=$("pA").value||(by[qA]?qA:(home||"DZA")),keepPB=$("pB").value||(by[qB]?qB:(keepPA==="NLD"?"DZA":"NLD"));
+  const keepSA=$("simA").value||(by[qA]?qA:(home||"DZA")),keepSB=$("simB").value||(by[qB]?qB:(keepSA==="NLD"?"DZA":"NLD"));
+  $("home").innerHTML='<option value="">'+L("pickCountry")+'</option>'+opts;
+  $("home").value=keepHome;
+  $("pA").innerHTML=opts;$("pB").innerHTML=opts;$("pA").value=keepPA;$("pB").value=keepPB;
+  $("simA").innerHTML=opts;$("simB").innerHTML=opts;$("simA").value=keepSA;$("simB").value=keepSB;
+}
+
+function renderTicker(){
+  const items=[...C].sort((a,b)=>b.births-a.births).map(c=>'<span class="tk-item"><b>'+c.flag+' '+cname(c)+'</b> <span class="num">'+nf(c.births)+'</span><span class="num pc">'+pct(c.share)+'</span></span>').join("");
+  const head='<span class="tk-item lead-i">'+L("tickerLead")+' <span class="num">'+nf(WORLD)+'</span></span>';
+  $("ticker").innerHTML=(head+items).repeat(2);
+}
+
+/* Start From Zero Playbook Simulator */
+function stepEval(stepIdx,c){
+  if(stepIdx===0){
+    const h80=c.hours*4,moPct=Math.round(h80/160*100);
+    const cls=h80<=6?"q-ok":(h80<=30?"q-warn":"q-fail");
+    const badge=lang==="ar"?(h80<=6?"تافهة":h80<=30?"مكلفة":"مرهقة جداً"):(h80<=6?"TRIVIAL":h80<=30?"PRICEY":"BRUTAL");
+    const txt=lang==="ar"
+      ?fh(h80)+" عمل شهرياً ("+moPct+"% من شهر عمل كامل) قبل ربح 1$."
+      :fh(h80)+"/mo ("+moPct+"% of a full-time month) before earning $1.";
+    return {cls,badge,txt};
+  }
+  if(stepIdx===1){
+    if(c.earn===100)return {cls:"q-ok",badge:lang==="ar"?"فوري (10 دقائق)":"INSTANT (10m)",txt:lang==="ar"?"حساب Stripe مباشر وحساب بنكي محلي بتكلفة 0$.":"Direct Stripe checkout + local bank payouts. $0 setup."};
+    if(c.earn===75)return {cls:"q-warn",badge:lang==="ar"?"وصول مقيّد":"RESTRICTED",txt:lang==="ar"?cnote(c)+" — قيود تحويل عملة أو دعوات خاصة للشركات.":"Invite-only or local gateway ("+cnote(c)+") with FX friction."};
+    if(c.earn===60)return {cls:"q-warn",badge:lang==="ar"?"التفاف مطلوب":"WORKAROUND",txt:lang==="ar"?"لا يوجد Stripe. تعتمد على "+cnote(c)+" أو شركة أمريكية (~500$).":"No Stripe. Rely on "+cnote(c)+" or form a US LLC (~$500)."};
+    if(c.earn===30)return {cls:"q-fail",badge:lang==="ar"?"Stripe محظور":"STRIPE BLOCKED",txt:lang==="ar"?"تحتاج Paddle فقط أو تأسيس US LLC (~500$ + انتظار EIN أسابيع).":"Paddle only or form a US LLC (~$500 + weeks for EIN)."};
+    return {cls:"q-fail",badge:lang==="ar"?"محظور كلياً":"FULLY BLOCKED",txt:lang==="ar"?"العقوبات تغلق بوابات الدفع العالمية بالكامل.":"Sanctions block Stripe, PayPal & global payment rails."};
+  }
+  if(stepIdx===2){
+    const days=(c.flightUsd/20)*c.hours/8;
+    if(c.baliVisa==="home")return {cls:"q-ok",badge:lang==="ar"?"أنت في إندونيسيا!":"ALREADY HOME",txt:lang==="ar"?"رحلة داخلية (~90$) تعادل "+fdays(days)+" بلا تأشيرة.":"Domestic flight (~$90) = "+fdays(days)+". No visa needed."};
+    if(c.baliVisa==="free"||c.baliVisa==="voa"){
+      const cls=days<=10?"q-ok":"q-warn";
+      return {cls,badge:lang==="ar"?(c.baliVisa==="free"?"دخول حر":"تأشيرة عند الوصول"):(c.baliVisa==="free"?"VISA-FREE":"VISA ON ARRIVAL"),txt:lang==="ar"?"تذكرة (~"+c.flightUsd+"$) = "+fdays(days)+". دخول فوري من المطار.":"Flight (~$"+c.flightUsd+") = "+fdays(days)+". Walk right through."};
+    }
+    return {cls:"q-fail",badge:lang==="ar"?"تأشيرة سفارة":"VISA REQUIRED",txt:lang==="ar"?"ملف سفارة + كشف حساب + تذكرة (~"+c.flightUsd+"$) = "+fdays(days)+".":"Embassy paperwork + bank proof + flight (~$"+c.flightUsd+") = "+fdays(days)+"."};
+  }
+  if(c.usVisa==="home")return {cls:"q-ok",badge:lang==="ar"?"رحلة داخلية":"DOMESTIC",txt:lang==="ar"?"لا حاجة لأي تأشيرة لحضور YC أو مؤتمرات سان فرانسيسكو.":"No visa needed for YC or San Francisco tech events."};
+  if(c.usVisa==="esta")return {cls:"q-ok",badge:lang==="ar"?"ESTA (15 دقيقة)":"ESTA (15 mins)",txt:lang==="ar"?"تصريح إلكتروني أونلاين بـ 21$ خلال دقائق.":"Online waiver for $21 in 15 minutes. No embassy visit."};
+  return {cls:"q-fail",badge:lang==="ar"?"انتظار السفارة":"EMBASSY QUEUE",txt:lang==="ar"?"تأشيرة B1/B2 برسوم 185$ غير مستردة + أشهر انتظار ومخاطر رفض.":"US B1/B2 visa ($185 non-refundable) + months wait & refusal risk."};
+}
+
+function simMeta(){
+  return lang==="ar"?[
+    ["01","حزمة أدوات الذكاء الاصطناعي ($80/شهر)","Cursor + Claude + استضافة + نطاق شهرياً"],
+    ["02","اربط Stripe واقبض أول 1$","«فقط ضع رابط Stripe على صفحة الهبوط»"],
+    ["03","تذكرة ذهاب لبالي لبدء البناء","«احجز تذكرة إلى شرق آسيا وانطلق من الصفر»"],
+    ["04","احضر YC أو مؤتمراً في سان فرانسيسكو","لقاء المستثمرين والمؤسسين وجهاً لوجه"]
+  ]:[
+    ["01","Pay the $80/mo AI Indie Stack","Cursor + Claude + Hosting + Domain every month"],
+    ["02","Connect Stripe for your first $1","\"Just slap a Stripe Checkout link on your landing page\""],
+    ["03","Buy a ticket to Bali & grind","\"Just fly to Southeast Asia and build from zero\""],
+    ["04","Fly to San Francisco for YC / Tech Conf","Meet founders, customers & investors in person"]
+  ];
+}
+
+function renderSim(){
+  const a=by[$("simA").value],b=by[$("simB").value];
+  const steps=simMeta();
+  $("simSteps").innerHTML=steps.map((s,i)=>{
+    const done=simDone[i];
+    const ea=stepEval(i,a),eb=stepEval(i,b);
+    return '<div class="q-card'+(done?' done':'')+'">'
+      +'<div class="q-head"><div><span class="q-num">'+s[0]+'</span><h3 class="q-title" style="margin-top:6px">'+s[1]+'</h3><p class="q-desc">'+s[2]+'</p></div>'
+      +(done?'':'<button type="button" class="mini-btn" data-step="'+i+'">'+(lang==="ar"?"جرّب":"Test")+'</button>')
+      +'</div>'
+      +(done?'<div class="q-res">'
+        +'<div class="q-col"><small>'+a.flag+' '+cname(a)+'</small><span class="q-badge '+ea.cls+'">'+ea.badge+'</span><div>'+ea.txt+'</div></div>'
+        +'<div class="q-col"><small>'+b.flag+' '+cname(b)+'</small><span class="q-badge '+eb.cls+'">'+eb.badge+'</span><div>'+eb.txt+'</div></div>'
+      +'</div>':'')
+      +'</div>';
+  }).join("");
+
+  const allDone=simDone.every(Boolean);
+  $("simVerdict").hidden=!allDone;
+  if(allDone){
+    const hi=a.hours>=b.hours?a:b,lo=hi===a?b:a,mult=hi.hours/lo.hours;
+    const mStr=mult>=1.95?Math.round(mult)+"x":mult.toFixed(1)+"x";
+    $("simVerdictTitle").textContent=a===b
+      ?(lang==="ar"?"اختر جوازين مختلفين لمقارنة معامل الصعوبة.":"Pick two different passports to compare difficulty.")
+      :(lang==="ar"?"نفس الكود. نفس الاجتهاد. خط البداية في "+hi.flag+" "+hi.ar+" أصعب بـ "+mStr+" من "+lo.flag+" "+lo.ar+".":"Same code. Same hustle. "+hi.flag+" "+hi.en+"'s \"zero\" is "+mStr+" harder than "+lo.flag+" "+lo.en+".");
+    $("simVerdictSub").textContent=lang==="ar"
+      ?"الدرجة: "+a.ar+" ("+a.score+"/100 · "+a.tierAr+") مقابل "+b.ar+" ("+b.score+"/100 · "+b.tierAr+")."
+      :"Starting Line Score: "+a.en+" ("+a.score+"/100 · "+a.tierEn+") vs "+b.en+" ("+b.score+"/100 · "+b.tierEn+").";
+    const shareUrl=PAGE+"?lang="+lang+"&a="+a.iso+"&b="+b.iso+"#playbook";
+    const vsTxt=lang==="ar"
+      ?"اختبرتُ خطة «الانطلاق من الصفر» على #DEVLottery:\n"+a.flag+" "+a.ar+" ("+a.score+"/100 · "+a.tierAr+") مقابل "+b.flag+" "+b.ar+" ("+b.score+"/100 · "+b.tierAr+")\n• حزمة AI ($80): "+fh(a.hours*4)+" مقابل "+fh(b.hours*4)+"\n• Stripe: "+cnote(a)+"\nنفس الاجتهاد، ونقطة البداية مختلفة: "+shareUrl
+      :"Tested the \"Start From Zero\" indie hacker playbook on #DEVLottery:\n"+a.flag+" "+a.en+" ("+a.score+"/100 · "+a.tierEn+") vs "+b.flag+" "+b.en+" ("+b.score+"/100 · "+b.tierEn+")\n• $80/mo AI stack: "+fh(a.hours*4)+" vs "+fh(b.hours*4)+" of work\n• Payments: "+a.noteEn+"\nSame hustle. Different spawn point: "+shareUrl;
+    $("vsShareBtn").href="https://x.com/intent/post?text="+encodeURIComponent(vsTxt);
+    $("vsCopyBtn").hidden=!(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write);
+  }
+  updateRespectUI(a);
+}
+
+/* Hard Mode Respect Counter (local + visual pride) */
+let respected=false;
+try{respected=localStorage.getItem("devlottery-respect")==="1"}catch{}
+function updateRespectUI(c){
+  const a=c||by[$("simA").value];
+  $("respectText").textContent=lang==="ar"
+    ?"تبني منتجاتك من "+a.flag+" "+a.ar+" ("+a.tierAr+" · "+a.score+"/100)؟ كل الاحترام للمطورين الذين يطلقون رغم القيود."
+    :"Building & shipping from "+a.flag+" "+a.en+" ("+a.tierEn+" Mode · "+a.score+"/100)? Respect to every builder overcoming friction.";
+  $("respectBtn").textContent=respected?L("respectDone"):L("respectBtn");
+  $("respectBtn").setAttribute("aria-pressed",respected);
+}
+$("respectBtn").addEventListener("click",()=>{
+  respected=!respected;
+  try{localStorage.setItem("devlottery-respect",respected?"1":"0")}catch{}
+  if(respected)sfxWin();
+  updateRespectUI();
+});
+
+$("simSteps").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-step]");if(!b)return;
+  const i=+b.dataset.step;simDone[i]=true;
+  const ev=stepEval(i,by[$("simA").value]);
+  ev.cls==="q-fail"?sfxStamp():sfxWin();
+  renderSim();
+});
+$("runSimBtn").addEventListener("click",()=>{
+  simDone=[false,false,false,false];renderSim();
+  const a=by[$("simA").value];
+  [0,1,2,3].forEach(i=>{
+    setTimeout(()=>{simDone[i]=true;const ev=stepEval(i,a);ev.cls==="q-fail"?sfxStamp():sfxWin();renderSim()},still?0:i*180);
+  });
+});
+$("simA").addEventListener("change",()=>{simDone=[true,true,true,true];renderSim()});
+$("simB").addEventListener("change",()=>{simDone=[true,true,true,true];renderSim()});
+
+/* draw & scratch */
+const sc=$("scratch"),ctx=sc.getContext("2d",{willReadFrequently:true});
+function pick(){let r=Math.random()*total;for(const c of C){r-=c.births;if(r<=0)return c}return C[C.length-1]}
+
+function drawCoverSurface(){
+  const b=$("tBody").getBoundingClientRect(),dpr=devicePixelRatio||1;
+  if(!b.width||!b.height)return;
+  sc.width=Math.round(b.width*dpr);sc.height=Math.round(b.height*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.globalCompositeOperation="source-over";
+  ctx.fillStyle="#8A857A";ctx.fillRect(0,0,b.width,b.height);
+  ctx.strokeStyle="#9C978C";ctx.lineWidth=6;
+  for(let x=-b.height;x<b.width;x+=14){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+b.height,b.height);ctx.stroke()}
+  ctx.fillStyle="#111";ctx.font=lang==="ar"?"28px Lalezar, sans-serif":'700 24px "Space Grotesk", sans-serif';
+  ctx.textAlign="center";ctx.textBaseline="middle";
+  ctx.fillText(L("scratchText"),b.width/2,b.height/2);
+}
+function cover(){moves=0;down=false;sc.hidden=false;$("reveal").hidden=false;drawCoverSurface()}
+function settleStats(c,rollNo){
+  if(c.tierKey==="easy"){easy++;if(!firstEasyAt)firstEasyAt=rollNo}
+  $("cEasy").textContent=easy;
+  $("firstEasy").textContent=firstEasyAt?(lang==="ar"?"أول «سهل» في السحبة "+firstEasyAt:"First «Easy» on roll #"+firstEasyAt):"";
+}
+function revealCurrent(){
+  if(revealed||!cur)return;
+  revealed=true;down=false;
+  sc.hidden=true;$("reveal").hidden=true;
+  settleStats(cur,curRoll);
+  const ref=refFor(cur);setStub(ref);
+  $("imgBtn").hidden=false;$("copyImg").hidden=!(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write);
+  $("share").href="https://x.com/intent/post?text="+encodeURIComponent(shareText(cur,ref,lastEscapeN));
+  if(cur.tierKey==="easy")sfxWin();else if(cur.blocked||cur.tierKey==="nightmare")sfxStamp();
+  if(cur.blocked){const st=$("tStampText");st.classList.remove("stamp-pop");void st.offsetWidth;st.classList.add("stamp-pop")}
+  $("srAnnounce").textContent=lang==="ar"
+    ?"نتيجة التذكرة: وُلدتَ في "+cur.ar+"، المستوى "+cur.tierAr+"، الدرجة "+cur.score+" من 100."
+    :"Spawn result: "+cur.en+", "+cur.tierEn+" Mode, score "+cur.score+" out of 100.";
+}
+function scratchPoint(e,isStart){
+  const b=sc.getBoundingClientRect();if(!b.width||!b.height)return;
+  const sx=sc.width/b.width,sy=sc.height/b.height;
+  const x=e.clientX-b.left,y=e.clientY-b.top;
+  ctx.setTransform(sx,0,0,sy,0,0);
+  ctx.globalCompositeOperation="destination-out";
+  ctx.lineCap="round";ctx.lineJoin="round";ctx.lineWidth=52;
+  ctx.beginPath();
+  if(isStart){ctx.arc(x,y,26,0,Math.PI*2);ctx.fill()}
+  else{ctx.moveTo(lastX,lastY);ctx.lineTo(x,y);ctx.stroke()}
+  lastX=x;lastY=y;
+  if(++moves%12===0&&cleared()>.45)revealCurrent();
+}
+function cleared(){
+  if(!sc.width||!sc.height)return 0;
+  const d=ctx.getImageData(0,0,sc.width,sc.height).data;
+  let z=0,n=0;for(let i=3;i<d.length;i+=64){n++;if(d[i]===0)z++}
+  return n?z/n:0;
+}
+sc.addEventListener("pointerdown",e=>{down=true;sc.setPointerCapture(e.pointerId);scratchPoint(e,true)});
+sc.addEventListener("pointermove",e=>{if(down)scratchPoint(e,false)});
+const endScratch=()=>{if(!down)return;down=false;if(cleared()>.45)revealCurrent()};
+sc.addEventListener("pointerup",endScratch);
+sc.addEventListener("pointercancel",endScratch);
+$("reveal").addEventListener("click",revealCurrent);
+if(window.ResizeObserver)new ResizeObserver(()=>{if(!sc.hidden&&moves===0)drawCoverSurface()}).observe($("tBody"));
+document.fonts?.ready.then(()=>{if(!sc.hidden&&moves===0)drawCoverSurface()});
+
+function renderTicketBody(c){
+  $("tName").textContent=c.flag+" "+cname(c);
+  $("tOdds").textContent=lang==="ar"
+    ?"نصيبها من مواليد العالم: "+pct(c.share)+" (في العينة: "+pct(c.sampleShare)+")"
+    :"World birth share: "+pct(c.share)+" (in v2 sample: "+pct(c.sampleShare)+")";
+  $("tTier").textContent=ctier(c);
+  $("tTierBox").className="t-tier-box t-"+c.tierKey;
+  $("tScore").textContent=c.score;$("tEarn").textContent=c.earn;$("tEarnNote").textContent=cnote(c);
+  $("tHours").textContent=fh(c.hours);$("tVisa").textContent=c.visa;$("tStamp").hidden=!c.blocked;
+}
+function roll(ms,done){
+  sc.hidden=true;$("reveal").hidden=true;$("tStamp").hidden=true;
+  for(const id of ["tTier","tScore","tEarn","tHours","tVisa"])$(id).textContent="—";
+  $("tTierBox").className="t-tier-box";$("tOdds").textContent=L("rolling");
+  const n=$("tName");n.classList.add("rolling");
+  if(still){n.classList.remove("rolling");done();return}
+  const t0=performance.now();
+  const tick=()=>{const p=pick();n.textContent=p.flag+" "+cname(p);$("tNo").textContent=String(Math.floor(Math.random()*WORLD)).padStart(9,"0");sfxTick();
+    if(performance.now()-t0<ms)setTimeout(tick,75);else{n.classList.remove("rolling");done()}};
+  tick();
+}
+function startDraw(){
+  if(busy)return false;
+  if(!revealed&&cur)settleStats(cur,curRoll);
+  busy=true;revealed=true;lastEscapeN=0;$("escape").textContent="";$("imgBtn").hidden=true;$("copyImg").hidden=true;
+  setStub(refFor(null));
+  $("share").href="https://x.com/intent/post?text="+encodeURIComponent(defaultShare());
+  return true;
+}
+$("spin").addEventListener("click",()=>{
+  if(!startDraw())return;
+  roll(850,()=>{
+    cur=pick();rolls++;curRoll=rolls;revealed=false;
+    $("cRolls").textContent=rolls;
+    $("tNo").textContent=String(Math.floor(Math.random()*WORLD)).padStart(9,"0");
+    renderTicketBody(cur);cover();busy=false;addGlobal(1);
+    $("simA").value=cur.iso;if($("simB").value===cur.iso)$("simB").value=cur.iso==="NLD"?"DZA":"NLD";renderSim();
+  });
+});
+$("chGo").addEventListener("click",()=>{$("challenge").hidden=true;$("untilEasy").click()});
+$("untilEasy").addEventListener("click",()=>{
+  if(!startDraw())return;
+  let n=0,c;do{c=pick();n++}while(c.tierKey!=="easy");
+  roll(Math.min(500+n*100,2800),()=>{
+    rolls+=n;curRoll=rolls;cur=c;revealed=false;lastEscapeN=n;
+    $("cRolls").textContent=rolls;
+    $("tNo").textContent=String(Math.floor(Math.random()*WORLD)).padStart(9,"0");
+    renderTicketBody(c);revealCurrent();busy=false;
+    $("escape").textContent=lang==="ar"
+      ?"احتجتَ "+birthsTxt(n)+" حتى تحصل على «سهل»."+(chN?(n<chN?" فزتَ على صديقك ("+chN+").":n>chN?" صديقك كان أسرع ("+chN+").":" تعادلتما."):"")
+      :"Took "+birthsTxt(n)+" to spawn on «Easy»."+(chN?(n<chN?" You beat your friend ("+chN+")!":n>chN?" Your friend was luckier ("+chN+").":" Tied!"):"");
+    addGlobal(n);
+  });
+});
+
+$("home").addEventListener("change",()=>{
+  home=$("home").value;
+  try{localStorage.setItem("devlottery-home",home)}catch{}
+  if(home){
+    $("pA").value=home;if($("pB").value===home)$("pB").value=home==="NLD"?"DZA":"NLD";compare();
+    $("simA").value=home;if($("simB").value===home)$("simB").value=home==="NLD"?"DZA":"NLD";renderSim();
+  }
+  const ref=refFor(revealed?cur:null);setStub(ref);
+  if(revealed&&cur)$("share").href="https://x.com/intent/post?text="+encodeURIComponent(shareText(cur,ref,lastEscapeN));
+});
+
+/* PNG generators: Ticket PNG & Split VS Card PNG */
+let logoImg=null;
+function loadLogo(){if(logoImg)return Promise.resolve(logoImg);return new Promise(r=>{const i=new Image();i.onload=()=>{logoImg=i;r(i)};i.onerror=()=>r(null);i.src="assets/logo.svg"})}
+
+async function ticketBlob(){
+  if(!cur)return null;
+  try{await document.fonts.ready}catch{}
+  const W=1200,H=675,cv=document.createElement("canvas");cv.width=W;cv.height=H;const g=cv.getContext("2d");
+  const P="#F3F0E8",I="#111111",G="#F2C230",R="#C8201A",M="#5E5A52",K="#FBF9F3";
+  const isAr=lang==="ar",x=36,y=36,w=W-72,h=H-72,RX=x+w-44,LX=x+44;
+  g.fillStyle=P;g.fillRect(0,0,W,H);
+  g.fillStyle=K;g.fillRect(x,y,w,h);g.lineWidth=4;g.strokeStyle=I;g.strokeRect(x,y,w,h);
+  for(const nx of [x,x+w]){g.beginPath();g.arc(nx,y+h/2,24,0,Math.PI*2);g.fillStyle=P;g.fill();g.stroke()}
+  const tx=(t,px,py,font,col,align,dir)=>{g.font=font;g.fillStyle=col;g.direction=dir||(isAr?"rtl":"ltr");g.textAlign=align||(isAr?"right":"left");g.fillText(t,px,py)};
+  const mainX=isAr?RX:LX,oppX=isAr?LX:RX,mainAlign=isAr?"right":"left",oppAlign=isAr?"left":"right";
+  const dispFont=isAr?"84px Lalezar":'700 72px "Space Grotesk", sans-serif';
+  tx(L("bornIn"),mainX,y+64,'600 24px "IBM Plex Sans Arabic", sans-serif',M,mainAlign);
+  tx(cur.flag+" "+cname(cur),mainX,y+154,dispFont,I,mainAlign);
+  const look={easy:[G,I],normal:[K,I],hard:[I,P],nightmare:[R,"#FFFFFF"]}[cur.tierKey];
+  const badgeFont=isAr?"36px Lalezar":'700 30px "Space Grotesk", sans-serif';
+  g.font=badgeFont;const tw=g.measureText(ctier(cur)).width+44;
+  const bx=isAr?RX-tw:LX;
+  g.fillStyle=look[0];g.fillRect(bx,y+184,tw,62);g.strokeRect(bx,y+184,tw,62);
+  tx(ctier(cur),bx+tw/2,y+226,badgeFont,look[1],"center");
+  tx(cur.score+"/100",isAr?bx-22:bx+tw+22,y+230,'700 48px "IBM Plex Mono", monospace',I,mainAlign,"ltr");
+  if(lastEscapeN){
+    const esc=isAr?"احتجتُ "+birthsTxt(lastEscapeN)+" حتى «سهل»":"Took "+birthsTxt(lastEscapeN)+" to hit «Easy»";
+    tx(esc,oppX,y+72,'700 24px "IBM Plex Sans Arabic", sans-serif',R,oppAlign);
+  }
+  if(cur.blocked){g.save();g.translate(isAr?LX+130:RX-130,y+155);g.rotate(-0.12);g.strokeStyle=R;g.lineWidth=6;g.strokeRect(-115,-40,230,80);tx(L("blocked"),0,14,isAr?"44px Lalezar":'700 34px "Space Grotesk", sans-serif',R,"center");g.restore();g.strokeStyle=I;g.lineWidth=4}
+  const rows=[[L("rowEarn"),cnote(cur),String(cur.earn)],[L("rowBuy"),L("rowBuyDesc"),fh(cur.hours)],[L("rowMove"),L("rowMoveDesc"),String(cur.visa)]];
+  rows.forEach((r,k)=>{const ry=y+318+k*68;
+    g.save();g.setLineDash([6,6]);g.lineWidth=2;g.beginPath();g.moveTo(LX,ry-44);g.lineTo(RX,ry-44);g.stroke();g.restore();
+    tx(r[0],mainX,ry,'700 26px "IBM Plex Sans Arabic", sans-serif',I,mainAlign);
+    tx(r[1],isAr?RX-120:LX+120,ry,'500 22px "IBM Plex Sans Arabic", sans-serif',M,mainAlign);
+    tx(r[2],oppX,ry,'700 30px "IBM Plex Mono","IBM Plex Sans Arabic",monospace',I,oppAlign,isAr?"rtl":"ltr")});
+  g.save();g.setLineDash([12,10]);g.lineWidth=3;g.beginPath();g.moveTo(x,y+h-96);g.lineTo(x+w,y+h-96);g.stroke();g.restore();
+  const ref=refFor(cur);
+  const footTxt=(by[home]===ref?L("yourCountry"):L("sameSkills"))+" "+ref.flag+" "+cname(ref)+": "+ref.score+"/100 · "+fh(ref.hours);
+  tx(footTxt,mainX,y+h-38,'700 24px "IBM Plex Sans Arabic", sans-serif',I,mainAlign);
+  const lg=await loadLogo();if(lg)g.drawImage(lg,isAr?LX:RX-190,y+h-78,190,58);
+  return new Promise(r=>cv.toBlob(r,"image/png"));
+}
+
+async function vsBlob(){
+  try{await document.fonts.ready}catch{}
+  const a=by[$("simA").value],b=by[$("simB").value];
+  const W=1200,H=675,cv=document.createElement("canvas");cv.width=W;cv.height=H;const g=cv.getContext("2d");
+  const P="#F3F0E8",I="#111111",G="#F2C230",R="#C8201A",K="#FBF9F3",M="#5E5A52";
+  const isAr=lang==="ar";
+  g.fillStyle=P;g.fillRect(0,0,W,H);
+  g.strokeStyle=I;g.lineWidth=4;g.strokeRect(24,24,W-48,H-48);
+  // Header bar
+  g.fillStyle=I;g.fillRect(24,24,W-48,74);
+  g.fillStyle=G;g.font='700 26px "Space Grotesk", "IBM Plex Sans Arabic", sans-serif';g.textAlign="left";g.direction="ltr";
+  g.fillText("DEV LOTTERY · START FROM ZERO RECEIPT",52,70);
+  g.fillStyle=P;g.font='600 20px "IBM Plex Mono", monospace';g.textAlign="right";
+  g.fillText("SAME HUSTLE. DIFFERENT SPAWN POINT.",W-52,69);
+  // Two split cards
+  const drawSide=(c,ox)=>{
+    const cw=536,cy=120,ch=444;
+    const look={easy:[G,I],normal:[K,I],hard:[I,P],nightmare:[R,"#FFFFFF"]}[c.tierKey];
+    g.fillStyle=K;g.fillRect(ox,cy,cw,ch);g.strokeStyle=I;g.lineWidth=3;g.strokeRect(ox,cy,cw,ch);
+    g.fillStyle=look[0];g.fillRect(ox,cy,cw,108);g.strokeRect(ox,cy,cw,108);
+    g.fillStyle=look[1];g.direction=isAr?"rtl":"ltr";g.textAlign=isAr?"right":"left";
+    const txX=isAr?ox+cw-24:ox+24;
+    g.font=isAr?"48px Lalezar":'700 38px "Space Grotesk", sans-serif';
+    g.fillText(c.flag+" "+cname(c),txX,cy+56);
+    g.font='700 22px "IBM Plex Mono","IBM Plex Sans Arabic",monospace';
+    g.fillText(ctier(c)+" · "+c.score+"/100",txX,cy+92);
+    const lines=[
+      [isAr?"حزمة AI ($80/شهر)":"$80/mo AI Stack",fh(c.hours*4)+(isAr?" عمل شهرياً":" work/mo"),c.hours*4>30?R:I],
+      [isAr?"الدفع (Stripe)":"Stripe / Payouts",stepEval(1,c).badge,c.earn<=30?R:I],
+      [isAr?"تذكرة بالي":"Bali Flight + Visa",stepEval(2,c).badge+" · "+fdays((c.flightUsd/20)*c.hours/8),c.baliVisa==="visa"?R:I],
+      [isAr?"مؤتمر سان فرانسيسكو":"SF / YC Visa",stepEval(3,c).badge,c.usVisa==="visa"?R:I]
+    ];
+    lines.forEach((ln,idx)=>{
+      const ly=cy+156+idx*72;
+      if(idx>0){g.save();g.setLineDash([5,5]);g.strokeStyle=M;g.lineWidth=1.5;g.beginPath();g.moveTo(ox+20,ly-34);g.lineTo(ox+cw-20,ly-34);g.stroke();g.restore()}
+      g.fillStyle=M;g.font='600 18px "IBM Plex Sans Arabic", sans-serif';g.fillText(ln[0],txX,ly-8);
+      g.fillStyle=ln[2];g.font='700 24px "IBM Plex Sans Arabic","IBM Plex Mono",sans-serif';g.fillText(ln[1],txX,ly+24);
+    });
+  };
+  drawSide(a,48);drawSide(b,616);
+  // VS circle
+  g.fillStyle=G;g.beginPath();g.arc(W/2,340,34,0,Math.PI*2);g.fill();g.strokeStyle=I;g.lineWidth=4;g.stroke();
+  g.fillStyle=I;g.font='700 26px "Space Grotesk", sans-serif';g.textAlign="center";g.direction="ltr";g.fillText("VS",W/2,349);
+  // Bottom punchline
+  const hi=a.hours>=b.hours?a:b,lo=hi===a?b:a,mult=hi.hours/lo.hours,mStr=mult>=1.95?Math.round(mult)+"x":mult.toFixed(1)+"x";
+  g.fillStyle=G;g.fillRect(48,582,W-96,54);g.strokeStyle=I;g.lineWidth=3;g.strokeRect(48,582,W-96,54);
+  g.fillStyle=I;g.font='700 24px "IBM Plex Sans Arabic","Space Grotesk",sans-serif';g.textAlign="center";g.direction=isAr?"rtl":"ltr";
+  const punch=a===b?(isAr?"اختر دولتين مختلفتين":"Pick two countries"):(isAr?"خط البداية في "+hi.ar+" أصعب بـ "+mStr+" من "+lo.ar+" — smailancer.github.io/DEVLottery":hi.en+"'s \"starting from zero\" is "+mStr+" harder than "+lo.en+" — smailancer.github.io/DEVLottery");
+  g.fillText(punch,W/2,618);
+  return new Promise(r=>cv.toBlob(r,"image/png"));
+}
+
+function dlBlob(blob,name){if(!blob)return;const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+async function copyBlob(blob,btn,origKey){try{await navigator.clipboard.write([new ClipboardItem({"image/png":blob})]);btn.textContent=L("copied");setTimeout(()=>btn.textContent=L(origKey),2000)}catch{btn.hidden=true}}
+$("imgBtn").addEventListener("click",async()=>dlBlob(await ticketBlob(),"devlottery-"+cur.iso.toLowerCase()+".png"));
+$("copyImg").addEventListener("click",async()=>copyBlob(await ticketBlob(),$("copyImg"),"copyImgBtn"));
+$("vsDlBtn").addEventListener("click",async()=>dlBlob(await vsBlob(),"devlottery-"+$("simA").value.toLowerCase()+"-vs-"+$("simB").value.toLowerCase()+".png"));
+$("vsCopyBtn").addEventListener("click",async()=>copyBlob(await vsBlob(),$("vsCopyBtn"),"copyVsBtn"));
+
+/* compare */
+function compare(){
+  const a=by[$("pA").value],b=by[$("pB").value];
+  const hi=a.hours>=b.hours?a:b,lo=hi===a?b:a,r=hi.hours/lo.hours;
+  $("cHead").textContent=a===b
+    ?(lang==="ar"?"اختر دولتين مختلفتين للمقارنة.":"Pick two different countries to compare.")
+    :(lang==="ar"
+      ?"اشتراك 20$ يكلّف في "+hi.ar+" "+(r>=1.95?(Math.round(r)<=10?Math.round(r)+" أضعاف":Math.round(r)+" ضعفاً"):r.toFixed(1)+" ضعف")+" ساعات العمل مقارنة بـ"+lo.ar+"."
+      :"A $20/mo tool takes "+(r>=1.95?Math.round(r)+"x":r.toFixed(1)+"x")+" more work hours in "+hi.en+" than in "+lo.en+".");
+  const row=(l,av,bv,at,bt,lowerBetter)=>{
+    const m=Math.max(av,bv)||1;
+    const ac=av===bv?"":(lowerBetter?(av>bv?"bad":"win"):(av>bv?"win":""));
+    const bc=av===bv?"":(lowerBetter?(bv>av?"bad":"win"):(bv>av?"win":""));
+    return '<div class="bar-row"><b>'+l+'</b><div><small>'+a.flag+' '+cname(a)+' · <span class="num">'+at+'</span></small><div class="bar"><i class="'+ac+'" style="width:'+Math.max(2,100*av/m)+'%"></i></div></div><div><small>'+b.flag+' '+cname(b)+' · <span class="num">'+bt+'</span></small><div class="bar"><i class="'+bc+'" style="width:'+Math.max(2,100*bv/m)+'%"></i></div></div></div>';
+  };
+  $("cBars").innerHTML=row(L("thScore"),a.score,b.score,a.score+"/100",b.score+"/100",false)
+    +row(L("thEarn"),a.earn,b.earn,a.earn,b.earn,false)
+    +row(L("hoursLabel"),a.hours,b.hours,fh(a.hours),fh(b.hours),true)
+    +row(L("thMove"),a.visa,b.visa,a.visa,b.visa,false);
+}
+$("pA").addEventListener("change",compare);$("pB").addEventListener("change",compare);
+$("copyLinkBtn").addEventListener("click",()=>{
+  const u=PAGE+"?lang="+lang+"&a="+$("pA").value+"&b="+$("pB").value+"#index";
+  navigator.clipboard?.writeText(u).then(()=>{$("copyLinkBtn").textContent=L("copied");setTimeout(()=>$("copyLinkBtn").textContent=L("copyCmpLink"),1800)}).catch(()=>{});
+});
+
+/* filters, grid & table */
+function renderFilters(){
+  $("filters").innerHTML=[["all",L("all")]].concat(TIERS.map(t=>[t.k,lang==="ar"?t.ar:t.en]))
+    .map(([k,l])=>'<button type="button" data-f="'+k+'" aria-pressed="'+(k===fTier)+'">'+l+'</button>').join("");
+}
+$("filters").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;fTier=b.dataset.f;for(const x of $("filters").children)x.setAttribute("aria-pressed",x===b);table()});
+document.querySelector("thead").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const k=b.dataset.k;if(sk===k)dir=-dir;else{sk=k;dir=(k==="hours"||k==="name"||k==="tier")?1:-1}table()});
+function table(){
+  const key=sk==="tier"?"tierRank":sk;
+  const rows=C.filter(c=>fTier==="all"||c.tierKey===fTier).sort((a,b)=>{
+    if(key==="name")return cname(a).localeCompare(cname(b),lang)*dir;
+    return (a[key]-b[key])*dir;
+  });
+  for(const b of document.querySelectorAll("thead button")){if(b.dataset.k===sk)b.setAttribute("aria-sort",dir>0?"ascending":"descending");else b.removeAttribute("aria-sort")}
+  $("tbody").innerHTML=rows.map(c=>'<tr><th scope="row">'+c.flag+' '+cname(c)+(c.blocked?' <span style="color:var(--red);font-weight:700">· '+L("blocked")+'</span>':'')+'</th><td class="n num">'+c.score+'</td><td><span class="tier t-'+c.tierKey+'">'+ctier(c)+'</span></td><td><span class="num">'+c.earn+'</span> <span class="note">· '+cnote(c)+'</span></td><td class="n num">'+fh(c.hours)+'</td><td class="n num">'+c.visa+'</td><td class="n num">'+pct(c.share)+'</td></tr>').join("");
+  $("grid").innerHTML=rows.map(c=>'<article class="tile t-'+c.tierKey+'"><div class="tile-top"><div><small>'+ctier(c)+' · '+pct(c.share)+(lang==="ar"?' من المواليد':' births')+'</small><h3>'+c.flag+' '+cname(c)+'</h3></div><span class="num big">'+c.score+'</span></div>'+(c.blocked?'<span class="stamp">'+L("blocked")+'</span>':'')+'<div class="tile-stats"><div><small>'+L("thEarn")+'</small><b class="num">'+c.earn+'</b></div><div><small>'+L("thBuy")+'</small><b class="num">'+fh(c.hours)+'</b></div><div><small>'+L("thMove")+'</small><b class="num">'+c.visa+'</b></div></div><p>'+cnote(c)+'</p><button type="button" data-cmp="'+c.iso+'">'+L("compareBtn")+'</button></article>').join("");
+}
+$("grid").addEventListener("click",e=>{const b=e.target.closest("button[data-cmp]");if(!b)return;const iso=b.dataset.cmp;
+  if($("pA").value===iso)$("pA").value=$("pB").value;$("pB").value=iso;compare();
+  $("simA").value=iso;if($("simB").value===iso)$("simB").value=iso==="NLD"?"DZA":"NLD";simDone=[true,true,true,true];renderSim();
+  document.querySelector(".compare").scrollIntoView({behavior:still?"auto":"smooth",block:"center"})});
+document.querySelector(".viewsw").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const v=b.dataset.v;
+  for(const x of b.parentNode.children)x.setAttribute("aria-pressed",x===b);
+  $("grid").hidden=v!=="grid";$("tableWrap").hidden=v!=="table"});
+
+/* apply language across whole page */
+function applyLang(){
+  root.lang=lang;root.dir=lang==="ar"?"rtl":"ltr";
+  document.title=L("title");
+  for(const el of document.querySelectorAll("[data-t]"))el.textContent=L(el.dataset.t);
+  $("langBtn").textContent=L("langBtn");
+  $("tStampText").textContent=L("blocked");
+  $("coverage").textContent=lang==="ar"
+    ?"النسخة الثانية: السحب يشمل "+C.length+" دولة تمثل "+pct(total/WORLD*100)+" من مواليد العالم (UN WPP 2024)."
+    :"v2 covers "+C.length+" countries representing "+pct(total/WORLD*100)+" of all human births (UN WPP 2024).";
+  $("idxSub").innerHTML=lang==="ar"
+    ?'بلا يانصيب: قارن أي دولتين، أو تصفّح بطاقات <span class="num">'+C.length+'</span> دولة ورتّبها حسب أي مؤشر.'
+    :'No lottery: compare any two countries, or explore all <span class="num">'+C.length+'</span> countries by score, payments, purchasing power, and passport mobility.';
+  if(chN){
+    const f=by[chIso];
+    $("chText").textContent=lang==="ar"
+      ?(f?"صديقك من "+f.ar:"صديقك")+" احتاج "+birthsTxt(chN)+" حتى «سهل». كم ستحتاج أنت؟"
+      :(f?"Your friend from "+f.en:"A friend")+" needed "+birthsTxt(chN)+" to spawn on «Easy». Can you beat them?";
+  }
+  fillSelects();
+  renderTicker();
+  renderFilters();
+  compare();
+  table();
+  renderSim();
+  if(cur){
+    renderTicketBody(cur);
+    if(revealed){
+      const ref=refFor(cur);setStub(ref);
+      $("share").href="https://x.com/intent/post?text="+encodeURIComponent(shareText(cur,ref,lastEscapeN));
+    }else{setStub(refFor(null));if(moves===0)drawCoverSurface()}
+  }else{
+    $("tOdds").textContent=L("oddsPrompt");
+    $("tEarnNote").textContent=L("rowEarnInit");
+    setStub(refFor(null));
+    $("share").href="https://x.com/intent/post?text="+encodeURIComponent(defaultShare());
+  }
+  if(firstEasyAt)$("firstEasy").textContent=lang==="ar"?"أول «سهل» في السحبة "+firstEasyAt:"First «Easy» on roll #"+firstEasyAt;
+}
+
+$("langBtn").addEventListener("click",()=>{
+  lang=lang==="ar"?"en":"ar";
+  try{localStorage.setItem("devlottery-lang",lang)}catch{}
+  applyLang();
+});
+
+/* init */
+if(by[qA]||by[qB])simDone=[true,true,true,true];
+applyLang();
+}
+</script>
+</body>
+</html>
