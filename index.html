@@ -34,13 +34,16 @@ html{scroll-padding-top:76px}
 .num{font-family:"IBM Plex Mono","IBM Plex Sans Arabic",monospace;font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
 h1,h2,.display{font-family:"Space Grotesk",Lalezar,"IBM Plex Sans Arabic",sans-serif;font-weight:700;line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-0.02em}
 html[dir=rtl] h1,html[dir=rtl] h2,html[dir=rtl] .display{font-family:Lalezar,"IBM Plex Sans Arabic",sans-serif;font-weight:400;letter-spacing:0}
-h1{font-size:clamp(38px,5.6vw,62px)}h2{font-size:clamp(30px,4vw,44px)}
+h1{font-size:clamp(30px,5.6vw,60px)}h2{font-size:clamp(24px,4vw,44px)}
 nav{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:2px solid var(--line)}
-nav .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:10px max(5vw,16px)}
-nav .links{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+nav .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 14px;padding:10px max(5vw,16px)}
+.nav-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.nav-tools{display:flex;align-items:center;gap:6px}
+nav .links{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-inline-start:auto}
+@media(min-width:961px){.nav-head{display:contents}.logo{order:1}nav .links{order:2}.nav-tools{order:3}}
 nav a,.chip,button{font:inherit;color:inherit}
-nav a{padding:8px 11px;text-decoration:none;font-weight:600;font-size:15px}nav a:hover{text-decoration:underline}
-.logo{display:block;line-height:0}.logo img{height:48px;width:auto}
+nav a{padding:8px 10px;text-decoration:none;font-weight:600;font-size:15px}nav a:hover{text-decoration:underline}
+.logo{display:block;line-height:0}.logo img{height:46px;width:auto;max-width:100%}
 .logo .on-dark{display:none}
 :root[data-theme=dark] .logo .on-light{display:none}:root[data-theme=dark] .logo .on-dark{display:block}
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]) .logo .on-light{display:none}:root:not([data-theme=light]) .logo .on-dark{display:block}}
@@ -58,10 +61,10 @@ html[dir=rtl] .hero-q{font-family:Lalezar,"IBM Plex Sans Arabic",sans-serif;font
 .stats{display:flex;flex-wrap:wrap;gap:12px 18px;margin-top:14px;color:var(--mute);font-size:14px}
 .stats b{color:var(--ink)}
 .ticket{background:var(--card);border:2px solid var(--line);position:relative;box-shadow:6px 6px 0 var(--line)}
-.t-head{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:2px dashed var(--line);font-size:14px}
+.t-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 12px;padding:12px 18px;border-bottom:2px dashed var(--line);font-size:14px}
 .t-body{position:relative;padding:20px 18px}
-.t-name{font-family:"Space Grotesk",Lalezar,sans-serif;font-weight:700;font-size:clamp(36px,5.6vw,60px);line-height:1.05;margin:4px 0}
-html[dir=rtl] .t-name{font-family:Lalezar,sans-serif;font-weight:400;font-size:clamp(42px,6.4vw,68px)}
+.t-name{font-family:"Space Grotesk",Lalezar,sans-serif;font-weight:700;font-size:clamp(30px,5.6vw,60px);line-height:1.08;margin:4px 0;overflow-wrap:anywhere}
+html[dir=rtl] .t-name{font-family:Lalezar,sans-serif;font-weight:400;font-size:clamp(34px,6.4vw,68px)}
 .t-sub{color:var(--mute);font-size:14px}
 .t-score{display:flex;flex-wrap:wrap;border:2px solid var(--line);margin:16px 0}
 .t-score>div{padding:10px 14px}
@@ -117,7 +120,7 @@ html[dir=rtl] .t-name{font-family:Lalezar,sans-serif;font-weight:400;font-size:c
 .alt-chip{border:1px solid var(--line);background:var(--card);padding:4px 9px;font-size:13px;font-weight:700;cursor:pointer;min-height:32px}
 .alt-chip:hover{background:var(--gold);color:#111;border-color:#111}
 /* Builders Community Wall & Verified Quotes */
-.b-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;margin-top:18px}
+.b-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:16px;margin-top:18px}
 .b-card{border:2px solid var(--line);background:var(--card);padding:16px;display:flex;flex-direction:column;gap:10px}
 .b-card.is-ref{border-style:dashed}
 .b-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
@@ -141,7 +144,7 @@ html[dir=rtl] .t-name{font-family:Lalezar,sans-serif;font-weight:400;font-size:c
 .b-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
 .b-fields label{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:700}
 .b-fields .full{grid-column:1/-1}
-.b-fields input,.b-fields textarea{font:inherit;font-size:15px;padding:10px 12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.b-fields input,.b-fields textarea{font:inherit;font-size:16px;padding:10px 12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
 .b-fields textarea{min-height:82px;resize:vertical}
 .b-msg{font-size:14px;font-weight:700;margin-inline-start:8px}
 .quotes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:20px}
@@ -153,8 +156,8 @@ html[dir=rtl] .t-name{font-family:Lalezar,sans-serif;font-weight:400;font-size:c
 /* Compare & Index */
 .compare{border:2px solid var(--line);background:var(--card);padding:20px;margin:24px 0}
 .pickers{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-select{font:inherit;font-size:15px;min-height:44px;padding:0 12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
-.headline{background:var(--gold);color:#111;font-weight:700;padding:10px 14px;margin:16px 0;display:inline-block;font-size:17px}
+select{font:inherit;font-size:16px;min-height:44px;padding:0 12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);max-width:100%}
+.headline{background:var(--gold);color:#111;font-weight:700;padding:10px 14px;margin:16px 0;display:inline-block;font-size:17px;max-width:100%}
 .bars{display:grid;gap:14px}
 .bar-row{display:grid;grid-template-columns:10em minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:center}
 .bar-row small{display:block;font-size:14px;margin-bottom:4px}
@@ -188,7 +191,7 @@ footer{border-top:2px solid var(--line)}
 .toolbar .filters{margin:0}
 .viewsw{display:flex}
 .viewsw button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,236px),1fr));gap:14px}
 .tile{border:2px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:12px;min-height:220px;transition:transform .15s,box-shadow .15s}
 .tile:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--line)}
 .tile-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
@@ -206,6 +209,11 @@ html[dir=rtl] .tile h3{font-family:Lalezar,sans-serif;font-weight:400;font-size:
 .ticker{overflow:hidden;background:var(--ink);color:var(--bg);border-bottom:2px solid var(--line);font-size:14px;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:pan-y}
 .ticker.dragging{cursor:grabbing}
 .tk-track{display:flex;width:max-content;will-change:transform}
+.ticker{display:flex;align-items:stretch}
+.tk-pin{flex:none;position:relative;z-index:2;display:flex;align-items:center;gap:6px;background:var(--gold);color:#111;font-weight:700;padding:8px 16px;white-space:nowrap;border-inline-end:2px solid var(--line);box-shadow:6px 0 12px rgba(0,0,0,.25)}
+html[dir=rtl] .tk-pin{box-shadow:-6px 0 12px rgba(0,0,0,.25)}
+.tk-view{flex:1;min-width:0;overflow:hidden}
+@media(max-width:600px){.tk-pin{padding:8px 10px;font-size:12px}}
 .tk-item{padding:8px 16px;white-space:nowrap;border-inline-start:1px solid color-mix(in srgb,var(--bg) 30%,transparent)}
 button.tk-item{border:0;border-inline-start:1px solid color-mix(in srgb,var(--bg) 30%,transparent);min-height:0;font-weight:400;font-size:inherit;color:inherit;background:transparent}
 button.tk-item:hover{background:color-mix(in srgb,var(--gold) 22%,transparent)}
@@ -219,15 +227,62 @@ tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix
 .tile-score small{font-size:13px}
 .tk-item.lead-i{background:var(--gold);color:#111}
 .challenge{display:flex;flex-wrap:wrap;align-items:center;gap:12px;border:2px solid var(--line);background:var(--card);padding:12px 14px;margin:14px 0;font-weight:700}
-@media(max-width:920px){.hero,.method,.sim-steps{grid-template-columns:minmax(0,1fr)}.bar-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.bar-row>b{grid-column:1/-1}}
-@media(max-width:760px){html{scroll-padding-top:104px}nav .wrap{gap:8px;padding:8px 14px}nav .links{width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}nav .links::-webkit-scrollbar{display:none}nav a,.mini-btn{white-space:nowrap;flex-shrink:0}}
-@media(max-width:560px){.q-res{grid-template-columns:minmax(0,1fr)}}
-@media(prefers-reduced-motion:reduce){.ticker{overflow-x:auto}*{transition:none!important;animation:none!important}}
+@media(max-width:960px){
+  html{scroll-padding-top:108px}
+  nav .wrap{gap:8px;padding:8px max(4vw,14px)}
+  .nav-head{width:100%}
+  nav .links{width:100%;margin-inline-start:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;border-top:1px dashed color-mix(in srgb,var(--line) 35%,transparent);padding-top:6px}
+  nav .links::-webkit-scrollbar{display:none}
+  nav a{white-space:nowrap;flex-shrink:0;padding:6px 10px;font-size:14px}
+  .hero,.method,.sim-steps,.surv-grid,.quotes-grid{grid-template-columns:minmax(0,1fr)}
+  .b-fields{grid-template-columns:minmax(0,1fr)}
+  .bar-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .bar-row>b{grid-column:1/-1}
+}
+@media(max-width:600px){
+  .band{padding:24px 14px}
+  .logo img{height:38px}
+  .ticker{flex-direction:column}
+  .tk-pin{padding:5px 14px;font-size:12px;border-inline-end:0;border-bottom:1px solid color-mix(in srgb,var(--bg) 25%,transparent);box-shadow:none;justify-content:center}
+  .ticket,.sim-box,.surv-box,.b-form,.q-quote{box-shadow:3px 3px 0 var(--line)}
+  .primary{box-shadow:3px 3px 0 var(--line);font-size:19px;min-height:50px;padding:0 16px}
+  html[dir=rtl] .primary{font-size:22px}
+  .home{flex-direction:column;align-items:stretch;gap:6px}
+  .home select,.pickers select{width:100%;flex:1 1 100%}
+  .pickers{width:100%;gap:8px}
+  .pickers .mini-btn{flex:1 1 calc(50% - 4px)}
+  .spin-row{display:grid;grid-template-columns:minmax(0,1fr);width:100%}
+  .spin-row button,.sim-top .actions,.sim-top .actions button,.sim-verdict .actions,.sim-verdict .actions>*,.respect-bar button,.b-form .actions button{width:100%}
+  .t-head,.t-body,.stub{padding:12px 14px}
+  .rows>div{grid-template-columns:minmax(0,1fr) auto;gap:2px 10px}
+  .rows>div>span:not(.num){grid-column:1/-1;order:3;color:var(--mute);font-size:13px}
+  .t-score{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .t-score>#tStamp{grid-column:1/-1;border-top:2px dashed var(--line);text-align:center}
+  .stub .actions{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .stub .actions>*{width:100%;padding:0 10px;font-size:13px}
+  .q-res,.bar-row{grid-template-columns:minmax(0,1fr)}
+  .compare,.badge-box,.b-form{padding:14px}
+  .badge-preview{flex-direction:column;align-items:stretch}
+  .toolbar{flex-direction:column;align-items:stretch}
+  .filters{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;padding-bottom:2px}
+  .filters::-webkit-scrollbar{display:none}
+  .filters button{flex-shrink:0}
+  .viewsw{width:100%}.viewsw button{flex:1}
+  th,td{padding:8px 10px;font-size:14px}
+  table{min-width:640px}
+}
+@media(prefers-reduced-motion:reduce){.tk-view{overflow-x:auto}*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 <nav aria-label="Navigation"><div class="wrap">
+<div class="nav-head">
 <a class="logo" href="#draw"><img class="on-light" src="assets/logo.svg" alt="DEV Lottery · Starting Line Index" width="160" height="48"><img class="on-dark" src="assets/logo-on-dark.svg" alt="DEV Lottery · Starting Line Index" width="160" height="48"></a>
+<div class="nav-tools">
+<button type="button" class="mini-btn" id="langBtn" aria-label="Switch language">عربي</button>
+<button type="button" class="mini-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
+</div>
+</div>
 <div class="links">
 <a href="#draw" data-t="navDraw">Lottery</a>
 <a href="#playbook" data-t="navPlaybook">Start From Zero</a>
@@ -235,11 +290,9 @@ tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix
 <a href="#community" data-t="navCommunity">Builders</a>
 <a href="#index" data-t="navIndex">Index</a>
 <a href="#method" data-t="navMethod">Method</a>
-<button type="button" class="mini-btn" id="langBtn" aria-label="Switch language">عربي</button>
-<button type="button" class="mini-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
 </div>
 </div></nav>
-<div class="ticker" aria-label="World live births 2024"><div class="tk-track" id="ticker"></div></div>
+<div class="ticker" aria-label="World live births 2024"><div class="tk-pin" id="tkPin"></div><div class="tk-view"><div class="tk-track" id="ticker"></div></div></div>
 
 <div id="srAnnounce" class="sr-only" aria-live="polite"></div>
 
@@ -275,8 +328,8 @@ tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix
 <div><b data-t="rowMove">MOVE</b><span data-t="rowMoveDesc">Visa-free destinations</span><span class="num" id="tVisa">—</span></div>
 </div>
 <div class="t-score">
-<div class="t-tier-box" id="tTierBox"><div class="t-sub" style="color:inherit" data-t="tierLabel">Difficulty</div><div class="display" style="font-size:26px" id="tTier">—</div></div>
-<div><div class="t-sub" data-t="scoreLabel">Starting Line</div><div class="num" style="font-size:26px;font-weight:700"><span id="tScore">—</span>/100</div></div>
+<div class="t-tier-box" id="tTierBox"><div class="t-sub" style="color:inherit" data-t="tierLabel">Difficulty</div><div class="display" style="font-size:clamp(20px,5vw,26px)" id="tTier">—</div></div>
+<div><div class="t-sub" data-t="scoreLabel">Starting Line</div><div class="num" style="font-size:clamp(20px,5vw,26px);font-weight:700"><span id="tScore">—</span>/100</div></div>
 <div id="tStamp" hidden style="align-self:center"><span class="stamp" id="tStampText">BLOCKED</span></div>
 </div>
 </div>
@@ -332,7 +385,7 @@ tbody tr{cursor:pointer}tbody tr:hover td,tbody tr:hover th{background:color-mix
 <section id="survival" class="band" style="border-top:2px solid var(--line)"><div class="wrap">
 <span class="kicker" data-t="survKicker">HARD MODE SURVIVAL PLAYBOOK</span>
 <h2 data-t="survH2">How builders actually ship from your starting line</h2>
-<p style="max-width:72ch" data-t="survIntro">When Stripe-only platforms or hackathons (like TrustMRR) lock you out before you write a line of code, you need real workarounds — and a clearer map of easier launchpads beyond just the US or Western Europe.</p>
+<p style="max-width:72ch" data-t="survIntro">Most indie playbooks assume Stripe. When it is missing, you need real workarounds: which rails work from your country, what they cost, and easier launchpads beyond the US and Western Europe.</p>
 
 <div class="surv-box">
 <div class="surv-top">
@@ -470,7 +523,7 @@ const RAW=[
 ["MEX","🇲🇽","Mexico","المكسيك",100,"Direct Stripe","Stripe مباشر",3.02,156,2023623,0,"voa","visa",950],
 ["BRA","🇧🇷","Brazil","البرازيل",100,"Direct Stripe","Stripe مباشر",3.94,168,2572100,0,"voa","visa",1050],
 ["SAU","🇸🇦","Saudi Arabia","السعودية",30,"Paddle (PayPal not yet verified)","Paddle (PayPal لم يُتحقق منه بعد)",1.15,87,560224,0,"voa","visa",520],
-["CHN","🇨🇳","China","الصين",60,"No Stripe (mainland) · PayPal receives","بلا Stripe (البر الرئيسي) · PayPal يستقبل",2.92,82,8822056,0,"voa","visa",340],
+["CHN","🇨🇳","China","الصين",30,"No Stripe (mainland) · Paddle (PayPal not yet verified)","بلا Stripe (البر الرئيسي) · Paddle (PayPal لم يُتحقق منه بعد)",2.92,82,8822056,0,"voa","visa",340],
 ["IND","🇮🇳","India","الهند",75,"Stripe Invite-Only (Preview)","Stripe بالدعوة فقط (Preview)",15.04,56,23186978,0,"voa","visa",290],
 ["NGA","🇳🇬","Nigeria","نيجيريا",75,"Stripe via Paystack","Stripe عبر Paystack",32.47,44,7560407,0,"visa","visa",920],
 ["KEN","🇰🇪","Kenya","كينيا",75,"Stripe via Paystack","Stripe عبر Paystack",18.87,69,1521907,0,"voa","visa",740],
@@ -487,7 +540,7 @@ const RAW=[
 ["DZA","🇩🇿","Algeria","الجزائر",30,"No PayPal receive · Paddle only","PayPal لا يستقبل · Paddle فقط",12.55,55,881823,0,"visa","visa",760],
 ["ARG","🇦🇷","Argentina","الأرجنتين",30,"Paddle only","Paddle فقط",2.97,168,506609,0,"voa","visa",1100],
 ["LBN","🇱🇧","Lebanon","لبنان",30,"No Stripe/PayPal · Paddle only","بلا Stripe/PayPal · Paddle فقط",11.66,43,92653,0,"visa","visa",640],
-["RUS","🇷🇺","Russia","روسيا",0,"Sanctions block Stripe, PayPal & Paddle","العقوبات تغلق Stripe وPayPal وPaddle",2.61,111,1270354,1,"voa","visa",640],
+["RUS","🇷🇺","Russia","روسيا",0,"Sanctions block Stripe, PayPal & Paddle","العقوبات تغلق Stripe وPayPal وPaddle",2.60,113,1270354,1,"voa","visa",640],
 ["IRN","🇮🇷","Iran","إيران",0,"Sanctions block global rails","العقوبات تغلق كل الطرق",13.88,38,1151057,1,"visa","visa",650],
 ["VEN","🇻🇪","Venezuela","فنزويلا",0,"No reliable payout rail","لا طريقة دفع مؤكدة",12.58,116,432648,0,"voa","visa",1150],
 ["SYR","🇸🇾","Syria","سوريا",0,"Sanctions & platform bans","العقوبات وقوائم المنصات",71.00,26,571460,1,"visa","visa",720]
@@ -559,7 +612,7 @@ const T={
     respectBtn:"I'm shipping from Hard Mode 🫡",respectDone:"Saluted! Keep shipping 🫡",
     survKicker:"HARD MODE SURVIVAL PLAYBOOK",
     survH2:"How builders actually ship from your starting line",
-    survIntro:"When Stripe-only platforms or hackathons (like TrustMRR) lock you out before you write a line of code, you need real workarounds — and a clearer map of easier launchpads beyond just the US or Western Europe.",
+    survIntro:"Most indie playbooks assume Stripe. When it is missing, you need real workarounds: which rails work from your country, what they cost, and easier launchpads beyond the US and Western Europe.",
     survPick:"Survival playbook for",survJoin:"Join Hard Mode Builders ↓",
     commKicker:"HARD MODE BUILDERS COMMUNITY",
     commH2:"Builders shipping from every difficulty mode",
@@ -612,7 +665,7 @@ const T={
     respectBtn:"أنا أبني من المستوى الصعب 🫡",respectDone:"تحية لك! استمر في البناء 🫡",
     survKicker:"دليل النجاة ومجتمع المستوى الصعب",
     survH2:"كيف يبني المطورون ويطلقون مشاريعهم من خط بدايتك؟",
-    survIntro:"حين تستبعدك منصات أو هاكاثونات تشترط Stripe (مثل TrustMRR) قبل أن تكتب سطر كود واحداً، تحتاج لحلول واقعية مجرّبة — وخريطة أوسع لأماكن بناء أسهل خارج أمريكا وأوروبا الغربية فقط.",
+    survIntro:"أغلب وصفات الـ indie hacking تفترض أن Stripe متاح لك. حين لا يكون كذلك، تحتاج حلولاً واقعية: أي طرق الدفع تعمل من بلدك، وكم تكلّف، وأين توجد محطات بناء أسهل خارج أمريكا وأوروبا الغربية.",
     survPick:"دليل النجاة لدولة",survJoin:"انضم لمجتمع البنائين ↓",
     commKicker:"مجتمع البنائين من المستوى الصعب",
     commH2:"مطورون يبنون ويطلقون مشاريعهم من كل مستويات الصعوبة",
@@ -734,8 +787,8 @@ function fillSelects(){
 
 function renderTicker(){
   const items=[...C].sort((a,b)=>b.births-a.births).map(c=>'<button type="button" class="tk-item" data-iso="'+c.iso+'"><b>'+c.flag+' '+cname(c)+'</b><span class="sep">·</span><span class="num">'+nf(c.births)+'</span><span class="sep">·</span><span class="num pc">'+pct(c.share)+'</span></button>').join("");
-  const head='<span class="tk-item lead-i">'+L("tickerLead")+' <span class="num">'+nf(WORLD)+'</span></span>';
-  $("ticker").innerHTML=(head+items).repeat(2);
+  $("tkPin").innerHTML=L("tickerLead")+' <span class="num">'+nf(WORLD)+'</span>';
+  $("ticker").innerHTML=items.repeat(2);
 }
 /* ticker: auto-scroll + drag with mouse or finger */
 {const tr=$("ticker"),box=document.querySelector(".ticker");
@@ -796,12 +849,12 @@ function stepEval(stepIdx,c){
 function simMeta(){
   return lang==="ar"?[
     ["01","حزمة أدوات الذكاء الاصطناعي ($80/شهر)","Cursor + Claude + استضافة + نطاق شهرياً"],
-    ["02","اربط Stripe واقبض أول 1$","«فقط ضع رابط Stripe أو اربط TrustMRR للمشاركة في الهاكاثون»"],
+    ["02","اربط Stripe واقبض أول 1$","«فقط ضع رابط Stripe على صفحة الهبوط»"],
     ["03","تذكرة ذهاب لبالي لبدء البناء","«احجز تذكرة إلى شرق آسيا وانطلق من الصفر»"],
     ["04","احضر YC أو مؤتمراً في سان فرانسيسكو","لقاء المستثمرين والمؤسسين وجهاً لوجه"]
   ]:[
     ["01","Pay the $80/mo AI Indie Stack","Cursor + Claude + Hosting + Domain every month"],
-    ["02","Connect Stripe for your first $1","\"Just add Stripe Checkout — or connect TrustMRR to join a hackathon\""],
+    ["02","Connect Stripe for your first $1","\"Just slap a Stripe Checkout link on your landing page\""],
     ["03","Buy a ticket to Bali & grind","\"Just fly to Southeast Asia and build from zero\""],
     ["04","Fly to San Francisco for YC / Tech Conf","Meet founders, customers & investors in person"]
   ];
@@ -889,30 +942,30 @@ function renderSurvival(){
   if(c.earn===100){
     payItems=isAr?[
       "حساب Stripe مباشر متاح في بلدك دون الحاجة لتأسيس شركة أجنبية.",
-      "يمكنك ربط منصات التحقق من الإيرادات (مثل TrustMRR) والهاكاثونات مباشرةً.",
+      "منصات التحقق من الإيرادات (مثل TrustMRR) تقبل Stripe مباشرة.",
       "يمكنك مساعدة مطوري «المستوى الصعب» بمشاركة تجربتك في المجتمع أدناه."
     ]:[
       "Direct Stripe is available in your country — no foreign LLC required.",
-      "Stripe-dependent verifiers and hackathons (like TrustMRR) work out of the box.",
+      "Revenue verifiers (like TrustMRR) accept Stripe directly.",
       "Consider mentoring or sharing feedback with Hard Mode builders in the discussions below."
     ];
   }else if(c.earn===75){
     payItems=isAr?[
       "الوضع الحالي: "+cnote(c)+" — قد يتطلب دعوة خاصة أو يخضع لقيود تحويل العملة.",
       "بديل سريع من اليوم الأول: استخدم Paddle (تاجر مسجّل MoR) لتفادي تعقيد الضرائب والانتظار.",
-      "إن احتجت Stripe كاملاً للهاكاثونات أو منصات مثل TrustMRR: فكّر في Stripe Atlas (500$) فقط بعد التحقق من الطلب."
+      "TrustMRR لا يشترط Stripe: يقبل أيضاً Paddle وPolar وDodoPayment وغيرها. فكّر في Stripe Atlas (500$) فقط بعد التحقق من الطلب."
     ]:[
       "Current rail: "+cnote(c)+" — may require invite approval or face local FX rules.",
       "Day-1 alternative: Paddle (Merchant of Record) handles global VAT/taxes with no foreign company.",
-      "If a hackathon/platform requires direct Stripe (e.g. TrustMRR): only invest in Stripe Atlas ($500) once you validate demand."
+      "TrustMRR is not Stripe-only: it also accepts Paddle, Polar, DodoPayment and more. Only invest in Stripe Atlas ($500) once you validate demand."
     ];
   }else if(c.earn===60||c.earn===30){
     payItems=isAr?[
-      "الوضع الحالي: "+cnote(c)+" — المنصات والهاكاثونات التي تشترط Stripe (مثل TrustMRR) مغلقة أمامك افتراضياً.",
+      "الوضع الحالي: "+cnote(c)+". انتبه: TrustMRR لا يشترط Stripe، فهو يقبل Paddle وDodoPayment أيضاً (trustmrr.com/faq).",
       "المسار الأول (0$ مبدئياً): استخدم Paddle كـ Merchant of Record لقبول البطاقات العالمية وPayPal دون شركة أمريكية.",
       "المسار الثاني (عند النمو): تأسيس شركة أمريكية عبر Stripe Atlas (500$ ثم 100$/سنة) لفتح Stripe وحساب بنكي أمريكي."
     ]:[
-      "Current rail: "+cnote(c)+" — Stripe-only platforms and hackathons (like TrustMRR) block you by default.",
+      "Current rail: "+cnote(c)+". Note: TrustMRR is not Stripe-only; it also accepts Paddle and DodoPayment (trustmrr.com/faq).",
       "Path A ($0 upfront): Start with Paddle (Merchant of Record) to accept global cards & PayPal without a US LLC.",
       "Path B (Once validated): Form a US company via Stripe Atlas ($500 + $100/yr) to unlock direct Stripe & US banking."
     ];
@@ -943,7 +996,7 @@ function renderSurvival(){
   const altChips=alts.map(x=>'<button type="button" class="alt-chip" data-alt="'+x.iso+'">'+x.flag+' '+cname(x)+' · <span class="num">'+x.score+'</span></button>').join("");
 
   $("survGrid").innerHTML=
-    '<div class="surv-card"><h3>'+(isAr?'1. قبض المال والهاكاثونات (Stripe / TrustMRR)':'1. Payouts & Stripe-only Hackathons')+'</h3><ul>'+payItems.map(i=>'<li>'+i+'</li>').join("")+'</ul></div>'
+    '<div class="surv-card"><h3>'+(isAr?'1. قبض المال وإثبات الإيرادات':'1. Getting paid & proving revenue')+'</h3><ul>'+payItems.map(i=>'<li>'+i+'</li>').join("")+'</ul></div>'
     +'<div class="surv-card"><h3>'+(isAr?'2. تقليص «ضريبة الأدوات» قبل أول دولار':'2. Cutting the Tool Tax before $1')+'</h3><ul>'+stackItems.map(i=>'<li>'+i+'</li>').join("")+'</ul></div>'
     +'<div class="surv-card"><h3>'+(isAr?'3. محطات بناء أسهل خارج أمريكا وأوروبا':'3. Easier Launchpads Beyond US & Western Europe')+'</h3><p>'+(isAr?'ليست أمريكا وأوروبا الغربية الخيار الوحيد للبناء على «مستوى سهل» مع Stripe مباشر. انقر على أي محطة لمقارنتها ببلدك:':'The US and Western Europe are not the only «Easy» launchpads with direct Stripe. Click any hub to compare it with '+c.en+':')+'</p><div class="alt-chips">'+altChips+'</div></div>';
 }
@@ -966,8 +1019,8 @@ const REF_BUILDERS=[
    noteEn:"Spawned with EU passport, direct Stripe, and 185 visa-free destinations — then shipped relentlessly.",
    noteAr:"نقطة بداية بجواز أوروبي وStripe مباشر و185 وجهة بلا تأشيرة — ثم بنى وأطلق باستمرار."},
   {ref:true,name:"Marc Lou",handle:"marc_louvion",iso:"FRA",project:"ShipFast · TrustMRR",url:"https://marclou.com",
-   noteEn:"Spawned in France with direct Stripe & EU passport. TrustMRR revenue verification requires Stripe.",
-   noteAr:"نقطة بداية في فرنسا مع Stripe مباشر وجواز أوروبي. التحقق من الإيرادات في TrustMRR يتطلب Stripe."},
+   noteEn:"Spawned in France: direct Stripe, EU passport, 185 visa-free destinations.",
+   noteAr:"نقطة بداية في فرنسا: Stripe مباشر، وجواز أوروبي، و185 وجهة بلا تأشيرة."},
   {ref:true,name:"Danny Postma",handle:"dannypostmaa",iso:"NLD",project:"HeadshotPro",url:"https://dannypostma.com",
    noteEn:"Spawned in the Netherlands: direct Stripe payouts, low tool-to-income ratio, easy SEA travel.",
    noteAr:"نقطة بداية في هولندا: Stripe مباشر، تكلفة أدوات منخفضة مقارنة بالدخل، وسفر سهل لشرق آسيا."},
@@ -977,19 +1030,19 @@ const REF_BUILDERS=[
 ];
 const VERIFIED_QUOTES=[
   {
-    en:"\"Both my children and I won what I call the ovarian lottery. For starters, the odds against my 1930 birth taking place in the U.S. were at least 30 to 1.\"",
-    ar:"«لقد فزتُ أنا وأبنائي بما أسمّيه يانصيب الولادة (Ovarian Lottery). في البداية فقط، كانت احتمالات أن أولد في الولايات المتحدة عام 1930 أقل من 1 إلى 30.»",
-    whoEn:"Warren Buffett",whoAr:"وارن بافيت",srcEn:"Berkshire Hathaway · Annual Letters & Interviews",srcAr:"بيركشاير هاثاواي · رسائل المساهمين والمقابلات"
+    en:"\"Both my children and I won what I call the ovarian lottery. (For starters, the odds against my 1930 birth taking place in the U.S. were at least 30 to 1.)\"",
+    ar:"«فزتُ أنا وأبنائي بما أسمّيه يانصيب الولادة. (فبدايةً، كانت احتمالات أن تحدث ولادتي عام 1930 في الولايات المتحدة 1 إلى 30 على الأقل.)»",
+    whoEn:"Warren Buffett",whoAr:"وارن بافيت",srcEn:"My Philanthropic Pledge, Giving Pledge letter (2010)",srcAr:"رسالة تعهّد العطاء (Giving Pledge)، 2010",url:"https://givingpledge.org/pledge/warren-buffett/"
   },
   {
-    en:"\"I am deeply aware of the fact that I personally would not be where I am if I weren't born incredibly lucky... It is obviously an incredible shame and waste that opportunity is so unevenly distributed.\"",
-    ar:"«أدرك بعمق أنني شخصياً لم أكن لأصل إلى ما أنا عليه لولا أنني وُلدتُ محظوظاً للغاية… من المؤسف حقاً أن تتوزع الفرص بهذا التفاوت الشديد.»",
-    whoEn:"Sam Altman",whoAr:"سام ألتمان",srcEn:"CEO of OpenAI · \"How to Be Successful\" (2019)",srcAr:"الرئيس التنفيذي لـ OpenAI · مقال How to Be Successful (2019)"
+    en:"\"Life's outcomes, while not entirely random, have a huge amount of luck baked into them.\"",
+    ar:"«نتائج الحياة، وإن لم تكن عشوائية تماماً، فيها قدر هائل من الحظ.»",
+    whoEn:"Michael Lewis",whoAr:"مايكل لويس",srcEn:"Author of Moneyball & The Big Short · Princeton Baccalaureate (2012)",srcAr:"مؤلف Moneyball وThe Big Short · خطاب جامعة برينستون (2012)",url:"https://www.princeton.edu/news/2012/06/03/princeton-universitys-2012-baccalaureate-remarks"
   },
   {
-    en:"\"I was lucky to be in the right place at the right time. But many others were also in the same place. The difference was that I took action.\"",
-    ar:"«كنتُ محظوظاً بوجودي في المكان المناسب والوقت المناسب. لكن كثيرين غيري كانوا في المكان نفسه؛ الفارق أنني بادرتُ بالعمل.»",
-    whoEn:"Bill Gates",whoAr:"بيل غيتس",srcEn:"Co-founder of Microsoft",srcAr:"الشريك المؤسس لمايكروسوفت"
+    en:"\"Those most worthy of admiration are those who have made the best use of their advantages or, alternatively, coped most courageously with their adversities.\"",
+    ar:"«أجدر الناس بالإعجاب هم من أحسنوا استعمال امتيازاتهم، أو من واجهوا صعوباتهم بأكبر قدر من الشجاعة.»",
+    whoEn:"Ben Bernanke",whoAr:"بن برنانكي",srcEn:"Federal Reserve Chair, Nobel laureate · \"The Ten Suggestions\", Princeton (2013)",srcAr:"رئيس الاحتياطي الفيدرالي الأمريكي السابق وحائز نوبل · خطاب «الاقتراحات العشرة»، برينستون (2013)",url:"https://www.federalreserve.gov/newsevents/speech/bernanke20130602a.htm"
   }
 ];
 
@@ -1045,7 +1098,7 @@ function renderBadgeWidget(){
   const tierColors={easy:["EASY MODE","#F2C230","#111111"],normal:["NORMAL MODE","#FBF9F3","#111111"],hard:["HARD MODE","#2B2924","#F0EDE5"],nightmare:["NIGHTMARE MODE","#C8201A","#FFFFFF"]}[c.tierKey];
   const rightText="SHIPPING FROM "+tierColors[0]+" · "+c.iso+" "+c.score+"/100";
   const lw=112,rw=Math.max(240,rightText.length*7.6+24),w=Math.round(lw+rw);
-  $("badgeSvgPreview").innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="30" style="max-width:100%;height:auto" role="img" aria-label="DEV Lottery '+rightText+'"><rect x="1" y="1" width="'+(w-2)+'" height="28" fill="'+tierColors[1]+'" stroke="#111111" stroke-width="2"/><rect x="1" y="1" width="'+lw+'" height="28" fill="#111111"/><text x="56" y="19" fill="#F2C230" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="700" text-anchor="middle">DEV LOTTERY</text><text x="'+(lw+rw/2)+'" y="19" fill="'+tierColors[2]+'" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="700" text-anchor="middle">'+rightText+'</text></svg>';
+  $("badgeSvgPreview").innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="30" viewBox="0 0 '+w+' 30" style="max-width:100%;height:auto;display:block" role="img" aria-label="DEV Lottery '+rightText+'"><rect x="1" y="1" width="'+(w-2)+'" height="28" fill="'+tierColors[1]+'" stroke="#111111" stroke-width="2"/><rect x="1" y="1" width="'+lw+'" height="28" fill="#111111"/><text x="56" y="19" fill="#F2C230" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="700" text-anchor="middle">DEV LOTTERY</text><text x="'+(lw+rw/2)+'" y="19" fill="'+tierColors[2]+'" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="700" text-anchor="middle">'+rightText+'</text></svg>';
   const origin=(location.protocol==="http:"||location.protocol==="https:")?location.origin:"https://smailancer.github.io/DEVLottery";
   const badgeUrl=origin+"/badge/"+c.iso+".svg";
   const linkUrl=origin+"/?a="+c.iso;
@@ -1061,7 +1114,7 @@ $("copyBadgeHtml").addEventListener("click",()=>{
   navigator.clipboard?.writeText($("copyBadgeHtml").dataset.val||"").then(()=>{$("copyBadgeHtml").textContent=L("copied");setTimeout(()=>$("copyBadgeHtml").textContent=L("copyBadgeHtml"),1800)}).catch(()=>{});
 });
 function renderQuotes(){
-  $("quotesGrid").innerHTML=VERIFIED_QUOTES.map(q=>'<figure class="q-quote"><blockquote>'+(lang==="ar"?q.ar:q.en)+'</blockquote><cite><b>'+(lang==="ar"?q.whoAr:q.whoEn)+'</b>'+(lang==="ar"?q.srcAr:q.srcEn)+'</cite></figure>').join("");
+  $("quotesGrid").innerHTML=VERIFIED_QUOTES.map(q=>'<figure class="q-quote"><blockquote>'+(lang==="ar"?q.ar:q.en)+'</blockquote><cite><b>'+(lang==="ar"?q.whoAr:q.whoEn)+'</b><a href="'+q.url+'" target="_blank" rel="noopener noreferrer">'+(lang==="ar"?q.srcAr:q.srcEn)+'</a></cite></figure>').join("");
 }
 $("bFilters").addEventListener("click",e=>{
   const b=e.target.closest("button[data-bf]");if(!b)return;

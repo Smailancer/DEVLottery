@@ -280,7 +280,7 @@ function renderBadgeSvg(info) {
   const rw = Math.max(240, rightText.length * 7.6 + 24);
   const w = Math.round(lw + rw);
   const h = 30;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" role="img" aria-label="${leftText}: ${rightText}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${leftText}: ${rightText}">
   <rect x="1" y="1" width="${w - 2}" height="${h - 2}" fill="${info.bg}" stroke="#111111" stroke-width="2"/>
   <rect x="1" y="1" width="${lw}" height="${h - 2}" fill="#111111"/>
   <text x="${lw / 2}" y="19" fill="#F2C230" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="700" text-anchor="middle">${leftText}</text>
